@@ -1,0 +1,40 @@
+{
+  "name": "@pgmi-builds/agent-omp-sdk",
+  "version": "0.0.1-c",
+  "description": "OMP Web SDK line: same dsh bridging contract as omp-web, but the OMP core is embedded via the @oh-my-pi/pi-coding-agent SDK (Bun sidecar) instead of `omp --mode rpc`.",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test test/*.test.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsdown": "^0.15.12",
+    "tsx": "^4.23.13",
+    "typescript": "^5.6.0"
+  },
+  "dependencies": {
+    "@oh-my-pi/pi-coding-agent": "^18.1.14",
+    "bun": "^1.4.2"
+  },
+  "files": [
+    "dist",
+    "sidecar",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pgmi-builds/agent-omp-sdk.git"
+  },
+  "license": "MIT"
+}

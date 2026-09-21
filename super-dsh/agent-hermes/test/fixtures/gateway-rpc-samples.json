@@ -1,0 +1,3405 @@
+{
+  "schema": "agent-hermes/spike-rpc@1",
+  "meta": {
+    "captured_at": "2026-09-16T21:26:19.242Z",
+    "hermes_root": "/home/u1/.hermes/hermes-agent",
+    "python": "/home/u1/.hermes/hermes-agent/venv/bin/python",
+    "argv": [
+      "/home/u1/.hermes/hermes-agent/venv/bin/python",
+      "-m",
+      "tui_gateway.entry"
+    ],
+    "child_cwd": "/home/u1/workspaces/superd/.scratch/hermes-spike-cwd",
+    "session_id": "c18c09ab",
+    "session_title": "dsh-aw spike",
+    "prompt_text": "Reply with exactly: ok",
+    "t0_wall": "2026-09-16T21:23:47.614Z",
+    "turn_captured": true,
+    "submit_error": null
+  },
+  "timings": {
+    "ready_ms": 288,
+    "turn_ms": 150147,
+    "session.create": 342,
+    "prompt.submit": 17,
+    "session.usage": 1,
+    "session.status": 8,
+    "session.history": 1,
+    "model.options": 247,
+    "session.close": 116
+  },
+  "samples": {
+    "session.create": {
+      "params": {
+        "cwd": "/home/u1/workspaces/superd/.scratch/hermes-spike-cwd",
+        "title": "dsh-aw spike",
+        "cols": 120
+      },
+      "latency_ms": 342,
+      "result": {
+        "session_id": "c18c09ab",
+        "stored_session_id": "20260917_052347_799f19",
+        "message_count": 0,
+        "messages": [],
+        "info": {
+          "model": "deepseek-v4-pro",
+          "tools": {},
+          "skills": {},
+          "cwd": "/home/u1/workspaces/superd/.scratch/hermes-spike-cwd",
+          "branch": "master",
+          "project": null,
+          "lazy": true,
+          "desktop_contract": 6,
+          "profile_name": "default"
+        }
+      }
+    },
+    "prompt.submit": {
+      "params": {
+        "session_id": "c18c09ab",
+        "text": "Reply with exactly: ok"
+      },
+      "latency_ms": 17,
+      "result": {
+        "status": "streaming"
+      }
+    },
+    "session.usage": {
+      "params": {
+        "session_id": "c18c09ab"
+      },
+      "latency_ms": 1,
+      "result": {
+        "model": "deepseek-v4-pro",
+        "input": 19251,
+        "output": 2,
+        "reasoning": 0,
+        "prompt": 26803,
+        "completion": 2,
+        "total": 26805,
+        "calls": 1,
+        "context_used": 26803,
+        "context_max": 1000000,
+        "context_percent": 3,
+        "compressions": 0,
+        "cache_hit_pct": 28,
+        "avg_latency_s": 1.9,
+        "avg_tps": 1.1,
+        "active_subagents": 0
+      }
+    },
+    "session.status": {
+      "params": {
+        "session_id": "c18c09ab"
+      },
+      "latency_ms": 8,
+      "result": {
+        "output": "Hermes TUI Status\n\nSession ID: 20260917_052347_799f19\nPath: ~/.hermes\nTitle: Reply with exactly ok\nModel: deepseek-v4-pro (deepseek)\nCreated: 2026-09-17 05:23\nLast Activity: 2026-09-17 05:23\nTokens: 26,805\nAgent Running: No"
+      }
+    },
+    "session.history": {
+      "params": {
+        "session_id": "c18c09ab"
+      },
+      "latency_ms": 1,
+      "result": {
+        "count": 2,
+        "messages": [
+          {
+            "role": "user",
+            "text": "Reply with exactly: ok",
+            "timestamp": 1789593832.1892042,
+            "row_id": 3710851781318
+          },
+          {
+            "role": "assistant",
+            "text": "ok",
+            "timestamp": 1789593835.3084297,
+            "row_id": 3710851781319
+          }
+        ]
+      }
+    },
+    "model.options": {
+      "params": {},
+      "latency_ms": 247,
+      "result": {
+        "providers": [
+          {
+            "slug": "openrouter",
+            "name": "OpenRouter",
+            "is_current": false,
+            "is_user_defined": false,
+            "models": [
+              "anthropic/claude-fable-5.1",
+              "anthropic/claude-fable-5",
+              "anthropic/claude-opus-5",
+              "anthropic/claude-opus-4.8",
+              "anthropic/claude-sonnet-5",
+              "anthropic/claude-haiku-4.5",
+              "openai/gpt-6-astra",
+              "openai/gpt-6-astra-pro",
+              "openai/gpt-5.6-sol",
+              "openai/gpt-5.6-sol-pro",
+              "openai/gpt-5.6-terra",
+              "openai/gpt-5.6-terra-pro",
+              "openai/gpt-5.6-luna",
+              "openai/gpt-5.6-luna-pro",
+              "openai/gpt-5.5",
+              "openai/gpt-5.5-pro",
+              "openai/gpt-5.4-mini",
+              "google/gemini-3.1-pro-preview",
+              "google/gemini-3.8-flash",
+              "google/gemini-3.7-flash",
+              "x-ai/grok-4.6",
+              "deepseek/deepseek-v4-pro",
+              "deepseek/deepseek-v4-pro-0813",
+              "deepseek/deepseek-v4.1-flash",
+              "deepseek/deepseek-v4-flash-0731",
+              "qwen/qwen3.8-max-0902",
+              "qwen/qwen3.8-flash",
+              "moonshotai/kimi-k3",
+              "z-ai/glm-5.3",
+              "z-ai/glm-5.3-flash",
+              "z-ai/glm-5.2",
+              "tencent/hy4-preview",
+              "tencent/hy3",
+              "nvidia/nemotron-3-super-120b-a12b",
+              "meta/muse-spark-1.2",
+              "meta/muse-spark-1.2-contributor",
+              "meta/muse-spark-1.3",
+              "meta/muse-spark-1.3-contributor",
+              "sakana/fugu-ultra",
+              "thinkingmachines/inkling:free",
+              "thinkingmachines/inkling-small:free",
+              "poolside/laguna-s-2.1:free",
+              "poolside/laguna-xs-2.1:free",
+              "nvidia/nemotron-3-super-120b-a12b:free",
+              "nvidia/nemotron-3-ultra-550b-a55b:free",
+              "nvidia/nemotron-3.5-lightning:free",
+              "stealth/union-alpha"
+            ],
+            "total_models": 47,
+            "source": "built-in",
+            "authenticated": true,
+            "capabilities": {
+              "anthropic/claude-fable-5.1": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "anthropic/claude-fable-5": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "anthropic/claude-opus-5": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "anthropic/claude-opus-4.8": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "anthropic/claude-sonnet-5": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "anthropic/claude-haiku-4.5": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "openai/gpt-6-astra": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "openai/gpt-6-astra-pro": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "openai/gpt-5.6-sol": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "openai/gpt-5.6-sol-pro": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "openai/gpt-5.6-terra": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "openai/gpt-5.6-terra-pro": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "openai/gpt-5.6-luna": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "openai/gpt-5.6-luna-pro": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "openai/gpt-5.5": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "openai/gpt-5.5-pro": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "openai/gpt-5.4-mini": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "google/gemini-3.1-pro-preview": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "google/gemini-3.8-flash": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "google/gemini-3.7-flash": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "x-ai/grok-4.6": {
+                "fast": true,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "deepseek/deepseek-v4-pro": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "deepseek/deepseek-v4-pro-0813": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "deepseek/deepseek-v4.1-flash": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "deepseek/deepseek-v4-flash-0731": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "qwen/qwen3.8-max-0902": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "qwen/qwen3.8-flash": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "moonshotai/kimi-k3": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "z-ai/glm-5.3": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "z-ai/glm-5.3-flash": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "z-ai/glm-5.2": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "tencent/hy4-preview": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "tencent/hy3": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "nvidia/nemotron-3-super-120b-a12b": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "meta/muse-spark-1.2": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "meta/muse-spark-1.2-contributor": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "meta/muse-spark-1.3": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "meta/muse-spark-1.3-contributor": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "sakana/fugu-ultra": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": false
+              },
+              "thinkingmachines/inkling:free": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "thinkingmachines/inkling-small:free": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "poolside/laguna-s-2.1:free": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "poolside/laguna-xs-2.1:free": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "nvidia/nemotron-3-super-120b-a12b:free": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "nvidia/nemotron-3-ultra-550b-a55b:free": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "nvidia/nemotron-3.5-lightning:free": {
+                "fast": false,
+                "reasoning": true,
+                "can_disable_reasoning": true
+              },
+              "stealth/union-alpha": {
+                "fast": false,
+                "reasoning": false
+              }
+            },
+            "featured_models": [
+              "anthropic/claude-fable-5.1",
+              "anthropic/claude-fable-5",
+              "anthropic/claude-opus-5",
+              "anthropic/claude-opus-4.8",
+              "anthropic/claude-sonnet-5",
+              "openai/gpt-6-astra",
+              "openai/gpt-6-astra-pro",
+              "openai/gpt-5.6-sol",
+              "openai/gpt-5.6-sol-pro",
+              "openai/gpt-5.6-terra",
+              "google/gemini-3.1-pro-preview",
+              "google/gemini-3.8-flash",
+              "google/gemini-3.7-flash",
+              "x-ai/grok-4.6",
+              "deepseek/deepseek-v4-pro",
+              "deepseek/deepseek-v4-pro-0813",
+              "deepseek/deepseek-v4.1-flash",
+              "deepseek/deepseek-v4-flash-0731",
+              "qwen/qwen3.8-max-0902",
+              "qwen/qwen3.8-flash",
+              "moonshotai/kimi-k3",
+              "z-ai/glm-5.3",
+              "z-ai/glm-5.3-flash",
+              "z-ai/glm-5.2",
+              "tencent/hy4-preview",
+              "tencent/hy3",
+              "nvidia/nemotron-3-super-120b-a12b",
+              "meta/muse-spark-1.2",
+              "meta/muse-spark-1.2-contributor",
+              "meta/muse-spark-1.3",
+              "meta/muse-spark-1.3-contributor",
+              "sakana/fugu-ultra",
+              "thinkingmachines/inkling:free",
+              "thinkingmachines/inkling-small:free",
+              "poolside/laguna-s-2.1:free",
+              "poolside/laguna-xs-2.1:free",
+              "nvidia/nemotron-3-super-120b-a12b:free",
+              "nvidia/nemotron-3-ultra-550b-a55b:free",
+              "nvidia/nemotron-3.5-lightning:free",
+              "stealth/union-alpha"
+            ]
+          },
+          {
+            "slug": "moa",
+            "name": "Mixture of Agents",
+            "is_current": false,
+            "is_user_defined": false,
+            "models": [
+              "default",
+              "top-reasoning"
+            ],
+            "total_models": 2,
+            "source": "virtual",
+            "authenticated": true,
+            "auth_type": "virtual",
+            "warning": "Aggregator acts as the selected model; references provide analysis before each call.",
+            "capabilities": {
+              "default": {
+                "fast": false,
+                "reasoning": true
+              },
+              "top-reasoning": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": []
+          },
+          {
+            "slug": "xiaomi",
+            "name": "Xiaomi MiMo",
+            "is_current": false,
+            "is_user_defined": false,
+            "models": [
+              "mimo-v2.5-pro",
+              "mimo-v2.5",
+              "mimo-v2-pro",
+              "mimo-v2-omni",
+              "mimo-v2-flash",
+              "mimo-v2.5-asr",
+              "mimo-v2.5-tts",
+              "mimo-v2.5-tts-voiceclone",
+              "mimo-v2.5-tts-voicedesign"
+            ],
+            "total_models": 9,
+            "source": "built-in",
+            "authenticated": true,
+            "capabilities": {
+              "mimo-v2.5-pro": {
+                "fast": false,
+                "reasoning": true
+              },
+              "mimo-v2.5": {
+                "fast": false,
+                "reasoning": true
+              },
+              "mimo-v2-pro": {
+                "fast": false,
+                "reasoning": true
+              },
+              "mimo-v2-omni": {
+                "fast": false,
+                "reasoning": true
+              },
+              "mimo-v2-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "mimo-v2.5-asr": {
+                "fast": false,
+                "reasoning": true
+              },
+              "mimo-v2.5-tts": {
+                "fast": false,
+                "reasoning": true
+              },
+              "mimo-v2.5-tts-voiceclone": {
+                "fast": false,
+                "reasoning": true
+              },
+              "mimo-v2.5-tts-voicedesign": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": []
+          },
+          {
+            "slug": "copilot",
+            "name": "GitHub Copilot",
+            "is_current": false,
+            "is_user_defined": false,
+            "models": [
+              "exec-agent-a",
+              "exec-agent-b",
+              "exec-agent-c",
+              "gpt-5.3-codex",
+              "gpt-5.4-mini",
+              "gpt-5.4",
+              "gpt-5.5",
+              "gpt-5.6-luna",
+              "gpt-5.6-sol",
+              "gpt-5.6-terra",
+              "gpt-6-astra",
+              "kimi-k3",
+              "mai-code-1.1-flash",
+              "gpt-5-mini",
+              "gpt-4o-mini-2024-07-18",
+              "gpt-4o-2024-11-20",
+              "gpt-4o-2024-08-06",
+              "gpt-4.1-2025-04-14",
+              "gpt-3.5-turbo-0613",
+              "gpt-4",
+              "gpt-4-0613",
+              "gpt-4o-2024-05-13",
+              "gpt-4-o-preview",
+              "gpt-4.1",
+              "gpt-3.5-turbo",
+              "gpt-4o-mini",
+              "gpt-4o"
+            ],
+            "total_models": 27,
+            "source": "built-in",
+            "authenticated": true,
+            "capabilities": {
+              "exec-agent-a": {
+                "fast": false,
+                "reasoning": true
+              },
+              "exec-agent-b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "exec-agent-c": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gpt-5.3-codex": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gpt-5.4-mini": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-5.4": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-5.5": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-5.6-luna": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-5.6-sol": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-5.6-terra": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-6-astra": {
+                "fast": true,
+                "reasoning": true
+              },
+              "kimi-k3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "mai-code-1.1-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gpt-5-mini": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4o-mini-2024-07-18": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4o-2024-11-20": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4o-2024-08-06": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4.1-2025-04-14": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-3.5-turbo-0613": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4-0613": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4o-2024-05-13": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4-o-preview": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4.1": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-3.5-turbo": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4o-mini": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4o": {
+                "fast": true,
+                "reasoning": true
+              }
+            },
+            "featured_models": []
+          },
+          {
+            "slug": "copilot-acp",
+            "name": "GitHub Copilot ACP",
+            "is_current": false,
+            "is_user_defined": false,
+            "models": [
+              "exec-agent-a",
+              "exec-agent-b",
+              "exec-agent-c",
+              "gpt-5.3-codex",
+              "gpt-5.4-mini",
+              "gpt-5.4",
+              "gpt-5.5",
+              "gpt-5.6-luna",
+              "gpt-5.6-sol",
+              "gpt-5.6-terra",
+              "gpt-6-astra",
+              "kimi-k3",
+              "mai-code-1.1-flash",
+              "gpt-5-mini",
+              "gpt-4o-mini-2024-07-18",
+              "gpt-4o-2024-11-20",
+              "gpt-4o-2024-08-06",
+              "gpt-4.1-2025-04-14",
+              "gpt-3.5-turbo-0613",
+              "gpt-4",
+              "gpt-4-0613",
+              "gpt-4o-2024-05-13",
+              "gpt-4-o-preview",
+              "gpt-4.1",
+              "gpt-3.5-turbo",
+              "gpt-4o-mini",
+              "gpt-4o"
+            ],
+            "total_models": 27,
+            "source": "hermes",
+            "authenticated": true,
+            "capabilities": {
+              "exec-agent-a": {
+                "fast": false,
+                "reasoning": true
+              },
+              "exec-agent-b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "exec-agent-c": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gpt-5.3-codex": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gpt-5.4-mini": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-5.4": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-5.5": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-5.6-luna": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-5.6-sol": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-5.6-terra": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-6-astra": {
+                "fast": true,
+                "reasoning": true
+              },
+              "kimi-k3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "mai-code-1.1-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gpt-5-mini": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4o-mini-2024-07-18": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4o-2024-11-20": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4o-2024-08-06": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4.1-2025-04-14": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-3.5-turbo-0613": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4-0613": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4o-2024-05-13": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4-o-preview": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4.1": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-3.5-turbo": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4o-mini": {
+                "fast": true,
+                "reasoning": true
+              },
+              "gpt-4o": {
+                "fast": true,
+                "reasoning": true
+              }
+            },
+            "featured_models": []
+          },
+          {
+            "slug": "gemini",
+            "name": "Google AI Studio",
+            "is_current": false,
+            "is_user_defined": false,
+            "models": [
+              "gemini-3.1-pro-preview",
+              "gemini-2.5-flash-lite",
+              "gemini-3.6-flash",
+              "gemini-3.1-flash-lite",
+              "gemini-3.5-flash",
+              "gemini-3.1-flash-lite-preview",
+              "gemini-3.5-flash-lite",
+              "gemini-flash-lite-latest",
+              "gemini-3-flash-preview",
+              "gemini-3.8-flash",
+              "gemini-3.7-flash",
+              "gemini-2.5-pro",
+              "gemini-flash-latest",
+              "gemini-2.5-flash",
+              "gemini-3-pro-preview"
+            ],
+            "total_models": 15,
+            "source": "built-in",
+            "authenticated": true,
+            "capabilities": {
+              "gemini-3.1-pro-preview": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-2.5-flash-lite": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-3.6-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-3.1-flash-lite": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-3.5-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-3.1-flash-lite-preview": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-3.5-flash-lite": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-flash-lite-latest": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-3-flash-preview": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-3.8-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-3.7-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-2.5-pro": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-flash-latest": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-2.5-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gemini-3-pro-preview": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": []
+          },
+          {
+            "slug": "vertex",
+            "name": "Google Vertex AI",
+            "is_current": false,
+            "is_user_defined": false,
+            "models": [
+              "google/gemini-3.1-pro-preview",
+              "google/gemini-3-pro-preview",
+              "google/gemini-3.6-flash",
+              "google/gemini-3.5-flash",
+              "google/gemini-3.5-flash-lite",
+              "google/gemini-3-flash-preview",
+              "google/gemini-3.1-flash-lite-preview",
+              "google/gemini-3.1-flash-lite"
+            ],
+            "total_models": 8,
+            "source": "hermes",
+            "authenticated": true,
+            "capabilities": {
+              "google/gemini-3.1-pro-preview": {
+                "fast": false,
+                "reasoning": true
+              },
+              "google/gemini-3-pro-preview": {
+                "fast": false,
+                "reasoning": true
+              },
+              "google/gemini-3.6-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "google/gemini-3.5-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "google/gemini-3.5-flash-lite": {
+                "fast": false,
+                "reasoning": true
+              },
+              "google/gemini-3-flash-preview": {
+                "fast": false,
+                "reasoning": true
+              },
+              "google/gemini-3.1-flash-lite-preview": {
+                "fast": false,
+                "reasoning": true
+              },
+              "google/gemini-3.1-flash-lite": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": []
+          },
+          {
+            "slug": "deepseek",
+            "name": "DeepSeek",
+            "is_current": true,
+            "is_user_defined": false,
+            "models": [
+              "deepseek-v4-flash",
+              "deepseek-v4-pro",
+              "deepseek-flash"
+            ],
+            "total_models": 3,
+            "source": "built-in",
+            "authenticated": true,
+            "capabilities": {
+              "deepseek-v4-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v4-pro": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-flash": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": []
+          },
+          {
+            "slug": "xai",
+            "name": "xAI",
+            "is_current": false,
+            "is_user_defined": false,
+            "models": [
+              "grok-4.6",
+              "grok-4.20-0309-non-reasoning",
+              "grok-4.20-0309-reasoning",
+              "grok-4.20-multi-agent-0309",
+              "grok-4.3",
+              "grok-4.5",
+              "grok-build-0.1",
+              "grok-imagine-image",
+              "grok-imagine-image-2.0",
+              "grok-imagine-image-quality",
+              "grok-imagine-video",
+              "grok-imagine-video-1.5",
+              "grok-composer-2.5-fast"
+            ],
+            "total_models": 13,
+            "source": "built-in",
+            "authenticated": true,
+            "capabilities": {
+              "grok-4.6": {
+                "fast": true,
+                "reasoning": true
+              },
+              "grok-4.20-0309-non-reasoning": {
+                "fast": false,
+                "reasoning": false
+              },
+              "grok-4.20-0309-reasoning": {
+                "fast": false,
+                "reasoning": true
+              },
+              "grok-4.20-multi-agent-0309": {
+                "fast": false,
+                "reasoning": true
+              },
+              "grok-4.3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "grok-4.5": {
+                "fast": false,
+                "reasoning": true
+              },
+              "grok-build-0.1": {
+                "fast": false,
+                "reasoning": true
+              },
+              "grok-imagine-image": {
+                "fast": false,
+                "reasoning": false
+              },
+              "grok-imagine-image-2.0": {
+                "fast": false,
+                "reasoning": false
+              },
+              "grok-imagine-image-quality": {
+                "fast": false,
+                "reasoning": false
+              },
+              "grok-imagine-video": {
+                "fast": false,
+                "reasoning": false
+              },
+              "grok-imagine-video-1.5": {
+                "fast": false,
+                "reasoning": false
+              },
+              "grok-composer-2.5-fast": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": []
+          },
+          {
+            "slug": "minimax",
+            "name": "MiniMax",
+            "is_current": false,
+            "is_user_defined": false,
+            "models": [
+              "MiniMax-M3",
+              "MiniMax-M2.7",
+              "MiniMax-M2.5",
+              "MiniMax-M2.1",
+              "MiniMax-M2",
+              "MiniMax-M2.7-highspeed",
+              "MiniMax-M2.5-highspeed",
+              "MiniMax-M2.1-highspeed"
+            ],
+            "total_models": 8,
+            "source": "built-in",
+            "authenticated": true,
+            "capabilities": {
+              "MiniMax-M3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax-M2.7": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax-M2.5": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax-M2.1": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax-M2": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax-M2.7-highspeed": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax-M2.5-highspeed": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax-M2.1-highspeed": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": []
+          },
+          {
+            "slug": "opencode-free",
+            "name": "OpenCode Free",
+            "is_current": false,
+            "is_user_defined": false,
+            "models": [
+              "deepseek-v4-flash-free",
+              "muse-spark-1.3-contributor-free",
+              "muse-spark-1.2-contributor-free",
+              "mimo-v2.5-free",
+              "ling-3.0-flash-fin-free",
+              "nemotron-3-ultra-free",
+              "nemotron-3.5-lightning-free"
+            ],
+            "total_models": 7,
+            "source": "hermes",
+            "authenticated": true,
+            "capabilities": {
+              "deepseek-v4-flash-free": {
+                "fast": false,
+                "reasoning": true
+              },
+              "muse-spark-1.3-contributor-free": {
+                "fast": false,
+                "reasoning": true
+              },
+              "muse-spark-1.2-contributor-free": {
+                "fast": false,
+                "reasoning": true
+              },
+              "mimo-v2.5-free": {
+                "fast": false,
+                "reasoning": true
+              },
+              "ling-3.0-flash-fin-free": {
+                "fast": false,
+                "reasoning": true
+              },
+              "nemotron-3-ultra-free": {
+                "fast": false,
+                "reasoning": true
+              },
+              "nemotron-3.5-lightning-free": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": []
+          },
+          {
+            "slug": "qwen-cn",
+            "name": "qwen-cn",
+            "is_current": false,
+            "is_user_defined": true,
+            "models": [
+              "kimi/kimi-k2.8-preview",
+              "glm-5.3",
+              "deepseek-v4.1-flash",
+              "qwen3.8-max-0902",
+              "qwen3.7-text-embedding-flash",
+              "qwen3.7-text-rerank",
+              "ZHIPU/GLM-5.3-Flash",
+              "stepfun/step-3.7-flash",
+              "vanchin/deepseek-v4-pro",
+              "unisound/unisound-u2",
+              "vanchin/deepseek-v4-pro-0813",
+              "qwen3.8-flash",
+              "kimi-k3",
+              "qwen3.8-27b",
+              "ZHIPU/GLM-5.3",
+              "deepseek-v4-pro-0813",
+              "qwen3.8-2.4t-a95b",
+              "qwen-image-3.0-pro",
+              "qwen-image-3.0",
+              "qwen3.8-max",
+              "deepseek-v4-flash-0731",
+              "qwen-audio-3.0-asr-flash",
+              "qwen3.7-flash-2026-07-15",
+              "qwen3.7-flash",
+              "kimi/kimi-k3",
+              "qwen3.7-text-embedding",
+              "qwen-audio-3.0-realtime-flash",
+              "qwen-audio-3.0-realtime-plus",
+              "glm-5.2-fast-preview",
+              "kimi/kimi-k2.7-code-highspeed",
+              "xiaomi/mimo-v2.5-pro",
+              "MiniMax/MiniMax-M3",
+              "ZHIPU/GLM-5.2",
+              "qwen-image-2.0-pro-2026-06-22",
+              "test-sre-gpu-auto-handle",
+              "fun-asr-flash-2026-06-15",
+              "glm-5.2",
+              "kimi/kimi-k2.7-code",
+              "kimi-k2.7-code",
+              "sre-gpu-auto-handle",
+              "qwen3.7-max-2026-06-08",
+              "qwen3.5-ocr",
+              "qwen3.7-plus-2026-05-26",
+              "qwen3.7-plus",
+              "qwen3.7-max-2026-05-17",
+              "qwen3.7-max-preview",
+              "ZHIPU/GLM-5",
+              "qwen3.7-max-2026-05-20",
+              "qwen3.7-max",
+              "qwen3.5-livetranslate-flash-realtime-2026-05-19",
+              "qwen3.5-livetranslate-flash-realtime",
+              "ZHIPU/GLM-5.1",
+              "kimi/kimi-k2.6",
+              "deepseek-v4-flash",
+              "deepseek-v4-pro",
+              "qwen-image-2.0-pro-2026-04-22",
+              "qwen3.5-plus-2026-04-20",
+              "qwen3.6-27b",
+              "kimi-k2.6",
+              "qwen3.6-max-preview",
+              "qwen3.6-35b-a3b",
+              "qwen3.6-flash-2026-04-16",
+              "qwen3.6-flash",
+              "glm-5.1",
+              "vanchin/deepseek-v3.1-terminus",
+              "vanchin/deepseek-v3",
+              "vanchin/deepseek-r1",
+              "vanchin/deepseek-ocr",
+              "vanchin/deepseek-v3.2-think",
+              "qwen3.5-omni-plus-realtime-2026-03-15",
+              "qwen3.5-omni-plus-realtime",
+              "qwen3.5-omni-plus-2026-03-15",
+              "qwen3.5-omni-plus",
+              "qwen3.5-omni-flash-realtime-2026-03-15",
+              "qwen3.5-omni-flash-realtime",
+              "qwen3.5-omni-flash-2026-03-15",
+              "qwen3.5-omni-flash",
+              "qwen3.6-plus-2026-04-02",
+              "qwen3.6-plus",
+              "wan2.7-image-pro",
+              "wan2.7-image",
+              "MiniMax/MiniMax-M2.7",
+              "MiniMax/speech-2.8-hd",
+              "MiniMax/speech-2.8-turbo",
+              "MiniMax/speech-02-turbo",
+              "MiniMax/speech-02-hd",
+              "qwen-deep-research-2025-12-15",
+              "qwen-image-2.0-2026-03-03",
+              "qwen-image-2.0-pro",
+              "qwen-image-2.0-pro-2026-03-03",
+              "qwen-image-2.0",
+              "qwen3-asr-flash-2026-02-10",
+              "glm-5",
+              "qwen-flash-character-2026-02-26",
+              "MiniMax-M2.5",
+              "qwen3.5-flash-2026-02-23",
+              "qwen3.5-flash",
+              "qwen3.5-122b-a10b",
+              "qwen3.5-35b-a3b",
+              "qwen3.5-27b",
+              "qwen3-coder-next",
+              "qwen3.5-397b-a17b",
+              "qwen3.5-plus-2026-02-15",
+              "qwen3.5-plus",
+              "qwen3-asr-flash-realtime-2026-02-10",
+              "MiniMax/MiniMax-M2.1",
+              "MiniMax/MiniMax-M2.5",
+              "qwen3-tts-vd-2026-01-26",
+              "qwen3-tts-instruct-flash-2026-01-26",
+              "qwen3-tts-instruct-flash",
+              "qwen3-tts-vc-2026-01-22",
+              "glm-4.7",
+              "qwen3-max",
+              "qwen3-tts-instruct-flash-realtime-2026-01-22",
+              "qwen3-tts-instruct-flash-realtime",
+              "qwen3-tts-vd-realtime-2026-01-15",
+              "kimi-k2.5",
+              "tongyi-xiaomi-analysis-flash",
+              "tongyi-xiaomi-analysis-pro",
+              "siliconflow/deepseek-v3.2",
+              "siliconflow/deepseek-v3.1-terminus",
+              "siliconflow/deepseek-v3-0324",
+              "siliconflow/deepseek-r1-0528",
+              "MiniMax-M2.1",
+              "qwen3-vl-flash-2026-01-22",
+              "qwen3-max-2026-01-23",
+              "qwen3-tts-vc-realtime-2026-01-15",
+              "qwen-image-edit-max-2026-01-16",
+              "qwen-image-edit-max",
+              "qwen-image-plus-2026-01-09",
+              "qwen-flash-character",
+              "qwen-image-max-2025-12-30",
+              "qwen-image-max",
+              "qwen-flash",
+              "z-image-turbo",
+              "qwen3-vl-plus-2025-12-19",
+              "qwen3-tts-vd-realtime-2025-12-16",
+              "qwen-image-edit-plus-2025-12-15",
+              "deepseek-v3.2",
+              "qwen3-omni-flash-2025-12-01",
+              "qwen3-omni-flash-realtime-2025-12-01",
+              "qwen3-livetranslate-flash-2025-12-01",
+              "qwen3-livetranslate-flash",
+              "qwen-plus-2025-12-01",
+              "qwen3-tts-vc-realtime-2025-11-27",
+              "qwen3-tts-flash-2025-11-27",
+              "qwen3-tts-flash-realtime-2025-11-27",
+              "qwen-plus-2025-11-05",
+              "qwen-mt-lite",
+              "qwen-vl-ocr-2025-11-20",
+              "kimi-k2-thinking",
+              "qwen-mt-flash",
+              "gui-plus",
+              "qwen-image-edit-plus-2025-10-30",
+              "qwen-image-edit-plus",
+              "qwen-deep-search-planning",
+              "qwen3-asr-flash-realtime-2025-10-27",
+              "qwen3-asr-flash-realtime",
+              "qwen3-vl-flash",
+              "qwen3-vl-flash-2025-10-15",
+              "qwen3-tts-flash",
+              "qwen3-tts-flash-2025-09-18",
+              "qwen3-tts-flash-realtime-2025-09-18",
+              "qwen3-tts-flash-realtime",
+              "qwen3-omni-flash-realtime",
+              "qwen3-omni-flash",
+              "qwen3-omni-flash-2025-09-15",
+              "qwen3-omni-flash-realtime-2025-09-15",
+              "qwen3-s2s-flash-realtime-2025-09-22",
+              "qwen3-livetranslate-flash-realtime",
+              "qwen3-livetranslate-flash-realtime-2025-09-22",
+              "qwen-turbo-2024-11-01",
+              "qwen-plus-2025-01-25",
+              "qwq-plus",
+              "qvq-max",
+              "qwen-omni-turbo",
+              "qwen-plus-2025-04-28",
+              "qwen3-235b-a22b-instruct-2507",
+              "qwen3-235b-a22b-thinking-2507",
+              "qwen3-30b-a3b-thinking-2507",
+              "qwen3-30b-a3b-instruct-2507",
+              "qwen3-coder-flash",
+              "qwen3-coder-plus-2025-09-23",
+              "qwen3-max-2025-09-23",
+              "qwen3-vl-plus",
+              "qwen3-vl-plus-2025-09-23",
+              "qwen-plus-2025-09-11",
+              "qwen3-next-80b-a3b-thinking",
+              "qwen3-next-80b-a3b-instruct",
+              "qwen3-max-preview",
+              "deepseek-v3.1",
+              "qwen3-coder-plus",
+              "qwen3-coder-plus-2025-07-22",
+              "qwen-plus-2025-07-14",
+              "qwen3-coder-480b-a35b-instruct",
+              "qwen-mt-turbo",
+              "qwen-mt-plus",
+              "qwen-tts-2025-05-22",
+              "qvq-plus",
+              "qwen3-32b",
+              "qwen3-30b-a3b",
+              "qwen3-235b-a22b",
+              "qwen3-14b",
+              "qwen3-8b",
+              "deepseek-v3",
+              "deepseek-r1-distill-llama-70b",
+              "deepseek-r1-distill-qwen-32b",
+              "deepseek-r1-distill-qwen-14b",
+              "deepseek-r1-distill-llama-8b",
+              "deepseek-r1-distill-qwen-1.5b",
+              "deepseek-r1-distill-qwen-7b",
+              "deepseek-r1",
+              "qwen1.5-7b-chat",
+              "qwen-vl-ocr-latest",
+              "qwen-vl-ocr",
+              "qwen-coder-plus-1106",
+              "qwen-coder-plus",
+              "qwen-coder-turbo",
+              "qwen2.5-math-1.5b-instruct",
+              "qwen-turbo-0919",
+              "qwen2.5-0.5b-instruct",
+              "qwen-math-plus",
+              "qwen-plus-latest",
+              "qwen-math-turbo",
+              "qwen-math-plus-latest",
+              "qwen-math-plus-0919",
+              "qwen2.5-1.5b-instruct",
+              "qwen2-7b-instruct",
+              "qwen2-0.5b-instruct",
+              "qwen2-57b-a14b-instruct",
+              "qwen2-1.5b-instruct",
+              "qwen-long",
+              "qwen-vl-max",
+              "qwen-vl-plus",
+              "qwen1.5-110b-chat",
+              "codeqwen1.5-7b-chat",
+              "qwen1.5-0.5b-chat",
+              "qwen-1.8b-chat",
+              "qwen-1.8b-longcontext-chat",
+              "qwen-7b-chat",
+              "qwen-14b-chat",
+              "qwen-72b-chat",
+              "qwen-max-longcontext",
+              "qwen1.5-72b-chat",
+              "qwen1.5-1.8b-chat",
+              "qwen1.5-32b-chat",
+              "qwen1.5-14b-chat",
+              "qwen-max-1201",
+              "qwen-max-0107",
+              "qwen-max",
+              "qwen-turbo",
+              "qwen-plus"
+            ],
+            "total_models": 252,
+            "source": "user-config",
+            "api_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "native_catalog_empty": false,
+            "authenticated": true,
+            "capabilities": {
+              "kimi/kimi-k2.8-preview": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5.3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v4.1-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.8-max-0902": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.7-text-embedding-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.7-text-rerank": {
+                "fast": false,
+                "reasoning": true
+              },
+              "ZHIPU/GLM-5.3-Flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "stepfun/step-3.7-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "vanchin/deepseek-v4-pro": {
+                "fast": false,
+                "reasoning": true
+              },
+              "unisound/unisound-u2": {
+                "fast": false,
+                "reasoning": true
+              },
+              "vanchin/deepseek-v4-pro-0813": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.8-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi-k3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.8-27b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "ZHIPU/GLM-5.3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v4-pro-0813": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.8-2.4t-a95b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-3.0-pro": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-3.0": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.8-max": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v4-flash-0731": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-audio-3.0-asr-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.7-flash-2026-07-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.7-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi/kimi-k3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.7-text-embedding": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-audio-3.0-realtime-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-audio-3.0-realtime-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5.2-fast-preview": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi/kimi-k2.7-code-highspeed": {
+                "fast": false,
+                "reasoning": true
+              },
+              "xiaomi/mimo-v2.5-pro": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax/MiniMax-M3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "ZHIPU/GLM-5.2": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-2.0-pro-2026-06-22": {
+                "fast": false,
+                "reasoning": true
+              },
+              "test-sre-gpu-auto-handle": {
+                "fast": false,
+                "reasoning": true
+              },
+              "fun-asr-flash-2026-06-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5.2": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi/kimi-k2.7-code": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi-k2.7-code": {
+                "fast": false,
+                "reasoning": true
+              },
+              "sre-gpu-auto-handle": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.7-max-2026-06-08": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-ocr": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.7-plus-2026-05-26": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.7-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.7-max-2026-05-17": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.7-max-preview": {
+                "fast": false,
+                "reasoning": true
+              },
+              "ZHIPU/GLM-5": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.7-max-2026-05-20": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.7-max": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-livetranslate-flash-realtime-2026-05-19": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-livetranslate-flash-realtime": {
+                "fast": false,
+                "reasoning": true
+              },
+              "ZHIPU/GLM-5.1": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi/kimi-k2.6": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v4-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v4-pro": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-2.0-pro-2026-04-22": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-plus-2026-04-20": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.6-27b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi-k2.6": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.6-max-preview": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.6-35b-a3b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.6-flash-2026-04-16": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.6-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5.1": {
+                "fast": false,
+                "reasoning": true
+              },
+              "vanchin/deepseek-v3.1-terminus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "vanchin/deepseek-v3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "vanchin/deepseek-r1": {
+                "fast": false,
+                "reasoning": true
+              },
+              "vanchin/deepseek-ocr": {
+                "fast": false,
+                "reasoning": true
+              },
+              "vanchin/deepseek-v3.2-think": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-omni-plus-realtime-2026-03-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-omni-plus-realtime": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-omni-plus-2026-03-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-omni-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-omni-flash-realtime-2026-03-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-omni-flash-realtime": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-omni-flash-2026-03-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-omni-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.6-plus-2026-04-02": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.6-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "wan2.7-image-pro": {
+                "fast": false,
+                "reasoning": true
+              },
+              "wan2.7-image": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax/MiniMax-M2.7": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax/speech-2.8-hd": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax/speech-2.8-turbo": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax/speech-02-turbo": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax/speech-02-hd": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-deep-research-2025-12-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-2.0-2026-03-03": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-2.0-pro": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-2.0-pro-2026-03-03": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-2.0": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-asr-flash-2026-02-10": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-flash-character-2026-02-26": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax-M2.5": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-flash-2026-02-23": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-122b-a10b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-35b-a3b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-27b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-coder-next": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-397b-a17b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-plus-2026-02-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3.5-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-asr-flash-realtime-2026-02-10": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax/MiniMax-M2.1": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax/MiniMax-M2.5": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-vd-2026-01-26": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-instruct-flash-2026-01-26": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-instruct-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-vc-2026-01-22": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-4.7": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-max": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-instruct-flash-realtime-2026-01-22": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-instruct-flash-realtime": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-vd-realtime-2026-01-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi-k2.5": {
+                "fast": false,
+                "reasoning": true
+              },
+              "tongyi-xiaomi-analysis-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "tongyi-xiaomi-analysis-pro": {
+                "fast": false,
+                "reasoning": true
+              },
+              "siliconflow/deepseek-v3.2": {
+                "fast": false,
+                "reasoning": true
+              },
+              "siliconflow/deepseek-v3.1-terminus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "siliconflow/deepseek-v3-0324": {
+                "fast": false,
+                "reasoning": true
+              },
+              "siliconflow/deepseek-r1-0528": {
+                "fast": false,
+                "reasoning": true
+              },
+              "MiniMax-M2.1": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-vl-flash-2026-01-22": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-max-2026-01-23": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-vc-realtime-2026-01-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-edit-max-2026-01-16": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-edit-max": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-plus-2026-01-09": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-flash-character": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-max-2025-12-30": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-max": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "z-image-turbo": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-vl-plus-2025-12-19": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-vd-realtime-2025-12-16": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-edit-plus-2025-12-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v3.2": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-omni-flash-2025-12-01": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-omni-flash-realtime-2025-12-01": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-livetranslate-flash-2025-12-01": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-livetranslate-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-plus-2025-12-01": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-vc-realtime-2025-11-27": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-flash-2025-11-27": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-flash-realtime-2025-11-27": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-plus-2025-11-05": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-mt-lite": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-vl-ocr-2025-11-20": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi-k2-thinking": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-mt-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "gui-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-edit-plus-2025-10-30": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-image-edit-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-deep-search-planning": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-asr-flash-realtime-2025-10-27": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-asr-flash-realtime": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-vl-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-vl-flash-2025-10-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-flash-2025-09-18": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-flash-realtime-2025-09-18": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-tts-flash-realtime": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-omni-flash-realtime": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-omni-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-omni-flash-2025-09-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-omni-flash-realtime-2025-09-15": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-s2s-flash-realtime-2025-09-22": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-livetranslate-flash-realtime": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-livetranslate-flash-realtime-2025-09-22": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-turbo-2024-11-01": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-plus-2025-01-25": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwq-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qvq-max": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-omni-turbo": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-plus-2025-04-28": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-235b-a22b-instruct-2507": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-235b-a22b-thinking-2507": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-30b-a3b-thinking-2507": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-30b-a3b-instruct-2507": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-coder-flash": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-coder-plus-2025-09-23": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-max-2025-09-23": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-vl-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-vl-plus-2025-09-23": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-plus-2025-09-11": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-next-80b-a3b-thinking": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-next-80b-a3b-instruct": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-max-preview": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v3.1": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-coder-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-coder-plus-2025-07-22": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-plus-2025-07-14": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-coder-480b-a35b-instruct": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-mt-turbo": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-mt-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-tts-2025-05-22": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qvq-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-32b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-30b-a3b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-235b-a22b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-14b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-8b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-r1-distill-llama-70b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-r1-distill-qwen-32b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-r1-distill-qwen-14b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-r1-distill-llama-8b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-r1-distill-qwen-1.5b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-r1-distill-qwen-7b": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-r1": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen1.5-7b-chat": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-vl-ocr-latest": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-vl-ocr": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-coder-plus-1106": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-coder-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-coder-turbo": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen2.5-math-1.5b-instruct": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-turbo-0919": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen2.5-0.5b-instruct": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-math-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-plus-latest": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-math-turbo": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-math-plus-latest": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-math-plus-0919": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen2.5-1.5b-instruct": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen2-7b-instruct": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen2-0.5b-instruct": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen2-57b-a14b-instruct": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen2-1.5b-instruct": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-long": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-vl-max": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-vl-plus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen1.5-110b-chat": {
+                "fast": false,
+                "reasoning": true
+              },
+              "codeqwen1.5-7b-chat": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen1.5-0.5b-chat": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-1.8b-chat": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-1.8b-longcontext-chat": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-7b-chat": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-14b-chat": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-72b-chat": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-max-longcontext": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen1.5-72b-chat": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen1.5-1.8b-chat": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen1.5-32b-chat": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen1.5-14b-chat": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-max-1201": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-max-0107": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-max": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-turbo": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen-plus": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": [],
+            "aliases": [
+              "custom:qwen-cn",
+              "qwen-cn"
+            ]
+          },
+          {
+            "slug": "ark-coding-plan",
+            "name": "ark-coding-plan",
+            "is_current": false,
+            "is_user_defined": true,
+            "models": [
+              "doubao-lite-128k-240428",
+              "doubao-pro-128k-240515",
+              "doubao-lite-4k-240328",
+              "doubao-lite-32k-240428",
+              "doubao-pro-4k-240515",
+              "doubao-lite-4k-character-240515",
+              "doubao-embedding-text-240515",
+              "mistral-7b-instruct-v0.2",
+              "doubao-pro-4k-character-240515",
+              "doubao-pro-4k-functioncall-240515",
+              "doubao-lite-4k-pretrain-character-240516",
+              "doubao-pro-32k-character-240528",
+              "doubao-pro-4k-browsing-240524",
+              "doubao-pro-32k-functioncall-240515",
+              "doubao-pro-4k-functioncall-240615",
+              "doubao-pro-32k-browsing-240615",
+              "doubao-pro-32k-240615",
+              "doubao-lite-32k-240628",
+              "doubao-pro-128k-240628",
+              "doubao-embedding-text-240715",
+              "doubao-pro-4k-character-240728",
+              "doubao-pro-32k-functioncall-240815",
+              "doubao-pro-32k-240828",
+              "doubao-lite-4k-character-240828",
+              "doubao-pro-32k-character-240828",
+              "doubao-lite-32k-240828",
+              "doubao-lite-128k-240828",
+              "doubao-pro-32k-browsing-240828",
+              "doubao-pro-32k-functioncall-preview",
+              "doubao-embedding-large-text-240915",
+              "doubao-lite-32k-character-241015",
+              "doubao-pro-32k-functioncall-241028",
+              "doubao-pro-32k-browsing-241115",
+              "doubao-vision-pro-32k-241028",
+              "doubao-vision-lite-32k-241015",
+              "doubao-seaweed-241128",
+              "doubao-pro-256k-241115",
+              "doubao-pro-32k-character-241215",
+              "doubao-pro-32k-241215",
+              "doubao-1-5-lite-32k-250115",
+              "doubao-1-5-pro-32k-250115",
+              "doubao-1-5-vision-pro-32k-250115",
+              "doubao-embedding-vision-241215",
+              "doubao-1-5-pro-256k-250115",
+              "deepseek-v3-241226",
+              "deepseek-r1-distill-qwen-7b-250120",
+              "deepseek-r1-distill-qwen-32b-250120",
+              "deepseek-r1-250120",
+              "doubao-1-5-pro-32k-character-250228",
+              "doubao-1.5-vision-lite-250315",
+              "deepseek-v3-250324",
+              "doubao-1.5-vision-pro-250328",
+              "doubao-lite-32k-character-250228",
+              "doubao-1.5-ui-tars-250328",
+              "doubao-embedding-vision-250328",
+              "doubao-1-5-thinking-pro-250415",
+              "wan2-1-14b-i2v-250225",
+              "wan2-1-14b-t2v-250225",
+              "doubao-1-5-thinking-pro-m-250415",
+              "doubao-seedance-1-0-lite-i2v-250428",
+              "doubao-seedance-1-0-lite-t2v-250428",
+              "doubao-seedream-3-0-t2i-250415",
+              "wan2-1-14b-flf2v-250417",
+              "doubao-1-5-thinking-vision-pro-250428",
+              "doubao-1-5-thinking-pro-m-250428",
+              "doubao-embedding-large-text-250515",
+              "doubao-1-5-ui-tars-250428",
+              "deepseek-r1-250528",
+              "doubao-seed-1-6-flash-250615",
+              "doubao-seed-1-6-250615",
+              "doubao-seed-1-6-thinking-250615",
+              "doubao-seedance-1-0-pro-250528",
+              "doubao-embedding-vision-250615",
+              "doubao-seed-1-6-thinking-250715",
+              "doubao-1-5-pro-32k-character-250715",
+              "doubao-seededit-3-0-i2i-250628",
+              "doubao-seed-1-6-flash-250715",
+              "kimi-k2-250711",
+              "doubao-seed-1-6-vision-250815",
+              "deepseek-v3-1-250821",
+              "doubao-seed-1-6-flash-250828",
+              "glm-4-5-air-20250728",
+              "qwen3-8b-20250429",
+              "qwen3-32b-20250429",
+              "qwen2-5-72b-20240919",
+              "doubao-seedream-4-0-250828",
+              "kimi-k2-250905",
+              "doubao-seed-translation-250915",
+              "deepseek-v3-1-terminus",
+              "doubao-smart-router-250928",
+              "doubao-seed-1-6-251015",
+              "doubao-seedance-1-0-pro-fast-251015",
+              "doubao-seed-1-6-lite-251015",
+              "doubao-seed3d-1-0-250928",
+              "kimi-k2-thinking-251104",
+              "doubao-seed-code-preview-251028",
+              "qwen3-0-6b-20250429",
+              "qwen3-14b-20250429",
+              "doubao-seedream-4-5-251128",
+              "doubao-embedding-vision-251215",
+              "deepseek-v3-2-251201",
+              "doubao-seedance-1-5-pro-251215",
+              "glm-4-7-251222",
+              "doubao-seed-1-8-251228",
+              "doubao-seed-character-251128",
+              "doubao-seed-2-0-lite-260215",
+              "doubao-seedance-2-0-260128",
+              "doubao-seedream-5-0-260128",
+              "doubao-seed-2-0-mini-260215",
+              "doubao-seed-2-0-pro-260215",
+              "doubao-seedance-2-0-fast-260128",
+              "doubao-seed-2-0-code-preview-260215",
+              "hyper3d-gen2-260112",
+              "hitem3d-2-0-251223",
+              "doubao-seed3d-2-0-260328",
+              "doubao-seedream-4-0-20260415",
+              "doubao-seed-2-0-mini-260428",
+              "doubao-seed-2-0-lite-260428",
+              "deepseek-v4-pro-260425",
+              "deepseek-v4-flash-260425",
+              "doubao-seedance-2-0-mini-260615",
+              "doubao-seed-2-1-pro-260628",
+              "doubao-seed-2-1-turbo-260628",
+              "doubao-seed-character-260628",
+              "doubao-seed-evolving",
+              "glm-5-2-260617",
+              "doubao-seedream-5-0-pro-260628",
+              "doubao-seedance-2-5-260628",
+              "deepseek-v4-flash-ga-260731",
+              "deepseek-v4-pro-ga-260813",
+              "glm-5-3-flash-260828",
+              "deepseek-v4-1-flash-260910",
+              "doubao-seed-2-1-pro-260915"
+            ],
+            "total_models": 133,
+            "source": "user-config",
+            "api_url": "https://ark.cn-beijing.volces.com/api/coding/v3",
+            "native_catalog_empty": false,
+            "authenticated": true,
+            "capabilities": {
+              "doubao-lite-128k-240428": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-128k-240515": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-lite-4k-240328": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-lite-32k-240428": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-4k-240515": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-lite-4k-character-240515": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-embedding-text-240515": {
+                "fast": false,
+                "reasoning": true
+              },
+              "mistral-7b-instruct-v0.2": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-4k-character-240515": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-4k-functioncall-240515": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-lite-4k-pretrain-character-240516": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-32k-character-240528": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-4k-browsing-240524": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-32k-functioncall-240515": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-4k-functioncall-240615": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-32k-browsing-240615": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-32k-240615": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-lite-32k-240628": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-128k-240628": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-embedding-text-240715": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-4k-character-240728": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-32k-functioncall-240815": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-32k-240828": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-lite-4k-character-240828": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-32k-character-240828": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-lite-32k-240828": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-lite-128k-240828": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-32k-browsing-240828": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-32k-functioncall-preview": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-embedding-large-text-240915": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-lite-32k-character-241015": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-32k-functioncall-241028": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-32k-browsing-241115": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-vision-pro-32k-241028": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-vision-lite-32k-241015": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seaweed-241128": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-256k-241115": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-32k-character-241215": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-pro-32k-241215": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1-5-lite-32k-250115": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1-5-pro-32k-250115": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1-5-vision-pro-32k-250115": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-embedding-vision-241215": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1-5-pro-256k-250115": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v3-241226": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-r1-distill-qwen-7b-250120": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-r1-distill-qwen-32b-250120": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-r1-250120": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1-5-pro-32k-character-250228": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1.5-vision-lite-250315": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v3-250324": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1.5-vision-pro-250328": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-lite-32k-character-250228": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1.5-ui-tars-250328": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-embedding-vision-250328": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1-5-thinking-pro-250415": {
+                "fast": false,
+                "reasoning": true
+              },
+              "wan2-1-14b-i2v-250225": {
+                "fast": false,
+                "reasoning": true
+              },
+              "wan2-1-14b-t2v-250225": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1-5-thinking-pro-m-250415": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedance-1-0-lite-i2v-250428": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedance-1-0-lite-t2v-250428": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedream-3-0-t2i-250415": {
+                "fast": false,
+                "reasoning": true
+              },
+              "wan2-1-14b-flf2v-250417": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1-5-thinking-vision-pro-250428": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1-5-thinking-pro-m-250428": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-embedding-large-text-250515": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1-5-ui-tars-250428": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-r1-250528": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-1-6-flash-250615": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-1-6-250615": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-1-6-thinking-250615": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedance-1-0-pro-250528": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-embedding-vision-250615": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-1-6-thinking-250715": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-1-5-pro-32k-character-250715": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seededit-3-0-i2i-250628": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-1-6-flash-250715": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi-k2-250711": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-1-6-vision-250815": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v3-1-250821": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-1-6-flash-250828": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-4-5-air-20250728": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-8b-20250429": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-32b-20250429": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen2-5-72b-20240919": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedream-4-0-250828": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi-k2-250905": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-translation-250915": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v3-1-terminus": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-smart-router-250928": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-1-6-251015": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedance-1-0-pro-fast-251015": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-1-6-lite-251015": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed3d-1-0-250928": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi-k2-thinking-251104": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-code-preview-251028": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-0-6b-20250429": {
+                "fast": false,
+                "reasoning": true
+              },
+              "qwen3-14b-20250429": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedream-4-5-251128": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-embedding-vision-251215": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v3-2-251201": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedance-1-5-pro-251215": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-4-7-251222": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-1-8-251228": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-character-251128": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-2-0-lite-260215": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedance-2-0-260128": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedream-5-0-260128": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-2-0-mini-260215": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-2-0-pro-260215": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedance-2-0-fast-260128": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-2-0-code-preview-260215": {
+                "fast": false,
+                "reasoning": true
+              },
+              "hyper3d-gen2-260112": {
+                "fast": false,
+                "reasoning": true
+              },
+              "hitem3d-2-0-251223": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed3d-2-0-260328": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedream-4-0-20260415": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-2-0-mini-260428": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-2-0-lite-260428": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v4-pro-260425": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v4-flash-260425": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedance-2-0-mini-260615": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-2-1-pro-260628": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-2-1-turbo-260628": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-character-260628": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-evolving": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5-2-260617": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedream-5-0-pro-260628": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seedance-2-5-260628": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v4-flash-ga-260731": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v4-pro-ga-260813": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5-3-flash-260828": {
+                "fast": false,
+                "reasoning": true
+              },
+              "deepseek-v4-1-flash-260910": {
+                "fast": false,
+                "reasoning": true
+              },
+              "doubao-seed-2-1-pro-260915": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": [],
+            "aliases": [
+              "ark-coding-plan",
+              "custom:ark-coding-plan"
+            ]
+          },
+          {
+            "slug": "zai-plan",
+            "name": "zai-plan",
+            "is_current": false,
+            "is_user_defined": true,
+            "models": [
+              "glm-4.5",
+              "glm-4.5-air",
+              "glm-4.6",
+              "glm-4.7",
+              "glm-5",
+              "glm-5-turbo",
+              "glm-5.1",
+              "glm-5.2",
+              "glm-5.3",
+              "glm-5.3-flash"
+            ],
+            "total_models": 10,
+            "source": "user-config",
+            "api_url": "https://api.z.ai/api/coding/paas/v4",
+            "native_catalog_empty": false,
+            "authenticated": true,
+            "capabilities": {
+              "glm-4.5": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-4.5-air": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-4.6": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-4.7": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5-turbo": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5.1": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5.2": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5.3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5.3-flash": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": [],
+            "aliases": [
+              "custom:zai-plan",
+              "zai-plan"
+            ]
+          },
+          {
+            "slug": "zhipu",
+            "name": "zhipu",
+            "is_current": false,
+            "is_user_defined": true,
+            "models": [
+              "glm-4.5",
+              "glm-4.5-air",
+              "glm-4.6",
+              "glm-4.7",
+              "glm-5",
+              "glm-5-turbo",
+              "glm-5.1",
+              "glm-5.2",
+              "glm-5.3",
+              "glm-5.3-flash"
+            ],
+            "total_models": 10,
+            "source": "user-config",
+            "api_url": "https://open.bigmodel.cn/api/paas/v4",
+            "native_catalog_empty": false,
+            "authenticated": true,
+            "capabilities": {
+              "glm-4.5": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-4.5-air": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-4.6": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-4.7": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5-turbo": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5.1": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5.2": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5.3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "glm-5.3-flash": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": [],
+            "aliases": [
+              "custom:zhipu",
+              "zhipu"
+            ]
+          },
+          {
+            "slug": "kimi-cn",
+            "name": "kimi-cn",
+            "is_current": false,
+            "is_user_defined": true,
+            "models": [
+              "kimi-k2.7-code-highspeed",
+              "kimi-k2.7-code",
+              "kimi-k2.6",
+              "kimi-k3"
+            ],
+            "total_models": 4,
+            "source": "user-config",
+            "api_url": "https://api.moonshot.cn/v1",
+            "native_catalog_empty": false,
+            "authenticated": true,
+            "capabilities": {
+              "kimi-k2.7-code-highspeed": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi-k2.7-code": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi-k2.6": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi-k3": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": [],
+            "aliases": [
+              "custom:kimi-cn",
+              "kimi-cn"
+            ]
+          },
+          {
+            "slug": "kimi-code",
+            "name": "kimi-code",
+            "is_current": false,
+            "is_user_defined": true,
+            "models": [
+              "kimi-for-coding",
+              "kimi-for-coding-highspeed",
+              "k3",
+              "k3-256k"
+            ],
+            "total_models": 4,
+            "source": "user-config",
+            "api_url": "https://api.kimi.com/coding/v1",
+            "native_catalog_empty": false,
+            "authenticated": true,
+            "capabilities": {
+              "kimi-for-coding": {
+                "fast": false,
+                "reasoning": true
+              },
+              "kimi-for-coding-highspeed": {
+                "fast": false,
+                "reasoning": true
+              },
+              "k3": {
+                "fast": false,
+                "reasoning": true
+              },
+              "k3-256k": {
+                "fast": false,
+                "reasoning": true
+              }
+            },
+            "featured_models": [],
+            "aliases": [
+              "custom:kimi-code",
+              "kimi-code"
+            ]
+          }
+        ],
+        "model": "deepseek-v4-pro",
+        "provider": "deepseek"
+      }
+    },
+    "session.close": {
+      "params": {
+        "session_id": "c18c09ab"
+      },
+      "latency_ms": 116,
+      "result": {
+        "closed": true
+      }
+    }
+  },
+  "stderr_tail": [
+    "Copilot token exchange degraded to RAW token (exchange unavailable); enterprise-only models may 400 with model_not_available_for_integrator until exchange recovers.",
+    "Copilot token exchange degraded to RAW token (exchange unavailable); enterprise-only models may 400 with model_not_available_for_integrator until exchange recovers."
+  ]
+}

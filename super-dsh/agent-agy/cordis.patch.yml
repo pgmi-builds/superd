@@ -1,0 +1,49 @@
+# @pgmi-builds/agent-adapter-agy bundle patch (AW-G SDK line, pi/hermes form).
+# The `dsh.bundle.patch` layer of the adapter package: mounts the agy provider
+# and disables the native components it replaces. Port/webserver posture is
+# NOT here (worldMountPatches owns it); the world profile patch pins the home.
+#
+# Auth (2026-09-18 consumer-first ruling, dev-rules §16a): Gemini API key in
+# adapter world-home state (or GEMINI_API_KEY env), else ADC — the SDK consumes
+# either transparently. The agy CLI is never invoked.
+
+- insert:
+    - id: agy-provider
+      name: '@pgmi-builds/agent-adapter-agy'
+
+# The SDK bridge owns the live transcript; disable the built-in loop so it
+# does not double-run alongside the bridge session.
+- id: agent-loop
+  disabled: true
+
+# The agy provider registers the single `agy` route on ctx.llm; leaving the
+# native deepseek row mounted would advertise foreign models in this world.
+- id: llm-deepseek
+  disabled: true
+
+# Single-preset roster like pi: launch-only permission mapping (headless bridge
+# has no per-action approval channel). Full 3-preset restatement per §4.1.
+- id: agent-presets
+  disabled: true
+- id: permission
+  config:
+    presets:
+      read-only:
+        sandbox: read-only
+        approval: ask
+      workspace-write:
+        sandbox: workspace-write
+        approval: ask
+      danger-full-access:
+        sandbox: danger-full-access
+        approval: never
+    defaultPreset: danger-full-access
+
+# Directory picker: pin both faces of `browse`, unmount the auto row (§4.1).
+- insert:
+    - id: directory-picker-browse
+      name: '@deepseek-ai/dsh-host-directory-picker-browse'
+    - id: directory-picker-browse-surface
+      name: '@deepseek-ai/dsh-client-ui-directory-picker-browse'
+- id: directory-picker
+  disabled: true

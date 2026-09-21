@@ -1,0 +1,16 @@
+{
+  "name": "aw-omp-world-profile",
+  "private": true,
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app",
+        "@pgmi-builds/agent-adapter-omp"
+      ]
+    }
+  },
+  "dependencies": {
+    "@pgmi-builds/agent-adapter-omp": "file:/home/u1/workspaces/superd/super-dsh/agent-omp"
+  }
+}

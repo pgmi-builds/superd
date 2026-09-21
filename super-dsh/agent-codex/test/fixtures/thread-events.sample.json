@@ -1,0 +1,38 @@
+{
+  "threadId": "01a0a171-b8dd-75d0-83a2-068ec7c7b085",
+  "events": [
+    {
+      "type": "thread.started",
+      "thread_id": "01a0a171-b8dd-75d0-83a2-068ec7c7b085"
+    },
+    {
+      "type": "turn.started"
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_0",
+        "type": "reasoning",
+        "text": "User asks exact output ok. Need final exactly."
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_1",
+        "type": "agent_message",
+        "text": "ok"
+      }
+    },
+    {
+      "type": "turn.completed",
+      "usage": {
+        "input_tokens": 1234,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3,
+        "reasoning_output_tokens": 18
+      }
+    }
+  ]
+}

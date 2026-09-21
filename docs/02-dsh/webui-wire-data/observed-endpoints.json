@@ -1,0 +1,224 @@
+{
+ "/api/settings/describe": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"5b7030c8-6ebe-4819-ba53-c2acd3f538bd\",\"method\":\"settings/describe\",\"payload\":{\"args\":{}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"16e4a694-f870-449f-a875-5fcb19f9102a\",\"result\":{\"ok\":true,\"value\":{\"writable\":true,\"hasDocument\":true,\"namespaces\":[{\"ns\":\"ui-onboarding\",\"schema\":{\"uid\":9,\"refs\":{\"8\":{\"type\":\"string\",\"meta\":{}},\"9\":{\"type\":\"object\",\"meta\":{\"default\":{}},\"dict\":{\"welcomeNoticeVersion\":8}}}},\"value\":{\"welcomeNoticeVersion\":\"2026-08-13.1\"},\"user\":{\"welcomeNoticeVersion\":\"2026-08-13.1\"},\"applies\":\"live\",\"secrets\":[],\"revision\":0},{\"ns\":\"ui-theme\",\"schema\":{\"uid\":81,\"refs\":{\"70\":{\"type\":\"const\",\"meta\":{\"required\":true},\"value\":\"light\"},\"72\":{\"type\":\"const\",\"meta\":{\"required\":true},\"value\":\"dark\"},\"74\":{\"type\":\"const\",\"meta\":{\"required\":true},\"value\":\"system\"},\"75\":{\"type\":\"union\",\"meta\":{\"default\":\"system\"},\"list\":[70,72,74]},\"80\":{\"type\":\"number\",\"meta\":{\"step\":1,\"min\":12,\"max\":17,\"default\":14}},\"81\":{\"type\":\"object\",\"meta\":{\"default\":{}},\"dict\":{\"preference\":75,\"fontSize\":80}}}},\"value\":{\"preference\":\"system\",\"fontSize\":14},\"applies\":\"live\",\"secrets\":[],\"revision\":0},{\"ns\":\"locale\",\"schema\":{\"uid\":85,\"refs\":{\"84\":{\"type\":\"string\",\"meta\":{\"pattern\":{\"source\":\"^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$\",\"flags\":\"u\"},\"required\":false}},\"85\":{\"type\":\"object\",\"meta\":{\"default\":{}},\"dict\":{\"preference\":84}}}},\"value\":{},\"applies\":\"live\",\"secrets\":[],\"revision\":0},{\"ns\":\"ui-conversation\",\"schema\":{\"uid\":92,\"refs\":{\"88\":{\"type\":\"const\",\"meta\":{\"required\":true},\"value\":\"queue\"},\"90\":{\"type\":\"const\",\"meta\":{\"required\":true},\"value\":\"steer\"},\"91\":{\"type\":\"union\",\"meta\":{\"default\":\"queue\"},\"list\":[88,90]},\"92\":{\"type\":\"object\",\"meta\":{\"default\":{}},\"dict\":{\"busyEnter\":91}}}},\"value\":{\"busyEnter\":\"queue\"},\"applies\":\"live\",\"secrets\":[],\"revision\":0},{\"ns\":\"ui-chat\",\"schema\":{\"uid\":99,\"refs\":{\"95\":{\"type\":\"const\",\"meta\":{\"required\":true},\"value\":\"normal\"},\"97\":{\"type\":\"const\",\"meta\":{\"required\":true},\"value\":\"compact\"},\"98\":{\"type\":\"union\",\"meta\":{\"default\":\"compact\"},\"list\":[95,97]},\"99\":{\"type\":\"object\",\"meta\":{\"default\":{}},\"dict\":{\"transcriptView\":98}}}},\"value\":{\""
+ },
+ "/api/dynamicCordisRunner/syncInspectManifest": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"0de1dfdb-2af7-4140-baea-cedaaad4139a\",\"method\":\"dynamicCordisRunner/syncInspectManifest\",\"payload\":{\"args\":{\"providers\":[{\"id\":\"Service\",\"description\":\"Progressive Client Service discovery: compact capability/signature directory, then one exact coding contract.\",\"methods\":[{\"name\":\"listService\",\"description\":\"Progressive Client Service discovery: compact capability/signature directory, then one exact coding contract.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"service\":{\"type\":\"string\",\"description\":\"Exact Service key. Omit it for the compact Service and me",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"7bb71481-9f35-4cbf-8cdc-da75996d0750\",\"result\":{\"ok\":true,\"value\":null}}"
+ },
+ "/api/credentials/describe": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"60d07768-4b0b-4de9-8295-11cba2e1847b\",\"method\":\"credentials/describe\",\"payload\":{\"args\":{\"refs\":[\"DEEPSEEK_API_KEY\"]}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"79e2db5b-97b4-423e-bb32-bbc6502f2063\",\"result\":{\"ok\":true,\"value\":{\"DEEPSEEK_API_KEY\":{\"configured\":true,\"source\":\"user-env\",\"writable\":true}}}}"
+ },
+ "/api/dynamicCordisRunner/inventory": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"032025ba-4523-4742-acb9-6eebd7b705ea\",\"method\":\"dynamicCordisRunner/inventory\",\"payload\":{\"args\":{}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"19b574ea-e891-4024-ba59-f6b26703d59e\",\"result\":{\"ok\":true,\"value\":[]}}"
+ },
+ "/api/session/modelCatalog": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"86650cc9-a6d4-4061-b26f-5281207e4f5a\",\"method\":\"session/modelCatalog\",\"payload\":{\"args\":{}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"7d643577-2471-4bc4-940e-cf04606268a3\",\"result\":{\"ok\":true,\"value\":{\"default\":{\"provider\":\"deepseek-official\",\"model\":\"deepseek-v4-flash\",\"reasoningEffort\":\"high\"},\"routableProviders\":[\"deepseek-official\"],\"groups\":[{\"id\":\"deepseek-official\",\"name\":\"DeepSeek\",\"models\":[{\"id\":\"deepseek-v4-flash\",\"name\":\"DeepSeek-V4-Flash\",\"description\":\"Fast, efficient, and economical; suited to focused, routine, or parallel tasks.\",\"reasoning\":{\"efforts\":[{\"id\":\"off\",\"name\":\"Off\",\"description\":\"Use for simple tasks that do not need reasoning.\"},{\"id\":\"low\",\"name\":\"Low\",\"description\":\"Prefer for routine or latency-sensitive tasks.\"},{\"id\":\"high\",\"name\":\"High\",\"description\":\"The default balance for most tasks.\"},{\"id\":\"max\",\"name\":\"Max\",\"description\":\"Reserve for the hardest quality-first tasks.\"}],\"defaultEffort\":\"high\"}},{\"id\":\"deepseek-v4-pro\",\"name\":\"DeepSeek-V4-Pro\",\"description\":\"Stronger agentic coding, knowledge, and difficult reasoning; suited to complex or quality-critical tasks at higher cost.\",\"reasoning\":{\"efforts\":[{\"id\":\"off\",\"name\":\"Off\",\"description\":\"Use for simple tasks that do not need reasoning.\"},{\"id\":\"low\",\"name\":\"Low\",\"description\":\"Prefer for routine or latency-sensitive tasks.\"},{\"id\":\"high\",\"name\":\"High\",\"description\":\"The default balance for most tasks.\"},{\"id\":\"max\",\"name\":\"Max\",\"description\":\"Reserve for the hardest quality-first tasks.\"}],\"defaultEffort\":\"high\"}},{\"id\":\"deepseek-v4-flash-vision-exp\",\"name\":\"DeepSeek-V4-Flash-Vision-Exp\",\"reasoning\":{\"efforts\":[{\"id\":\"off\",\"name\":\"Off\",\"description\":\"Use for simple tasks that do not need reasoning.\"},{\"id\":\"low\",\"name\":\"Low\",\"description\":\"Prefer for routine or latency-sensitive tasks.\"},{\"id\":\"high\",\"name\":\"High\",\"description\":\"The default balance for most tasks.\"},{\"id\":\"max\",\"name\":\"Max\",\"description\":\"Reserve for the hardest quality-first tasks.\"}],\"defaultEffort\":\"high\"}}]}],\"failures\":[]}}}"
+ },
+ "/sidebar/api/shell.get": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{}",
+  "resp": "{\"ok\":true,\"value\":{\"shell\":\"/bin/bash\",\"name\":\"bash\"}}"
+ },
+ "/sidebar/api/settings.get": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{}",
+  "resp": "{\"ok\":true,\"value\":{\"value\":{\"openByDefault\":false,\"defaultWidthPercent\":35,\"autoOpenSubagent\":true,\"autoOpenJobs\":true,\"agentTerminalTools\":false,\"agentOpenTools\":false,\"bottomPanelAutoTerminal\":true,\"terminalFontFamily\":\"\",\"terminalFontSize\":13,\"interceptOpenPath\":true,\"editorExplorer\":false,\"workspaceFence\":false,\"terminalShell\":\"\",\"terminalShellArgs\":\"\",\"titleBarCompat\":false,\"titleBarStripPx\":40,\"htmlViewerNoSandbox\":false,\"htmlViewerDefaultUnsafe\":false,\"browserNoSandbox\":false,\"browserInterceptLinks\":true,\"browserInterceptHttp\":true,\"browserInterceptHttps\":false,\"browserAllowedLoopback\":\"\",\"tabsEnabled\":{},\"viewersEnabled\":{},\"pluginSettings\":{}},\"revision\":0,\"externalDisable\":false}}"
+ },
+ "/api/agentPresets/list": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"cf7da718-f809-4864-8ced-29067fe2f65d\",\"method\":\"agentPresets/list\",\"payload\":{\"args\":{}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"43447b5d-7426-4bdd-954a-58c019298004\",\"result\":{\"ok\":true,\"value\":{\"presets\":[{\"id\":\"standard\",\"trust\":\"system\",\"isDefault\":true,\"name\":\"标准模式\",\"description\":\"功能完整的编码 Agent，支持文件编辑、Shell、文件与网页检索、Skills、计划、目标、子代理和工作流。\"},{\"id\":\"ptc\",\"trust\":\"system\",\"isDefault\":false,\"name\":\"PTC 模式\",\"description\":\"功能完整的编码 Agent，但默认不提供 workflow 工具；其他工具通过 PTC 模式 SDK 呈现，让模型用一个 TypeScript 程序组合多步操作。\"},{\"id\":\"minimal\",\"trust\":\"system\",\"isDefault\":false,\"name\":\"极简模式\",\"description\":\"仅提供持久 bash 与 str_replace_editor 的双工具编码 Agent。\"},{\"id\":\"cordis\",\"trust\":\"system\",\"isDefault\":false,\"name\":\"创造模式\",\"description\":\"用于创建自定义 Agent preset：具备标准模式的全部能力，并提供运行时检查、插件实验和 preset 创作指导。\"}],\"authorable\":true}}}"
+ },
+ "/api/session/list": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"78f82174-92e9-44ca-9713-bb9b7a6de1b7\",\"method\":\"session/list\",\"payload\":{\"args\":{\"_request\":{}}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"78f82174-92e9-44ca-9713-bb9b7a6de1b7\",\"result\":{\"ok\":true,\"value\":{\"items\":[{\"sessionId\":\"session-61cfb1f3-204c-49ee-be76-0b7075cc91fe\",\"updatedAt\":1788439501181,\"running\":false,\"blank\":true,\"cwd\":\"/home/u1/workspaces/temp\",\"projections\":{\"asOfSeq\":3,\"values\":{\"goal\":null,\"title\":null,\"sessionStats\":{\"turns\":0,\"steps\":0,\"llmMs\":0,\"toolMs\":0,\"ttftMs\":0,\"ttftSteps\":0,\"decodeMs\":0,\"decodeTokens\":0},\"turnOutline\":[],\"agentPreset\":\"standard\",\"tokenUsage\":{\"uncachedInputTokens\":0,\"outputTokens\":0,\"cacheReadTokens\":0,\"cacheWriteTokens\":0},\"contextPressure\":{},\"contextBreakdown\":{\"systemTokens\":0,\"toolsTokens\":0,\"messageTokens\":0},\"subagentTiming\":{\"settledMs\":0},\"subagent\":null,\"permissions\":{\"options\":[{\"value\":\"read-only\",\"name\":\"read-only\"},{\"value\":\"workspace-write\",\"name\":\"workspace-write\"},{\"value\":\"danger-full-access\",\"name\":\"danger-full-access\"}],\"currentValue\":\"workspace-write\"},\"modelSelection\":{\"lastUsed\":null,\"next\":null},\"sessionListMetadata\":{\"blank\":true,\"lastPromptAt\":null},\"imageLimits\":{\"maxImageBytes\":20971520,\"maxImagesPerMessage\":20,\"maxMessageImageBytes\":209715200,\"maxImagePixels\":64000000,\"maxImageDimension\":8192,\"mediaTypes\":[\"image/png\",\"image/jpeg\",\"image/webp\",\"image/gif\"]},\"todos\":null,\"plan\":{\"active\":false,\"pending\":false}}}},{\"sessionId\":\"session-8e966430-59af-4bba-9ddf-571d311bc1e1\",\"updatedAt\":1788417375963,\"running\":false,\"blank\":false,\"cwd\":\"/home/u1/workspaces/temp\",\"projections\":{\"asOfSeq\":90565,\"values\":{\"goal\":null,\"title\":\"IPython REPL tool availability\",\"sessionStats\":{\"turns\":13,\"steps\":58,\"llmMs\":931101,\"toolMs\":15797,\"ttftMs\":88766,\"ttftSteps\":58,\"decodeMs\":842335,\"decodeTokens\":92410},\"turnOutline\":[{\"turn\":1,\"seq\":5,\"prompt\":\"do you have ipython repl tool\",\"response\":\"Short answer: **not as a separate tool called `ipython_repl` — but yes, effectively.** The `eval` tool in my live surfa…\"},{\"turn\":2,\"seq\":2420,\"prompt\":\"1. why you would think of trying a top-level `ret…\",\"response\":\"Verified ev"
+ },
+ "/api/subagents/list": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"c95261fc-8a99-4d86-8f00-f03f7f364937\",\"method\":\"subagents/list\",\"payload\":{\"args\":{\"parentSessionId\":\"session-61cfb1f3-204c-49ee-be76-0b7075cc91fe\"}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"c95261fc-8a99-4d86-8f00-f03f7f364937\",\"result\":{\"ok\":true,\"value\":{\"entries\":[],\"parentAvailable\":true}}}"
+ },
+ "/api/commands/list": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"9e5db7bb-f0ce-47bd-8eef-277b5bd37130\",\"method\":\"commands/list\",\"payload\":{\"args\":{\"agentId\":\"session-61cfb1f3-204c-49ee-be76-0b7075cc91fe\"}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"9e5db7bb-f0ce-47bd-8eef-277b5bd37130\",\"result\":{\"ok\":true,\"value\":[{\"name\":\"compact\",\"description\":\"Compact older conversation history\"},{\"name\":\"export\",\"description\":\"Download this Session log as a ZIP archive\"},{\"name\":\"feedback\",\"description\":\"record feedback about this session\",\"input\":{\"hint\":\"<text>\"}},{\"name\":\"goal\",\"description\":\"set or view the goal for a long-running task\",\"input\":{\"hint\":\"[<objective>|clear|edit <objective>|pause|resume]\",\"images\":true}},{\"name\":\"permission\",\"description\":\"Switch the permission preset (sandbox mode + approval policy)\",\"input\":{\"hint\":\"<preset>\"}},{\"name\":\"plan\",\"description\":\"Enter or leave plan mode\",\"input\":{\"hint\":\"[off|message]\",\"images\":true}}]}}"
+ },
+ "/api/skills/list": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"0949d2c7-0b40-4e2d-8f7e-e3203af2661a\",\"method\":\"skills/list\",\"payload\":{\"args\":{\"request\":{\"sessionId\":\"session-61cfb1f3-204c-49ee-be76-0b7075cc91fe\"}}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"0949d2c7-0b40-4e2d-8f7e-e3203af2661a\",\"result\":{\"ok\":true,\"value\":{\"skills\":[{\"name\":\"diagram-design\",\"description\":\"Create branded architecture, IT current-state, flowchart, sequence, state machine, ER/data model, timeline, swimlane, quadrant, radar/spider, loop/flywheel, nested, tree, org chart, layer stack, Venn, pyramid/funnel, bar, line, Gantt and scatter charts, high-level, process, medallion, data flow, DP integration, or DP security matrix diagrams as standalone HTML/SVG/PNG. Redraw .drawio/.drawio.png/.drawio.svg or Mermaid .mmd sources at a chosen size/detail; onboard brand tokens from a website; add semantic patterns, callouts, accessible motion, or sketchy/hand-drawn styling.\",\"modelInvocable\":true},{\"name\":\"domain-modeling\",\"description\":\"Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a CONTEXT.md, or recording or editing an ADR.\",\"modelInvocable\":true},{\"name\":\"gemini-deep-research\",\"description\":\"Invoke Gemini Deep Research via Google's Interactions API. Requires an HTTP forward proxy to bypass geo-fencing. Use when the user asks to run Gemini Deep Research, use Google's Interactions API, or conduct automated web research through Gemini.\",\"modelInvocable\":true},{\"name\":\"grilling\",\"description\":\"Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.\",\"modelInvocable\":true},{\"name\":\"herdr\",\"description\":\"Control Herdr, a terminal multiplexer for coding agents. Use only when the user explicitly mentions Herdr or asks to use Herdr to inspect or control panes, tabs, workspaces, commands, or another agent. Do not use merely because a task could benefit from a background terminal, delegation, or parallel work. Requires HERDR_ENV=1.\",\"modelInvocable\":true},{\"name\":\"manual-a2a-communication\",\"description\":\"The sole entry point for agent-to-agent communication. Talking to a"
+ },
+ "/api/llm/listProviders": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"2e96744b-0180-4d5e-b28c-0789565ee5c9\",\"method\":\"llm/listProviders\",\"payload\":{\"args\":{}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"2e96744b-0180-4d5e-b28c-0789565ee5c9\",\"result\":{\"ok\":true,\"value\":[{\"id\":\"deepseek-official\",\"name\":\"DeepSeek\"}]}}"
+ },
+ "/api/llm/listConfigurableProviders": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"78a2efbe-8ad9-4801-b85f-7697d3fd4d80\",\"method\":\"llm/listConfigurableProviders\",\"payload\":{\"args\":{}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"78a2efbe-8ad9-4801-b85f-7697d3fd4d80\",\"result\":{\"ok\":true,\"value\":[{\"provider\":\"deepseek-official\",\"displayName\":\"DeepSeek\",\"settingsNs\":\"llm-deepseek\",\"settingsPath\":[]},{\"provider\":\"amazon-bedrock\",\"displayName\":\"amazon-bedrock\",\"settingsNs\":\"llm-pi-ai\",\"settingsPath\":[\"providers\",\"amazon-bedrock\"],\"declared\":false},{\"provider\":\"ant-ling\",\"displayName\":\"ant-ling\",\"settingsNs\":\"llm-pi-ai\",\"settingsPath\":[\"providers\",\"ant-ling\"],\"declared\":false},{\"provider\":\"anthropic\",\"displayName\":\"anthropic\",\"settingsNs\":\"llm-pi-ai\",\"settingsPath\":[\"providers\",\"anthropic\"],\"declared\":false},{\"provider\":\"azure-openai-responses\",\"displayName\":\"azure-openai-responses\",\"settingsNs\":\"llm-pi-ai\",\"settingsPath\":[\"providers\",\"azure-openai-responses\"],\"declared\":false},{\"provider\":\"baseten\",\"displayName\":\"baseten\",\"settingsNs\":\"llm-pi-ai\",\"settingsPath\":[\"providers\",\"baseten\"],\"declared\":false},{\"provider\":\"cerebras\",\"displayName\":\"cerebras\",\"settingsNs\":\"llm-pi-ai\",\"settingsPath\":[\"providers\",\"cerebras\"],\"declared\":false},{\"provider\":\"cloudflare-ai-gateway\",\"displayName\":\"cloudflare-ai-gateway\",\"settingsNs\":\"llm-pi-ai\",\"settingsPath\":[\"providers\",\"cloudflare-ai-gateway\"],\"declared\":false},{\"provider\":\"cloudflare-workers-ai\",\"displayName\":\"cloudflare-workers-ai\",\"settingsNs\":\"llm-pi-ai\",\"settingsPath\":[\"providers\",\"cloudflare-workers-ai\"],\"declared\":false},{\"provider\":\"deepseek\",\"displayName\":\"deepseek\",\"settingsNs\":\"llm-pi-ai\",\"settingsPath\":[\"providers\",\"deepseek\"],\"declared\":false},{\"provider\":\"fireworks\",\"displayName\":\"fireworks\",\"settingsNs\":\"llm-pi-ai\",\"settingsPath\":[\"providers\",\"fireworks\"],\"declared\":false},{\"provider\":\"github-copilot\",\"displayName\":\"github-copilot\",\"settingsNs\":\"llm-pi-ai\",\"settingsPath\":[\"providers\",\"github-copilot\"],\"declared\":false},{\"provider\":\"google\",\"displayName\":\"google\",\"settingsNs\":\"llm-pi-ai\",\"settingsPath\":[\"providers\",\"google\"],\"declared\":false},{\"provider\":\"google-vertex\",\"displayName\":\"google-vertex\",\"settingsNs"
+ },
+ "/sidebar/api/fs.tree": {
+  "phrases": [
+   "feedback+fork+export",
+   "open-session+settings",
+   "passive-boot",
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"sessionId\":\"session-61cfb1f3-204c-49ee-be76-0b7075cc91fe\",\"cwd\":\"/home/u1/workspaces/temp\",\"path\":\"/home/u1/workspaces/temp\"}",
+  "resp": "{\"ok\":true,\"value\":{\"path\":\"/home/u1/workspaces/temp\",\"entries\":[{\"name\":\".dsh_better_edit\",\"path\":\"/home/u1/workspaces/temp/.dsh_better_edit\",\"isDir\":true,\"isSymlink\":false,\"broken\":false,\"hidden\":true},{\"name\":\"new1\",\"path\":\"/home/u1/workspaces/temp/new1\",\"isDir\":true,\"isSymlink\":false,\"broken\":false,\"hidden\":false},{\"name\":\"Obsidian\",\"path\":\"/home/u1/workspaces/temp/Obsidian\",\"isDir\":true,\"isSymlink\":false,\"broken\":false,\"hidden\":false},{\"name\":\"Test2\",\"path\":\"/home/u1/workspaces/temp/Test2\",\"isDir\":true,\"isSymlink\":false,\"broken\":false,\"hidden\":false},{\"name\":\"Test3\",\"path\":\"/home/u1/workspaces/temp/Test3\",\"isDir\":true,\"isSymlink\":false,\"broken\":false,\"hidden\":false},{\"name\":\".gitnexusignore\",\"path\":\"/home/u1/workspaces/temp/.gitnexusignore\",\"isDir\":false,\"isSymlink\":false,\"broken\":false,\"hidden\":true},{\"name\":\"6125114846253617076_photo_2026-06-03_04-46-53.jpg\",\"path\":\"/home/u1/workspaces/temp/6125114846253617076_photo_2026-06-03_04-46-53.jpg\",\"isDir\":false,\"isSymlink\":false,\"broken\":false,\"hidden\":false},{\"name\":\"6125114846253617468_photo_2026-06-03_09-12-37.jpg\",\"path\":\"/home/u1/workspaces/temp/6125114846253617468_photo_2026-06-03_09-12-37.jpg\",\"isDir\":false,\"isSymlink\":false,\"broken\":false,\"hidden\":false},{\"name\":\"6125114846253617643_photo_2026-06-03_12-26-26.jpg\",\"path\":\"/home/u1/workspaces/temp/6125114846253617643_photo_2026-06-03_12-26-26.jpg\",\"isDir\":false,\"isSymlink\":false,\"broken\":false,\"hidden\":false},{\"name\":\"admin_cfg.json\",\"path\":\"/home/u1/workspaces/temp/admin_cfg.json\",\"isDir\":false,\"isSymlink\":false,\"broken\":false,\"hidden\":false},{\"name\":\"AGENTS.md\",\"path\":\"/home/u1/workspaces/temp/AGENTS.md\",\"isDir\":false,\"isSymlink\":false,\"broken\":false,\"hidden\":false},{\"name\":\"dev_v020.md\",\"path\":\"/home/u1/workspaces/temp/dev_v020.md\",\"isDir\":false,\"isSymlink\":false,\"broken\":false,\"hidden\":false},{\"name\":\"dev_v021.md\",\"path\":\"/home/u1/workspaces/temp/dev_v021.md\",\"isDir\":false,\"isSymlink\":false,\"broken\":false,\"hidden\":false},{\"name\":\"dev_v035.md\",\"path\":\"/home"
+ },
+ "/api/session/search": {
+  "phrases": [
+   "surfaces",
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"e9c5ca7e-8fc1-4970-87bc-7f13d56b68e1\",\"method\":\"session/search\",\"payload\":{\"args\":{\"request\":{\"query\":\"hello\"}}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"e9c5ca7e-8fc1-4970-87bc-7f13d56b68e1\",\"result\":{\"ok\":false,\"error\":{\"code\":\"gateway/internal\",\"message\":\"session search failed: SessionQueryError: session search is disabled: this deployment configures the session-query index with openAt \\\"never\\\"\",\"details\":{}}}}"
+ },
+ "/api/session/prompt": {
+  "phrases": [
+   "trajectory+live-prompt+search"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"db62fa85-7af5-4ef7-a2f7-04bc30121d5d\",\"method\":\"session/prompt\",\"payload\":{\"args\":{\"request\":{\"requestId\":\"16f8164e-7939-4495-b7ca-4142463b7aa1\",\"sessionId\":\"session-61cfb1f3-204c-49ee-be76-0b7075cc91fe\",\"mode\":\"queue\",\"content\":[{\"type\":\"text\",\"text\":\"用一句话回答:1+1=? 不要调用任何工具\"}],\"clientTimeZone\":\"Asia/Hong_Kong\"}}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"db62fa85-7af5-4ef7-a2f7-04bc30121d5d\",\"result\":{\"ok\":true,\"value\":{\"accepted\":true}}}"
+ },
+ "/api/session/create": {
+  "phrases": [
+   "feedback+fork+export"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"3ea1b871-17c7-47a7-9cc5-be3a9f05a4c0\",\"method\":\"session/create\",\"payload\":{\"args\":{\"request\":{\"workspaceId\":\"4ab6e441-3d29-4253-9eed-c28899b05009\"}}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"3ea1b871-17c7-47a7-9cc5-be3a9f05a4c0\",\"result\":{\"ok\":true,\"value\":{\"sessionId\":\"session-851d54da-bffa-4c44-83db-c3991708e3ab\",\"agentPreset\":\"standard\"}}}"
+ },
+ "/api/messageFeedback/list": {
+  "phrases": [
+   "feedback+fork+export"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"e986b5a2-a309-44af-b976-69d6cda9cc13\",\"method\":\"messageFeedback/list\",\"payload\":{\"args\":{\"request\":{\"sessionId\":\"session-2547aab1-d7a3-45ce-9120-4440412c8ea2\"}}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"e986b5a2-a309-44af-b976-69d6cda9cc13\",\"result\":{\"ok\":true,\"value\":{\"ok\":true,\"value\":{\"items\":[]}}}}"
+ },
+ "/api/messageFeedback/put": {
+  "phrases": [
+   "feedback+fork+export"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"a096a4ab-09f2-4b9f-b2e3-090368753f11\",\"method\":\"messageFeedback/put\",\"payload\":{\"args\":{\"request\":{\"sessionId\":\"session-2547aab1-d7a3-45ce-9120-4440412c8ea2\",\"messageId\":\"0a66a12d-8c24-46f3-98d4-b8ea810d913f\",\"rating\":\"positive\",\"ifVersion\":null}}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"a096a4ab-09f2-4b9f-b2e3-090368753f11\",\"result\":{\"ok\":true,\"value\":{\"ok\":true,\"value\":{\"messageId\":\"0a66a12d-8c24-46f3-98d4-b8ea810d913f\",\"rating\":\"positive\",\"version\":\"38cb5996-4dee-4d32-b130-e62a4a51624b\",\"createdAt\":1788635092937,\"updatedAt\":1788635092937}}}}"
+ },
+ "/api/session/fork": {
+  "phrases": [
+   "feedback+fork+export"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"8b300a2e-6bde-40ba-8c9d-424c3cd3c747\",\"method\":\"session/fork\",\"payload\":{\"args\":{\"request\":{\"sessionId\":\"session-2547aab1-d7a3-45ce-9120-4440412c8ea2\",\"atSeq\":449}}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"8b300a2e-6bde-40ba-8c9d-424c3cd3c747\",\"result\":{\"ok\":true,\"value\":{\"sessionId\":\"session-c3c84bfe-0c1b-4127-9d6a-089f131b685f\"}}}"
+ },
+ "/api/session/rename": {
+  "phrases": [
+   "feedback+fork+export"
+  ],
+  "req": "{\"type\":\"client-request\",\"rpcId\":\"79d77af7-5243-49a0-8c99-140abc97ffed\",\"method\":\"session/rename\",\"payload\":{\"args\":{\"request\":{\"sessionId\":\"session-c3c84bfe-0c1b-4127-9d6a-089f131b685f\",\"title\":\"hihi (1)\"}}}}",
+  "resp": "{\"type\":\"server-response\",\"rpcId\":\"79d77af7-5243-49a0-8c99-140abc97ffed\",\"result\":{\"ok\":true,\"value\":{\"title\":\"hihi (1)\",\"seq\":453}}}"
+ },
+ "/api/session.export": {
+  "phrases": [
+   "feedback+fork+export"
+  ],
+  "req": null,
+  "resp": null
+ }
+}

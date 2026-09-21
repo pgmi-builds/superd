@@ -1,0 +1,56 @@
+{
+  "name": "@pgmi-builds/dsh-multi-agent-registry",
+  "version": "0.1.0",
+  "description": "Multi-slot agent factory registry for DeepSeek Harness (extends AgentRegistry; M0 transparent passthrough)",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./client": "./lib/client/index.js"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-api-session-controller"
+      ],
+      "platform": "web"
+    }
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh-home-paths": "0.1.3-alpha.2"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "build-client": "node scripts/build-client.mjs"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*",
+    "@deepseek-ai/dsh-agent": "*",
+    "@deepseek-ai/dsh-session": "*"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-agent": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-session": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "tsdown": "^0.15.12"
+  },
+  "license": "MIT",
+  "private": true
+}

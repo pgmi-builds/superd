@@ -1,0 +1,34 @@
+# @pgmi-builds/agent-omp-sdk bundle patch (multi-agent coexistence form).
+#
+# Upstream exclusive form (omp-web-sdk) disabled agent-loop / llm-deepseek /
+# llm-pi-ai / agent-presets because OMP was the ONLY agent runtime. Under the
+# multi-agent registry those rows stay MOUNTED: the native loop serves every
+# session OMP does not own (routing key `native`), so its loop, LLM routes and
+# presets must live. OMP adds its own model routes on ctx.llm alongside the
+# native ones (the selector shows the union).
+#
+# The one row that must stay disabled is the native jsonl persistence: the
+# omp-provider itself provides `sessionPersistence` (union of the Dash JSONL
+# backend + OMP's native store scan) — a superset that serves native sessions
+# too, and two providers of the same service slot would collide.
+#
+# Profile-specific values are deliberately NOT here: `webserver.port` and
+# `settings.path` belong to the user's profile patch layer;
+# `agent-default-model` is tracked dynamically by the bridge from OMP's
+# config.yml (`modelRoles.default`).
+
+# Mount the OMP provider: a Cordis Service that registers a FOREIGN agent
+# factory via ctx.agents.appendFactory('omp', …) on the multi-agent registry,
+# plus the durable-ownership claim (ownsSession) for post-restart routing.
+# The multi-agent registry patch row (id: agent-multi) must also be inserted
+# by the profile — this plugin fail-louds without it.
+# The stock jsonl row is unmounted; the omp-provider plugin itself provides
+# `sessionPersistence` (union of JSONL + OMP native store scan) — a superset
+# that serves native sessions too; two providers of one slot would collide.
+- id: session-persistence-jsonl
+  name: '@deepseek-ai/dsh-session-persistence-jsonl'   # guard: skip if upstream row changed
+  disabled: true
+
+- insert:
+    - id: omp-provider
+      name: '@pgmi-builds/agent-omp-sdk'

@@ -1,0 +1,8 @@
+# AW world (spec S4, audited form): the full web/app row set stays mounted so
+# every dependency chain activates; the listener binds an EPHEMERAL loopback
+# port (0). The global selector reaches this world through the hub's in-process
+# gateway handoff, never over HTTP.
+- id: webserver
+  config:
+    host: 127.0.0.1
+    port: 0

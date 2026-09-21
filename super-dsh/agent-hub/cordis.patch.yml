@@ -1,0 +1,12 @@
+# Mount the agent-hub host half BESIDE the upstream gateway.
+# The typert-gateway row STAYS ENABLED: disabling it also removed the
+# gateway package's client half from the browser module table (learned
+# 2026-09-10: session-controller's client requires
+# @deepseek-ai/dsh-api-gateway/client). This plugin wraps the live
+# typertGateway service's dispatchRpc instead — selector=native → upstream
+# dispatch; selector=foreign → wire-forward to that context's own /api.
+# The /api/agent-runtime selector RPC face rides along (control plane,
+# always CTX0-local).
+- insert:
+    - id: agent-hub
+      name: '@pgmi-builds/agent-hub'

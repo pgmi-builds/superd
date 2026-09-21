@@ -1,0 +1,9 @@
+# runtime / build / cache (machine-local)
+.tests/
+node_modules/
+upstream/
+.dsh_better_edit/
+.npm-cache/
+
+# SDD working notes inside the main line
+super-dsh/.superpowers/

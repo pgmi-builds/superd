@@ -1,0 +1,16 @@
+{
+  "name": "aw-codex-world-profile",
+  "private": true,
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app",
+        "@pgmi-builds/agent-adapter-codex"
+      ]
+    }
+  },
+  "dependencies": {
+    "@pgmi-builds/agent-adapter-codex": "file:/home/u1/workspaces/superd/super-dsh/agent-codex"
+  }
+}

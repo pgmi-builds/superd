@@ -1,0 +1,22 @@
+{
+  "name": "superd",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Super D (superd) — an independent bridge-layer app that maps existing local/remote agent runtimes into a unified session/event surface for the DeepSeek Harness (DSH) Web UI. Owns no runtimes and stores no conversations. This 0.1.0 is the placeholder/name-claim release: the working line lives in the monorepo under super-dsh/.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mark1kwok/superd.git"
+  },
+  "keywords": [
+    "agent",
+    "multi-agent",
+    "bridge",
+    "dsh",
+    "cordis"
+  ],
+  "files": [
+    "README.md",
+    "CONTEXT.md"
+  ]
+}

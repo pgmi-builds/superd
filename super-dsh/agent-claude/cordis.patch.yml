@@ -1,0 +1,42 @@
+# @pgmi-builds/agent-adapter-claude bundle patch (standalone web app form).
+- insert:
+    - id: claude-provider
+      name: '@pgmi-builds/agent-adapter-claude'
+
+- id: agent-loop
+  disabled: true
+- id: llm-deepseek
+  disabled: true
+- id: llm-pi-ai
+  disabled: true
+- id: agent-presets
+  disabled: true
+
+# The upstream jsonl persistence row STAYS MOUNTED: the provider owns the DSH
+# session log write channel, so list/read/replay are ordinary DSH services.
+
+# Claude has real runtime approval (canUseTool), so the preset table is the
+# 3-preset skeleton plus plan/auto/dontAsk extra tiers (src/permission.ts).
+- id: permission
+  config:
+    presets:
+      read-only:
+        sandbox: read-only
+        approval: ask
+      workspace-write:
+        sandbox: workspace-write
+        approval: ask
+      danger-full-access:
+        sandbox: danger-full-access
+        approval: never
+    defaultPreset: danger-full-access
+
+# Directory picker: pin the in-app browser (both faces) and unmount the auto
+# row — never `disabled: true` the row itself (that removes the entry point).
+- insert:
+    - id: directory-picker-browse
+      name: '@deepseek-ai/dsh-host-directory-picker-browse'
+    - id: directory-picker-browse-surface
+      name: '@deepseek-ai/dsh-client-ui-directory-picker-browse'
+- id: directory-picker
+  disabled: true

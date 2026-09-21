@@ -1,0 +1,77 @@
+# @pgmi-builds/agent-adapter-codex bundle patch (AW-E SDK line, omp-web form).
+# This file is the `dsh.bundle.patch` layer of the adapter package: when the
+# codex world profile mounts the bundle, the boot merges THIS patch — mount
+# the Codex provider plus disable the native components it replaces.
+#
+# Profile-specific values are deliberately NOT here: `webserver.port` (port
+# choice) belongs to the world/profile patch layer (the aw-codex-world
+# fixture carries the 127.0.0.1:0 listener posture).
+
+# Mount the Codex provider: a Cordis Service that registers an AgentFactory
+# on ctx.agents. The provider drives @openai/codex-sdk threads (one
+# CodexSdkClient per session) plus resume (--resume-thread); the model
+# selector is served by a Codex-backed LlmAdapter reading the codex home's
+# config.toml + model_catalog_json.
+- insert:
+    - id: codex-provider
+      name: '@pgmi-builds/agent-adapter-codex'
+
+# Codex owns the live agent transcript (the rollout JSONL); disable the
+# built-in loop so it does not double-run alongside the SDK thread.
+- id: agent-loop
+  disabled: true
+
+# The native routes register deepseek-official / pi-ai providers; the Codex
+# provider registers its own adapter (the single `codex` route) on ctx.llm.
+# Leaving them mounted would advertise native models alongside Codex's.
+- id: llm-deepseek
+  disabled: true
+- id: llm-pi-ai
+  disabled: true
+
+# Codex is single-mode: the SDK thread drives tools itself, so no Dash preset
+# composition is needed (the provider ships the fixed single-preset roster).
+- id: agent-presets
+  disabled: true
+
+# The upstream jsonl persistence row STAYS MOUNTED (2026-09-16): the provider
+# writes the DSH session log through it (create/open/append/close), so
+# list/read/replay/workspace grouping are ordinary DSH services over that log.
+# The adapter no longer provides its own persistence.
+
+# Codex has no runtime approval control — the adapter maps the preset onto
+# the launch-only --approval-mode flag (3:3 table in src/permission.ts).
+# Default to danger-full-access. Restate the full 3-preset table: a patch
+# with only defaultPreset silently drops the bundle's 3-preset table to the
+# plugin's built-in 2, breaking the 3:3 Dash<->Codex pairing.
+- id: permission
+  config:
+    presets:
+      read-only:
+        sandbox: read-only
+        approval: ask
+      workspace-write:
+        sandbox: workspace-write
+        approval: ask
+      danger-full-access:
+        sandbox: danger-full-access
+        approval: never
+    defaultPreset: danger-full-access
+
+# Directory picker: the stock `directory-picker-auto` is never a simple alias —
+# it RESOLVES the interaction once per boot and mounts BOTH faces through the
+# loader: the host backend package AND the matching CLIENT SURFACE package
+# (`dsh-client-ui-directory-picker-<kind>`). The client surface is what
+# occupies the workspace picker's directory-flow hole; with the hole empty the
+# client hides the "add workspace" entry entirely (WorkspacePicker: `flowAvailable
+# ? [ADD_WORKSPACE] : []`). NEVER just `disabled: true` this row — that removed
+# the button. Pin the in-app browser by mounting both faces of `browse`
+# ourselves (backend first: the surface's browser half drives the capability the
+# backend registers) and unmounting the auto row.
+- insert:
+    - id: directory-picker-browse
+      name: '@deepseek-ai/dsh-host-directory-picker-browse'
+    - id: directory-picker-browse-surface
+      name: '@deepseek-ai/dsh-client-ui-directory-picker-browse'
+- id: directory-picker
+  disabled: true

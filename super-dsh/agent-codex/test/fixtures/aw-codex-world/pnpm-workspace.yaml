@@ -1,0 +1,4 @@
+# hoisted profile layout (same as the omp world fixture): deps resolve flat in
+# the profile tree; @deepseek-ai/* come from the heal fallback farm, not pnpm.
+nodeLinker: hoisted
+autoInstallPeers: false

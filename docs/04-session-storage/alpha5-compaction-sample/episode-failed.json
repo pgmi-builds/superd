@@ -1,0 +1,46 @@
+[
+ {
+  "type": "command/run",
+  "seq": 109249,
+  "time": 1788377757589,
+  "data": {
+   "commandId": "cmd-32ef6997-2",
+   "name": "compact",
+   "args": "",
+   "source": {
+    "kind": "user"
+   }
+  }
+ },
+ {
+  "type": "compaction/start",
+  "seq": 109250,
+  "time": 1788377757596,
+  "data": {
+   "compactionId": "7375c762-8e2c-45ea-b14d-947c6986c1a3",
+   "sourceCommandId": "cmd-32ef6997-2",
+   "turn": null
+  }
+ },
+ {
+  "type": "compaction/end",
+  "seq": 109251,
+  "time": 1788377783043,
+  "data": {
+   "compactionId": "7375c762-8e2c-45ea-b14d-947c6986c1a3",
+   "sourceCommandId": "cmd-32ef6997-2",
+   "turn": null,
+   "error": "summary is not smaller than the shadowed content (2470 estimated framed tokens >= 2463)"
+  }
+ },
+ {
+  "type": "command/done",
+  "seq": 109252,
+  "time": 1788377783048,
+  "data": {
+   "commandId": "cmd-32ef6997-2",
+   "kind": "error",
+   "text": "Compaction could not produce a useful summary. The conversation is unchanged; the attempt is recorded in the session log."
+  }
+ }
+]

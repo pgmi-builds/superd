@@ -1,0 +1,12 @@
+# AW-E world (spec S4, audited form — same posture as the omp world): keep the
+# full web/app row set so every dependency chain activates; bind the world's
+# listener to an EPHEMERAL loopback port (0) — loopback-only, never
+# user-facing, never 0.0.0.0. True zero-listener surgery (webRuntime shim) is
+# the shared AW-B follow-up recorded in the hub audit (2026-09-15 finding).
+# The provider rows (codex-provider insert + native-row disables + permission
+# table) are the ADAPTER BUNDLE's own patch (agent-codex/cordis.patch.yml,
+# Task 7) — the world profile patch carries only the listener posture.
+- id: webserver
+  config:
+    host: 127.0.0.1
+    port: 0
