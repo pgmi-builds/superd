@@ -1,12 +1,20 @@
 {
   "name": "@pgmi-builds/agent-adapter-claude",
-  "version": "0.0.1-aw",
+  "version": "0.1.0",
   "description": "Claude Code provider for DeepSeek Harness (dsh) — an AgentFactory that bridges the host Claude Code CLI through the official @anthropic-ai/claude-agent-sdk into the Dash Agent/Session contracts (Agent Worlds, standalone form).",
   "type": "module",
-  "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
     "./world": "./dist/world-plugin.js"
+  },
+  "files": [
+    "dist",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -14,10 +22,6 @@
   },
   "dependencies": {
     "@anthropic-ai/claude-agent-sdk": "0.3.263"
-  },
-  "devDependencies": {
-    "@types/node": "^26.2.0",
-    "typescript": "^5.6.0"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
@@ -55,17 +59,15 @@
       "optional": true
     }
   },
-  "files": [
-    "dist",
-    "cordis.patch.yml"
-  ],
-  "dsh": {
-    "bundle": {
-      "patch": "./cordis.patch.yml"
-    }
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "typescript": "^5.6.0"
   },
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
+  "main": "dist/index.js",
   "engines": {
     "node": ">=22.18"
   }

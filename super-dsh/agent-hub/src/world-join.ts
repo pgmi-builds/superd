@@ -11,8 +11,9 @@
  *   1. roster membership (activation IS membership, spec S2);
  *   2. ctx0 publishes the host mount (real webServer instance) before spawn;
  *   3. `spawnWorld` boots the sibling ROOT from the world's own nested home
- *      (`<home>/agents/<key>/profiles/web` — provisioned by the line
- *      bootstrap; the joiner never writes a profile), with the world mount
+ *      (`<home>/agents/<key>/profiles/web` — provisioned here via
+ *      `provisionWorldProfile`, or by the line bootstrap when the adapter
+ *      package is not resolvable from this module), with the world mount
  *      patches (no listener, virtual webServer);
  *   4. the world's gateway becomes a foreign target; the carrier answers
  *      `/<key>/api` + `/<key>/api/remote.mux` in ctx0's auth domain.
@@ -20,14 +21,16 @@
  * Cordis identifies a plugin by its module, so ONE joiner row per tree — a
  * second joined world needs either its own adapter-side plugin (omp/codex
  * shape) or this plugin promoted to per-row instances. The world's PROFILE
- * (bundles incl. its adapter) is the line bootstrap's responsibility; this
- * row only spawns, registers and mounts what that profile composes.
+ * (bundles incl. its adapter) is provisioned by `provisionWorldProfile`
+ * (registry installs) or the line bootstrap (dev); this row only spawns,
+ * registers and mounts what that profile composes.
  */
 import { mkdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { registerAgent, setReady } from './roster.js'
 import { registerForeignTarget } from './targets.js'
 import { spawnWorld } from './spawn-world.js'
+import { provisionWorldProfile } from './world-provision.js'
 import { registerHostMount } from './world-host.js'
 import { mountWorld } from './carrier.js'
 import { worldMountPatches } from './world-mount.js'
@@ -66,6 +69,16 @@ export function apply(ctx: HostContext, config?: Partial<Config>): void {
   const root = process.env.DSH_HOME ?? join(process.cwd(), '.tests', 'aw')
   const worldHome = join(root, 'agents', key)
   mkdirSync(join(worldHome, 'profiles'), { recursive: true })
+  // Publish story: a foreign install has no line bootstrap, so the nested
+  // profile + @pgmi-builds links are provisioned HERE (idempotent; dev lines
+  // keep parity — smoke.mjs wrote the same layout, and AW_BARE_BASE still
+  // overrides the resolved base).
+  const bareBase = provisionWorldProfile({
+    callerUrl: import.meta.url,
+    key,
+    adapterPkg: '@pgmi-builds/agent-adapter-claude',
+    worldHome,
+  })
   const world = (async () => {
     // Wait for ctx0's listening stack: the mount needs the real webServer and
     // the browser-trust fence from the live connection service.
@@ -91,8 +104,9 @@ export function apply(ctx: HostContext, config?: Partial<Config>): void {
       dataHome: worldHome,
       // Adapter-local bundle names resolve from the profile's own
       // node_modules (heal owns @deepseek-ai there; @pgmi-builds links are
-      // provisioned by the line bootstrap/test setup).
-      bareModuleBaseUrl: process.env.AW_BARE_BASE,
+      // provisioned by provisionWorldProfile above, or by the line bootstrap
+      // when the adapter package was not resolvable — env wins over both).
+      bareModuleBaseUrl: process.env.AW_BARE_BASE ?? bareBase ?? undefined,
       extraPatches: worldMountPatches(key) as never,
     })
     const gateway = ctxW.get('typertGateway') as never

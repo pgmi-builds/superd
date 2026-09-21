@@ -16,7 +16,7 @@ import { mkdirSync } from 'node:fs'
 import { join } from 'node:path'
 import {
   spawnWorld, registerAgent, setReady, registerForeignTarget,
-  registerHostMount, mountWorld, worldMountPatches,
+  registerHostMount, mountWorld, worldMountPatches, provisionWorldProfile,
 } from '@pgmi-builds/agent-hub'
 
 export const name = 'aw.agent-adapter-omp'
@@ -43,6 +43,16 @@ export function apply(ctx: HostContext): void {
   // the same root (adapter-owned app home, see AW-C0).
   const worldHome = join(root, 'agents', KEY)
   mkdirSync(join(worldHome, 'profiles'), { recursive: true })
+  // Publish story: a foreign install has no line bootstrap, so the nested
+  // profile + @pgmi-builds links are provisioned HERE (idempotent; dev lines
+  // keep parity — smoke.mjs wrote the same layout, and AW_BARE_BASE still
+  // overrides the resolved base).
+  const bareBase = provisionWorldProfile({
+    callerUrl: import.meta.url,
+    key: KEY,
+    adapterPkg: '@pgmi-builds/agent-adapter-omp',
+    worldHome,
+  })
   const world = (async () => {
     // Wait for ctx0's listening stack: the mount needs the real webServer and
     // the browser-trust fence from the live connection service.
@@ -67,8 +77,9 @@ export function apply(ctx: HostContext): void {
       dataHome: worldHome,
       // Adapter-local bundle names resolve from the profile's own
       // node_modules (heal owns @deepseek-ai there; @pgmi-builds links are
-      // provisioned by the line bootstrap/test setup).
-      bareModuleBaseUrl: process.env.AW_BARE_BASE,
+      // provisioned by provisionWorldProfile above, or by the line bootstrap
+      // when the adapter package was not resolvable — env wins over both).
+      bareModuleBaseUrl: process.env.AW_BARE_BASE ?? bareBase ?? undefined,
       extraPatches: worldMountPatches(KEY) as never,
     })
     const gateway = ctxW.get('typertGateway') as never

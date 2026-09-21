@@ -1,12 +1,21 @@
 {
   "name": "@pgmi-builds/agent-adapter-codex",
-  "version": "0.0.1-aw",
-  "description": "Codex provider for DeepSeek Harness (dsh) \u2014 an AgentFactory that embeds Codex CLI via the @openai/codex-sdk and bridges Codex's session surface into Dash Agent/Session contracts (Agent Worlds AW-E, SDK line).",
+  "version": "0.1.0",
+  "description": "Codex provider for DeepSeek Harness (dsh) — an AgentFactory that embeds Codex CLI via the @openai/codex-sdk and bridges Codex's session surface into Dash Agent/Session contracts (Agent Worlds AW-E, SDK line).",
   "type": "module",
-  "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
     "./world": "./dist/world-plugin.js"
+  },
+  "files": [
+    "dist",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -17,10 +26,6 @@
     "@openai/codex-sdk": "0.154.0",
     "@pgmi-builds/agent-hub": "file:../agent-hub",
     "zod": "3.25.76"
-  },
-  "devDependencies": {
-    "@types/node": "^26.2.0",
-    "typescript": "^5.6.0"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
@@ -58,18 +63,15 @@
       "optional": true
     }
   },
-  "files": [
-    "dist",
-    "cordis.patch.yml",
-    "README.md"
-  ],
-  "dsh": {
-    "bundle": {
-      "patch": "./cordis.patch.yml"
-    }
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "typescript": "^5.6.0"
   },
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
+  "main": "dist/index.js",
   "engines": {
     "node": ">=22.18"
   }

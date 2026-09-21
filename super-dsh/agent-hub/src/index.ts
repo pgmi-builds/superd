@@ -13,6 +13,7 @@ export { handleAgentRuntime, registerSelectorRpc, AGENT_RUNTIME_RPC_PATH, regist
 export { registerForeignTarget, unregisterForeignTarget, getTarget, listRuntimeKeys, type ForeignTarget, type GatewayFace } from './targets.js'
 export { registerAgent, unregisterAgent, setReady, listAgents, onRosterChanged, type RosterEntry } from './roster.js'
 export { spawnWorld, type SpawnWorldOptions } from './spawn-world.js'
+export { provisionWorldProfile, type ProvisionWorldOptions } from './world-provision.js'
 export { claimLabel, labelOf, releaseLabel, listLabels, type LabelClaim, type ClaimOptions } from './labels.js'
 export { WorldWebServer, stripLabelFromUrl, type WorldWebRoute, type WorldWebUpgradeRoute, type RealWebServerFace } from './world-web-server.js'
 export { parseClientRequest, serverResponse, serverError, serverResult, wireErrorOf, EnvelopeError, type ClientRequestEnvelope, type WireError } from './envelope.js'

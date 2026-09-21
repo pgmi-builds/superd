@@ -1,13 +1,30 @@
 {
   "name": "@pgmi-builds/agent-adapter-hermes",
-  "version": "0.0.1-aw",
+  "version": "0.1.0",
   "description": "Hermes provider for DeepSeek Harness (dsh) — an AgentFactory that embeds Nous Research Hermes Agent via the TUI gateway JSON-RPC (python -m tui_gateway.entry) and bridges its session surface into Dash Agent/Session contracts (Agent Worlds AW-H).",
   "type": "module",
-  "main": "dist/index.js",
-  "exports": { ".": "./dist/index.js", "./world": "./dist/world-plugin.js" },
-  "scripts": { "build": "tsc -p tsconfig.json", "test": "node --test test/*.test.mjs" },
-  "dependencies": { "@pgmi-builds/agent-hub": "file:../agent-hub", "zod": "3.25.76" },
-  "devDependencies": { "@types/node": "^26.2.0", "typescript": "^5.6.0" },
+  "exports": {
+    ".": "./dist/index.js",
+    "./world": "./dist/world-plugin.js"
+  },
+  "files": [
+    "dist",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@pgmi-builds/agent-hub": "file:../agent-hub",
+    "zod": "3.25.76"
+  },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
     "@deepseek-ai/dsh-agent": "0.1.5-rc.2",
@@ -44,9 +61,16 @@
       "optional": true
     }
   },
-  "files": ["dist", "cordis.patch.yml", "README.md"],
-  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } },
-  "private": true,
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "typescript": "^5.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
-  "engines": { "node": ">=22.18" }
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=22.18"
+  }
 }

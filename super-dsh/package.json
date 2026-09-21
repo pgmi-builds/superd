@@ -1,0 +1,74 @@
+{
+  "name": "super-dsh",
+  "version": "0.1.0",
+  "description": "Agent Worlds for the DeepSeek Harness (DSH) — one dsh plugin that mounts the agent hub (runtime selector, roster, per-runtime worlds) and joins local foreign-agent runtimes (OMP, Codex, Claude, Pi, Hermes, Antigravity) into the DSH Web UI. Each runtime keeps its native home and session store; the hub only bridges.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pgmi-builds/superd.git"
+  },
+  "exports": {
+    "./client": "./client.js"
+  },
+  "files": [
+    "cordis.patch.yml",
+    "client.js",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-slots"
+      ],
+      "platform": "web"
+    }
+  },
+  "dependencies": {
+    "@pgmi-builds/agent-hub": "0.1.0",
+    "@pgmi-builds/agent-adapter-agy": "0.1.0",
+    "@pgmi-builds/agent-adapter-claude": "0.1.0",
+    "@pgmi-builds/agent-adapter-codex": "0.1.0",
+    "@pgmi-builds/agent-adapter-hermes": "0.1.0",
+    "@pgmi-builds/agent-adapter-omp": "0.1.0",
+    "@pgmi-builds/agent-adapter-pi": "0.1.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-agent": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-agent-presets": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-api-gateway": "*",
+    "@deepseek-ai/dsh-commands": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-home-paths": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-host-webserver": "*",
+    "@deepseek-ai/dsh-llm": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-scope": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-session": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-session-persistence": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-typert-protocol": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-user-approval": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-user-questions": "0.1.5-rc.2"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": { "optional": true },
+    "@deepseek-ai/dsh-agent": { "optional": true },
+    "@deepseek-ai/dsh-agent-presets": { "optional": true },
+    "@deepseek-ai/dsh-api-gateway": { "optional": true },
+    "@deepseek-ai/dsh-commands": { "optional": true },
+    "@deepseek-ai/dsh-home-paths": { "optional": true },
+    "@deepseek-ai/dsh-host-webserver": { "optional": true },
+    "@deepseek-ai/dsh-llm": { "optional": true },
+    "@deepseek-ai/dsh-scope": { "optional": true },
+    "@deepseek-ai/dsh-session": { "optional": true },
+    "@deepseek-ai/dsh-session-persistence": { "optional": true },
+    "@deepseek-ai/dsh-typert-protocol": { "optional": true },
+    "@deepseek-ai/dsh-user-approval": { "optional": true },
+    "@deepseek-ai/dsh-user-questions": { "optional": true }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

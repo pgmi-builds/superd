@@ -1,0 +1,41 @@
+# super-dsh — the Agent Worlds composite bundle (one `dsh plugin add` face).
+#
+# Composes the whole line onto the host profile, smoke.mjs ctx0 parity:
+#   - the hub (selector + roster + per-world mount carrier + V5 gateway
+#     delegation — wraps the live typertGateway, upstream dispatch untouched);
+#   - one world plugin per adapter (activation IS roster membership, S2) —
+#     each spawns its own zero-port sibling root and mounts under `/<label>`;
+#   - the generic hub joiner for the claude adapter (ships standalone, R2);
+#   - the directory-picker browse pair + auto picker off (the line's server
+#     posture: no DISPLAY/zenity dependency on the host machine).
+#
+# Per-guidelines (docs/06 §二.5): these insert rows are the plugin page's
+# "Components" lines; profile-layer values (webserver port/host, settings
+# path) stay in the USER's profile patch, never here.
+- insert:
+    - id: agent-hub
+      name: '@pgmi-builds/agent-hub'
+    - id: aw-agent-adapter-omp
+      name: '@pgmi-builds/agent-adapter-omp/world'
+    - id: aw-agent-adapter-codex
+      name: '@pgmi-builds/agent-adapter-codex/world'
+    - id: aw-agent-adapter-pi
+      name: '@pgmi-builds/agent-adapter-pi/world'
+    - id: aw-agent-adapter-hermes
+      name: '@pgmi-builds/agent-adapter-hermes/world'
+    - id: aw-agent-adapter-agy
+      name: '@pgmi-builds/agent-adapter-agy/world'
+    # R2 (2026-09-16): the claude adapter ships STANDALONE only — its /world
+    # entry is inert. The HUB side joins it: one generic joiner row with the
+    # key; spawn/roster/mount wiring lives in @pgmi-builds/agent-hub/join.
+    - id: aw-world-join-claude
+      name: '@pgmi-builds/agent-hub/join'
+      config:
+        key: claude
+        label: Claude
+    - id: directory-picker-browse
+      name: '@deepseek-ai/dsh-host-directory-picker-browse'
+    - id: directory-picker-browse-surface
+      name: '@deepseek-ai/dsh-client-ui-directory-picker-browse'
+- id: directory-picker
+  disabled: true

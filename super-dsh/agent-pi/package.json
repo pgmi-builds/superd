@@ -1,12 +1,21 @@
 {
   "name": "@pgmi-builds/agent-adapter-pi",
-  "version": "0.0.1-aw",
+  "version": "0.1.0",
   "description": "Pi provider for DeepSeek Harness (dsh) — an AgentFactory that embeds the pi coding agent in-process via the @earendil-works/pi-coding-agent SDK and bridges pi's session surface into Dash Agent/Session contracts (Agent Worlds AW-F). pi keeps its native data home ~/.pi (2026-09-17 ruling).",
   "type": "module",
-  "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
     "./world": "./dist/world-plugin.js"
+  },
+  "files": [
+    "dist",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -16,10 +25,6 @@
     "@earendil-works/pi-coding-agent": "0.84.2",
     "@pgmi-builds/agent-hub": "file:../agent-hub",
     "zod": "3.25.76"
-  },
-  "devDependencies": {
-    "@types/node": "^26.2.0",
-    "typescript": "^5.6.0"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
@@ -57,18 +62,15 @@
       "optional": true
     }
   },
-  "files": [
-    "dist",
-    "cordis.patch.yml",
-    "README.md"
-  ],
-  "dsh": {
-    "bundle": {
-      "patch": "./cordis.patch.yml"
-    }
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "typescript": "^5.6.0"
   },
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
+  "main": "dist/index.js",
   "engines": {
     "node": ">=22.18"
   }
