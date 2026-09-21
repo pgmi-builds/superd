@@ -165,3 +165,37 @@ systemctl --user restart dsh.service
 副作用提示：`super-dsh@0.1.0`（多包废案）若已被 pnpm 半安装，先
 `dsh plugin --profile web remove super-dsh` 或手动清 `profiles/web/package.json` 里
 super-dsh 条目 + `pnpm install` 再加 0.1.1。
+
+## 八、0.1.2 热修（同日；dev3 重启后站点不可达的疑因 + 加固）
+
+dev3 装 0.1.1 成功（`+ super-dsh 0.1.1`，pnpm 警告仅 peer 提示）但重启 dsh 后
+`dsh.dev3` 不可达 —— 服务在 boot 阶段死亡。0.1.1 有一处**会在消费环境杀死整个 boot** 的
+线内缺陷：
+
+- 六个 spawn 位点以 `process.env.DSH_HOME ?? join(process.cwd(), '.tests', 'aw')` 推导
+  world 根。消费机没有 `DSH_HOME` env（harness 从不导出），cwd 也不是仓库根 —— 轻则把
+  world 建到垃圾树，重则 `mkdirSync`/provision 在 `apply()` 内抛出 → loader entry apply
+  失败 → **整个宿主 boot 失败**（omp AGENTS §五 早有同款坑记录，此处漏防）。
+
+**0.1.2 修正**：
+
+1. world 根改 `resolveDshHome()`（`@deepseek-ai/dsh-home-paths`，显式 > `$DSH_HOME` >
+   `~/.dsh`）——dev 线 env 行为不变，消费机正确落到 `~/.dsh/agents/<label>`。
+2. **世界失败永不下毒宿主树**：`provisionWorldProfile` 改为从不抛出（内部 try/catch →
+   null）；每个 spawn 位点的 world promise 挂 `.catch`（记日志 + 解析 null）——任何
+   world 失败只降级为 roster not-ready，不再 fail 整个 loader entry。
+3. 补 `@modelcontextprotocol/sdk@^1.29.0` 进 dependencies（claude-agent-sdk 与
+   @google/genai 的共同 peer，dev3 警告消音）。
+
+**0.1.2 tarball 重验**（同验收拓扑）：active / LISTEN 4996 / 0 错误 / 6/6 mount 200 /
+token 303、裸 401。
+
+**dev3 重试**：
+
+```bash
+dsh plugin --profile web add super-dsh@0.1.2
+systemctl --user restart dsh.service
+```
+
+若站点仍不可达，取 `journalctl --user -u dsh.service -n 80`（或对应 unit 日志）回传——
+0.1.2 起任何 world 失败只会在日志里记一行 `[super-dsh] <key> world failed:`，宿主照常起。

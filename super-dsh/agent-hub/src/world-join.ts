@@ -26,6 +26,7 @@
  * registers and mounts what that profile composes.
  */
 import { mkdirSync } from 'node:fs'
+import { resolveDshHome } from '@deepseek-ai/dsh-home-paths'
 import { join } from 'node:path'
 import { registerAgent, setReady } from './roster.js'
 import { registerForeignTarget } from './targets.js'
@@ -66,7 +67,10 @@ export function apply(ctx: HostContext, config?: Partial<Config>): void {
   // S7 nested home: the world's whole tree lives under `agents/<key>` (its
   // profiles were provisioned there by the line bootstrap; DSH data lands
   // inside the same root via spawnWorld's dataHome override).
-  const root = process.env.DSH_HOME ?? join(process.cwd(), '.tests', 'aw')
+  // Harness resolver (env → ~/.dsh): a consumer install has no DSH_HOME and
+  // no cwd contract — deriving the world root from cwd spawns worlds into a
+  // garbage tree or throws inside apply() and kills the whole host boot.
+  const root = resolveDshHome()
   const worldHome = join(root, 'agents', key)
   mkdirSync(join(worldHome, 'profiles'), { recursive: true })
   // Publish story: a foreign install has no line bootstrap, so the nested
@@ -123,7 +127,12 @@ export function apply(ctx: HostContext, config?: Partial<Config>): void {
       dropHostMount()
     }, `aw.world.join: ${key} mount`)
     return ctxW
-  })()
+  })().catch((cause: unknown) => {
+    // A failed world degrades to a not-ready roster row; a rejected provided
+    // promise would fail the entire host boot (loader entry apply).
+    console.error(`[super-dsh] ${key} world failed:`, cause)
+    return null
+  })
   ctx.provide(`aw.world.${key}`, world)
 }
 

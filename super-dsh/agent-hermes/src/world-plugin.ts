@@ -15,6 +15,7 @@
  *      ctx0's auth domain and dispatches into this world's gateway instance.
  */
 import { mkdirSync } from 'node:fs'
+import { resolveDshHome } from '@deepseek-ai/dsh-home-paths'
 import { join } from 'node:path'
 import {
   spawnWorld, registerAgent, setReady, registerForeignTarget,
@@ -38,7 +39,10 @@ interface HostContext {
 
 export function apply(ctx: HostContext): void {
   registerAgent({ key: KEY, label: 'Hermes', ready: false })
-  const root = process.env.DSH_HOME ?? join(process.cwd(), '.tests', 'aw')
+  // Harness resolver (env → ~/.dsh): a consumer install has no DSH_HOME and
+  // no cwd contract — deriving the world root from cwd spawns worlds into a
+  // garbage tree or throws inside apply() and kills the whole host boot.
+  const root = resolveDshHome()
   // S7 nested home: every runtime owns one root under `agents/<label>`; this
   // directory is the WORLD's DSH home (spawnWorld home/dataHome) — DSH-side
   // world data (sessions / settings / workspaces) and the adapter's identity
@@ -101,6 +105,11 @@ export function apply(ctx: HostContext): void {
       dropHostMount()
     }, `aw.agent-adapter-${KEY}: mount`)
     return ctxW
-  })()
+  })().catch((cause: unknown) => {
+    // A failed world degrades to a not-ready roster row; a rejected provided
+    // promise would fail the entire host boot (loader entry apply).
+    console.error(`[super-dsh] ${KEY} world failed:`, cause)
+    return null
+  })
   ctx.provide(`aw.world.${KEY}`, world)
 }

@@ -58,8 +58,21 @@ export interface ProvisionWorldOptions {
  * Provision one world's nested profile (idempotent: rewrites profile files,
  * re-links packages — lstat-safe against dangling links). Returns the
  * `bareModuleBaseUrl` for {@link spawnWorld}, or null when unresolvable.
+ *
+ * Never throws: any provisioning failure is logged and returns null so the
+ * calling world plugin degrades to a not-ready roster row instead of failing
+ * the loader entry — a failed apply would take down the whole host boot.
  */
 export function provisionWorldProfile(opts: ProvisionWorldOptions): string | null {
+  try {
+    return provisionWorldProfileUnchecked(opts)
+  } catch (cause) {
+    console.error(`[super-dsh] provisioning world '${opts.key}' failed:`, cause)
+    return null
+  }
+}
+
+function provisionWorldProfileUnchecked(opts: ProvisionWorldOptions): string | null {
   // Single-pack topology: this module lives at `<line>/agent-hub/dist/`, and
   // every adapter is a SIBLING directory (`<line>/agent-<key>`) — the same
   // layout in the repo (dev link: lines) and inside the published `super-dsh`
