@@ -1,11 +1,18 @@
-# superd@0.1.0 — name-claim release report (2026-09-22)
+# @pgmi-builds/superd@0.1.0 — name-claim release report (2026-09-22)
 
 ## What shipped
 
-- npm package **`superd@0.1.0`** (unscoped, registry default access `latest`).
+- npm package **`@pgmi-builds/superd@0.1.0`** (scoped, public access, tag `latest`).
 - Contents: `README.md`, `CONTEXT.md`, `package.json` only (~3.5 kB tarball) — a
   placeholder / name-claim release; no runtime code ships yet. The working line
   lives in the monorepo under `super-dsh/`.
+
+## Naming note (user ruling 2026-09-22)
+
+Unscoped `superd` is blocked by npm's typosquat rule (name-similarity with the
+existing dormant `super-d`, 2022): npm treats `-` as insignificant, so the spelling
+is permanently reserved — no self-serve override. User ruled **no claim attempt**;
+the scoped `@pgmi-builds/superd` is the shipped name.
 
 ## Gate check (AGENTS.md §〇)
 
