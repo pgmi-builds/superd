@@ -1,0 +1,1 @@
+# npm-pack allowlist comes from files; empty .npmignore overrides .gitignore so embedded builds ship.

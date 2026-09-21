@@ -22,31 +22,28 @@
  *     for the profile's bundle resolution and the inserted mount rows
  *     (`@deepseek-ai/*` is loadProfile's heal farm, not ours).
  *
- * Link identity rule: the HUB link targets the copy THIS module's own package
- * resolved (self-resolution via import.meta.url — canonical in dev repo layout
- * and in registry installs alike), and the ADAPTER link targets the copy the
- * CALLING world plugin resolved. Both equal what the spawning tree already
- * loaded, so ctx0 and every world root share one hub/adapter instance.
+ * Link identity rule: both links point INSIDE the running line tree — the hub
+ * at this module's own package root, the adapter at its sibling
+ * `agent-<key>` directory — identical in the dev repo layout and inside the
+ * published single `super-dsh` package, so ctx0 and every world root share
+ * one hub/adapter instance with zero registry involvement.
  *
  * Returns the bare module base for `spawnWorld` (`…/profiles/node_modules/`),
- * or null when the adapter package cannot be resolved from the caller — which
- * in practice means the dev line is running with an external bootstrap
- * (smoke.mjs provisioned everything already; keep its AW_BARE_BASE behavior).
+ * or null when the adapter sibling does not exist next to the hub (a foreign
+ * composition this module does not own — keep the caller's env/fallback path).
  */
 import { existsSync, lstatSync, mkdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createRequire } from 'node:module'
 
-const HUB_PKG = '@pgmi-builds/agent-hub'
 const HUB_SCOPE = '@pgmi-builds'
+const HARNESS_SCOPE = '@deepseek-ai'
 
 /** The profile bundles every world tree composes besides its adapter. */
 const WORLD_BASE_BUNDLES = ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app'] as const
 
 export interface ProvisionWorldOptions {
-  /** `import.meta.url` of the CALLING world plugin (adapter or hub join). */
-  callerUrl: string
   /** Runtime key — also the mount label and the `agents/<key>` home segment. */
   key: string
   /** The adapter's own package name (the world profile's third bundle). */
@@ -58,32 +55,20 @@ export interface ProvisionWorldOptions {
 }
 
 /**
- * Resolve a package's directory exactly as Node would from `fromUrl`.
- *
- * Walks `resolve.paths()` candidates instead of resolving
- * `<spec>/package.json`: our packages (like upstream's) do not export
- * `./package.json`, so the subpath resolve fails with
- * ERR_PACKAGE_PATH_NOT_EXPORTED even when the package is plainly there.
- */
-function resolvePackageDir(fromUrl: string, spec: string): string | undefined {
-  for (const searchPath of createRequire(fromUrl).resolve.paths(spec) ?? []) {
-    const candidate = join(searchPath, spec)
-    if (existsSync(join(candidate, 'package.json'))) return candidate
-  }
-  return undefined
-}
-
-/**
  * Provision one world's nested profile (idempotent: rewrites profile files,
  * re-links packages — lstat-safe against dangling links). Returns the
  * `bareModuleBaseUrl` for {@link spawnWorld}, or null when unresolvable.
  */
 export function provisionWorldProfile(opts: ProvisionWorldOptions): string | null {
-  const adapterDir = resolvePackageDir(opts.callerUrl, opts.adapterPkg)
-  if (adapterDir === undefined) return null
-  // Self-resolution: this module lives in the hub's own dist, so the hub
-  // package root is always reachable from here — canonical in both layouts.
-  const hubDir = dirname(fileURLToPath(import.meta.url)) // <hub>/dist
+  // Single-pack topology: this module lives at `<line>/agent-hub/dist/`, and
+  // every adapter is a SIBLING directory (`<line>/agent-<key>`) — the same
+  // layout in the repo (dev link: lines) and inside the published `super-dsh`
+  // package. The adapter link therefore points at the sibling; no registry
+  // resolution is involved anywhere.
+  const hubRoot = dirname(dirname(fileURLToPath(import.meta.url))) // <line>/agent-hub
+  const lineRoot = dirname(hubRoot) // monolith root / repo super-dsh/
+  const adapterDir = join(lineRoot, `agent-${opts.key}`)
+  if (!existsSync(join(adapterDir, 'package.json'))) return null
   const profileName = opts.profileName ?? 'web'
   const profDir = join(opts.worldHome, 'profiles', profileName)
   mkdirSync(profDir, { recursive: true })
@@ -117,17 +102,30 @@ export function provisionWorldProfile(opts: ProvisionWorldOptions): string | nul
   // bundles + the inserted mount rows). Dangling links first (lstat:
   // existsSync is false for them, which skipped rmSync and crashed
   // symlinkSync with EEXIST after repo moves).
-  const linkRoot = join(opts.worldHome, 'profiles', 'node_modules', HUB_SCOPE)
-  mkdirSync(linkRoot, { recursive: true })
+  const linkRoot = join(opts.worldHome, 'profiles', 'node_modules')
+  mkdirSync(join(linkRoot, HUB_SCOPE), { recursive: true })
   const links: ReadonlyArray<readonly [string, string]> = [
     [opts.adapterPkg.slice(HUB_SCOPE.length + 1), adapterDir],
-    ['agent-hub', hubDir],
+    ['agent-hub', hubRoot],
   ]
   for (const [name, target] of links) {
-    const dst = join(linkRoot, name)
+    const dst = join(linkRoot, HUB_SCOPE, name)
     const st = lstatSync(dst, { throwIfNoEntry: false })
     if (st) rmSync(dst, { recursive: true, force: true })
     symlinkSync(target, dst)
+  }
+  // The harness scope rides along as ONE scope-level link into the first
+  // `@deepseek-ai` directory visible from this module (the shared heal farm
+  // in a dsh home, the repo farm in dev) — every `@deepseek-ai/*` row of the
+  // world composition resolves through it without farming per package.
+  for (const searchPath of createRequire(import.meta.url).resolve.paths(`${HARNESS_SCOPE}/x`) ?? []) {
+    const scopeDir = join(searchPath, HARNESS_SCOPE)
+    if (!existsSync(scopeDir)) continue
+    const dst = join(linkRoot, HARNESS_SCOPE)
+    const st = lstatSync(dst, { throwIfNoEntry: false })
+    if (st) rmSync(dst, { recursive: true, force: true })
+    symlinkSync(scopeDir, dst)
+    break
   }
   return join(opts.worldHome, 'profiles', 'node_modules') + '/'
 }

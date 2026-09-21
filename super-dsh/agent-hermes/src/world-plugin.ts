@@ -19,7 +19,7 @@ import { join } from 'node:path'
 import {
   spawnWorld, registerAgent, setReady, registerForeignTarget,
   registerHostMount, mountWorld, worldMountPatches, provisionWorldProfile,
-} from '@pgmi-builds/agent-hub'
+} from '../../agent-hub/dist/index.js'
 
 export const name = 'aw.agent-adapter-hermes'
 
@@ -53,7 +53,6 @@ export function apply(ctx: HostContext): void {
   // keep parity — smoke.mjs wrote the same layout, and AW_BARE_BASE still
   // overrides the resolved base).
   const bareBase = provisionWorldProfile({
-    callerUrl: import.meta.url,
     key: KEY,
     adapterPkg: '@pgmi-builds/agent-adapter-hermes',
     worldHome,

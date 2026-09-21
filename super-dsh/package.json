@@ -1,6 +1,6 @@
 {
   "name": "super-dsh",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Agent Worlds for the DeepSeek Harness (DSH) — one dsh plugin that mounts the agent hub (runtime selector, roster, per-runtime worlds) and joins local foreign-agent runtimes (OMP, Codex, Claude, Pi, Hermes, Antigravity) into the DSH Web UI. Each runtime keeps its native home and session store; the hub only bridges.",
   "type": "module",
   "license": "MIT",
@@ -9,12 +9,45 @@
     "url": "git+https://github.com/pgmi-builds/superd.git"
   },
   "exports": {
-    "./client": "./client.js"
+    "./hub": "./agent-hub/dist/index.js",
+    "./join": "./agent-hub/dist/world-join.js",
+    "./world/omp": "./agent-omp/dist/world-plugin.js",
+    "./world/codex": "./agent-codex/dist/world-plugin.js",
+    "./world/claude": "./agent-claude/dist/world-plugin.js",
+    "./world/pi": "./agent-pi/dist/world-plugin.js",
+    "./world/hermes": "./agent-hermes/dist/world-plugin.js",
+    "./world/agy": "./agent-agy/dist/world-plugin.js",
+    "./client": "./agent-hub/lib/client/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
   },
   "files": [
     "cordis.patch.yml",
-    "client.js",
-    "README.md"
+    "README.md",
+    "agent-hub/dist",
+    "agent-hub/lib",
+    "agent-hub/package.json",
+    "agent-hub/cordis.patch.yml",
+    "agent-omp/dist",
+    "agent-omp/package.json",
+    "agent-omp/cordis.patch.yml",
+    "agent-omp/sidecar",
+    "agent-codex/dist",
+    "agent-codex/package.json",
+    "agent-codex/cordis.patch.yml",
+    "agent-claude/dist",
+    "agent-claude/package.json",
+    "agent-claude/cordis.patch.yml",
+    "agent-pi/dist",
+    "agent-pi/package.json",
+    "agent-pi/cordis.patch.yml",
+    "agent-hermes/dist",
+    "agent-hermes/package.json",
+    "agent-hermes/cordis.patch.yml",
+    "agent-agy/dist",
+    "agent-agy/package.json",
+    "agent-agy/cordis.patch.yml",
+    "agent-agy/bridge"
   ],
   "dsh": {
     "bundle": {
@@ -28,13 +61,14 @@
     }
   },
   "dependencies": {
-    "@pgmi-builds/agent-hub": "0.1.0",
-    "@pgmi-builds/agent-adapter-agy": "0.1.0",
-    "@pgmi-builds/agent-adapter-claude": "0.1.0",
-    "@pgmi-builds/agent-adapter-codex": "0.1.0",
-    "@pgmi-builds/agent-adapter-hermes": "0.1.0",
-    "@pgmi-builds/agent-adapter-omp": "0.1.0",
-    "@pgmi-builds/agent-adapter-pi": "0.1.0"
+    "@anthropic-ai/claude-agent-sdk": "0.3.263",
+    "@earendil-works/pi-coding-agent": "0.84.2",
+    "@oh-my-pi/pi-coding-agent": "^18.1.14",
+    "@openai/codex": "0.154.0",
+    "@openai/codex-sdk": "0.154.0",
+    "bun": "^1.4.2",
+    "ws": "^8.21.0",
+    "zod": "3.25.76"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",

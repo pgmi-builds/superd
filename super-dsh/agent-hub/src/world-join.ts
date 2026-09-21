@@ -74,7 +74,6 @@ export function apply(ctx: HostContext, config?: Partial<Config>): void {
   // keep parity — smoke.mjs wrote the same layout, and AW_BARE_BASE still
   // overrides the resolved base).
   const bareBase = provisionWorldProfile({
-    callerUrl: import.meta.url,
     key,
     adapterPkg: '@pgmi-builds/agent-adapter-claude',
     worldHome,

@@ -1,9 +1,16 @@
 # 2026-09-22 — super-dsh（Agent Worlds 线）dsh 插件化发布实测报告
 
-**发布物**：`super-dsh@0.1.0`（unscoped，dsh 插件/composition 面）+ 7 个 scoped 依赖包
-`@pgmi-builds/agent-hub@0.1.0`、`@pgmi-builds/agent-adapter-{omp,codex,claude,pi,hermes,agy}@0.1.0`。
+> **⚠ 0.1.0 作废（同日裁决）**：0.1.0 按 1+7 多包拓扑发布，违背 user 的 better-dsh 单包模型
+> （`~/workspaces/dashr/better-dsh`：一包一发、一卡、Components 内嵌可独立开关），且 4 个
+> adapter 的 `file:../agent-hub` 依赖在消费机安装即炸（ERR_PNPM_LINKED_PKG_DIR_NOT_FOUND）。
+> **修正版 = `super-dsh@0.1.1` 单包**（§七 补记）；7 个 scoped 包已停止使用，撤销需 user 侧
+> 2FA（本机 granular token 只许 publish 不许 delete）。0.1.0 版本号在 npm 上不复用。
+
+**发布物**：`super-dsh@0.1.1`（unscoped 单包，dsh 插件/composition 面，内嵌全部组件）。
+~~`@pgmi-builds/agent-*@0.1.0` ×7~~（0.1.0 已废）。
 **授权**：user 本会话明确指令「publish the `super-dsh` as super-dsh, unscoped, available, this time
-make it `super-dsh` (the ./super-dsh alone) is a dsh plugin」（三闸之放行闸；实测与报告见下）。
+make it `super-dsh` (the ./super-dsh alone) is a dsh plugin」+ 同日纠正裁决「better-dsh 模型，
+one pack」（三闸之放行闸；实测与报告见下）。
 **操作手册**：`docs/06-package-update-guidelines.md`（B 线）；红线以根 `AGENTS.md` §〇 为准。
 
 ---
@@ -97,3 +104,64 @@ bare base = `healProfilesModuleFallback` 产物 + `@pgmi-builds` 物理链接）
   4999 在役 aw 线未动。
 - hub spawn-world 测试的 home 指向、以及根占位包 `@pgmi-builds/superd` 的 repository.url
   陈旧（mark1kwok → pgmi-builds），攒入下一批。
+
+## 七、0.1.1 单包重做（同日；better-dsh 模型对齐）
+
+**user 裁决**：插件模型 = better-dsh——一包一发，webui 一张插件卡，点进去 Components
+（= 本包 cordis.patch.yml 的 insert 行）逐行独立开关（cordis hmr）。0.1.0 的 1+7 拓扑
+（scoped 依赖扇出）不符合该模型，且 adapter 残留的 `file:../agent-hub` 依赖在消费机
+pnpm 安装即炸。
+
+**单包结构（对齐 better-dsh）**：
+
+- 全部组件内嵌为 `super-dsh/` 的兄弟子目录（agent-hub/dist+lib、agent-*/dist、sidecar、
+  bridge、各子 package.json + cordis.patch.yml），`files` 允许列表封口；
+  **每个内嵌目录放空 `.npmignore`**——否则各自 `.gitignore` 的 `dist/` 规则在父包 pack 时
+  把内嵌构建产物剥掉（本次实测踩中：首包 133 文件缺 5 个 adapter 的 dist）。
+- cordis.patch.yml 的 insert 行全部**自指 subpath**（better-dsh 同款）：
+  `super-dsh/hub`、`super-dsh/world/{omp,codex,pi,hermes,agy}`、`super-dsh/join` ——
+  插件页 Components 逐行 = 这些 row，独立开关。
+- 五个 adapter world-plugin 对 hub 的 import 改相对路径
+  （`'../../agent-hub/dist/index.js'`，repo 布局与单包布局同构，两端通用）；
+  claude 的 /world 本就 inert 不动。
+- 真实运行时依赖上收为 super-dsh 的 `dependencies`（claude-agent-sdk、codex+sdk、
+  pi-coding-agent（两 scope）、bun、ws、zod）；`file:`/`link:` 依赖零残留；
+  harness 依赖照旧 optional peers，host 自供。
+- **provisioner 改兄弟推导**：hub 根 = 本模块上两级，adapter = 兄弟 `agent-<key>`，
+  world 链接 `@pgmi-builds/{adapter,hub}` → 内嵌兄弟目录 + `@deepseek-ai` 整 scope 单链接
+  → 共享 heal farm（世界树的全部裸名一行链接搞定）；零 registry 解析。
+
+**0.1.1 tarball 实测（全新 home `.tests/plugin-acc2`，单 tgz 安装，407 包）**：
+
+| 检查 | 结果 |
+|---|---|
+| 单元 / 监听 | active / LISTEN 4996 |
+| 日志错误 | 0 |
+| 认证面 | token 303 / 裸 401 |
+| world 自举 + 挂载 | 6/6 profiles 三 bundle 齐全；6/6 mount 200 |
+| 安装树 | 仅 `node_modules/super-dsh/`（内嵌 agent-*），零 @pgmi-builds 包 |
+
+**实测新增坑（已修，全在 0.1.1 里）**：
+1. 内嵌目录 `.gitignore` 在父包 pack 时剥构建产物 → 空 `.npmignore` 压制（见上）。
+2. 验收 boot 不能传 `bareModuleBaseUrl`：真 dsh 不传，裸名走 include 根旁的 ambient 链
+   （profile node_modules → 共享 farm）；传了 embedder base 反而让 `super-dsh/*` 行
+   只在 farm 里找（实测第 2 次失败根因）。
+3. 世界树裸名解析需 `@deepseek-ai` scope：provisioner 单链接指向首个可见 scope 目录
+   （dsh home = heal farm；dev = repo farm），免逐包 farming。
+
+**registry 状态**：`super-dsh@0.1.1` 已发布（`npm publish` 走同一 granular token）。
+7 个 scoped 0.1.0 的 unpublish 被拒（403：granular token bypass-2FA 不可 delete）——
+需 user 侧带 OTP 执行：
+`npm unpublish @pgmi-builds/agent-hub@0.1.0 --force --otp=<code>`（其余 6 个同理）。
+在撤销前它们是无引用死包（0.1.1 不依赖任何 scoped 包），不碍安装。
+
+**dev3 消费（重试命令）**：
+
+```bash
+dsh plugin --profile web add super-dsh@0.1.1   # 或 super-dsh@latest
+systemctl --user restart dsh.service
+```
+
+副作用提示：`super-dsh@0.1.0`（多包废案）若已被 pnpm 半安装，先
+`dsh plugin --profile web remove super-dsh` 或手动清 `profiles/web/package.json` 里
+super-dsh 条目 + `pnpm install` 再加 0.1.1。

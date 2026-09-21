@@ -1,35 +1,38 @@
 # super-dsh — the Agent Worlds composite bundle (one `dsh plugin add` face).
 #
-# Composes the whole line onto the host profile, smoke.mjs ctx0 parity:
-#   - the hub (selector + roster + per-world mount carrier + V5 gateway
-#     delegation — wraps the live typertGateway, upstream dispatch untouched);
-#   - one world plugin per adapter (activation IS roster membership, S2) —
-#     each spawns its own zero-port sibling root and mounts under `/<label>`;
-#   - the generic hub joiner for the claude adapter (ships standalone, R2);
-#   - the directory-picker browse pair + auto picker off (the line's server
-#     posture: no DISPLAY/zenity dependency on the host machine).
+# better-dsh shape: ONE package, components are this package's own subpath
+# exports, so every row below is individually toggleable on the plugin page
+# (cordis hmr; docs/06 §二.5 — insert rows = the "Components" lines).
 #
-# Per-guidelines (docs/06 §二.5): these insert rows are the plugin page's
-# "Components" lines; profile-layer values (webserver port/host, settings
-# path) stay in the USER's profile patch, never here.
+#   - super-dsh/hub            the hub: selector + roster + per-world mount
+#                              carrier + V5 gateway delegation (wraps the live
+#                              typertGateway; upstream dispatch untouched)
+#   - super-dsh/world/<label>  one world plugin per adapter (activation IS
+#                              roster membership, S2) — each spawns its own
+#                              zero-port sibling root, mounted under /<label>
+#   - super-dsh/join           the generic hub joiner for the standalone
+#                              claude adapter (R2)
+#
+# Profile-layer values (webserver port/host, settings path) stay in the USER's
+# profile patch layer, never here.
 - insert:
     - id: agent-hub
-      name: '@pgmi-builds/agent-hub'
+      name: 'super-dsh/hub'
     - id: aw-agent-adapter-omp
-      name: '@pgmi-builds/agent-adapter-omp/world'
+      name: 'super-dsh/world/omp'
     - id: aw-agent-adapter-codex
-      name: '@pgmi-builds/agent-adapter-codex/world'
+      name: 'super-dsh/world/codex'
     - id: aw-agent-adapter-pi
-      name: '@pgmi-builds/agent-adapter-pi/world'
+      name: 'super-dsh/world/pi'
     - id: aw-agent-adapter-hermes
-      name: '@pgmi-builds/agent-adapter-hermes/world'
+      name: 'super-dsh/world/hermes'
     - id: aw-agent-adapter-agy
-      name: '@pgmi-builds/agent-adapter-agy/world'
+      name: 'super-dsh/world/agy'
     # R2 (2026-09-16): the claude adapter ships STANDALONE only — its /world
     # entry is inert. The HUB side joins it: one generic joiner row with the
-    # key; spawn/roster/mount wiring lives in @pgmi-builds/agent-hub/join.
+    # key; spawn/roster/mount wiring lives in super-dsh/join.
     - id: aw-world-join-claude
-      name: '@pgmi-builds/agent-hub/join'
+      name: 'super-dsh/join'
       config:
         key: claude
         label: Claude
