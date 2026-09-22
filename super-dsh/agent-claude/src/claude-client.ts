@@ -54,6 +54,9 @@
  *   every push is queued in order and there is no separate follow-up channel.
  *   `steer` differs by pushing with `priority: "now"`.
  */
+import { existsSync } from "node:fs"
+import { homedir } from "node:os"
+import { join } from "node:path"
 import { query as officialQuery } from "@anthropic-ai/claude-agent-sdk";
 import type { CanUseTool, Options, SDKUserMessage } from "@anthropic-ai/claude-agent-sdk";
 import { InputQueue, type ClaudeInputContent } from "./input-queue.js";
@@ -95,7 +98,20 @@ const defaultFactory: ClaudeFactory = (o) =>
     options: o.options as Options,
   }) as unknown as ClaudeQueryLike;
 
-const defaultExecutableResolver = () => process.env.CLAUDE_EXECUTABLE ?? DEFAULT_CLAUDE_EXECUTABLE;
+const defaultExecutableResolver = () => process.env.CLAUDE_EXECUTABLE ?? resolveClaudeExecutable()
+
+/** PATH first, then the common native-installer locations (a service unit
+ * PATH may not include ~/.local/bin — dev3 2026-09-22: "native binary not
+ * found at claude" mid-session). */
+function resolveClaudeExecutable(): string {
+  for (const dir of (process.env.PATH ?? "").split(":").filter(Boolean)) {
+    if (existsSync(join(dir, "claude"))) return DEFAULT_CLAUDE_EXECUTABLE
+  }
+  for (const candidate of [join(homedir(), ".local/bin/claude"), "/usr/local/bin/claude"]) {
+    if (existsSync(candidate)) return candidate
+  }
+  return DEFAULT_CLAUDE_EXECUTABLE
+}
 
 let factory: ClaudeFactory = defaultFactory;
 let executableResolver = defaultExecutableResolver;

@@ -32,7 +32,7 @@
  * or null when the adapter sibling does not exist next to the hub (a foreign
  * composition this module does not own — keep the caller's env/fallback path).
  */
-import { existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, realpathSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
+import { existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, realpathSync, rmSync, statSync, symlinkSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createRequire } from 'node:module'
@@ -117,6 +117,42 @@ export function provisionWorldProfile(opts: ProvisionWorldOptions): string | nul
   }
 }
 
+
+/**
+ * A source-checkout (pnpm workspace) splits the @deepseek-ai closure across
+ * the workspace packages' OWN node_modules (apps/cli links only its direct
+ * deps; bundle/web-app carries the UI closure, bundle/base the runtimes).
+ * When the anchor sits inside a pnpm workspace, every package-level scope is
+ * a union source. Packaged installs have no pnpm-workspace.yaml and return
+ * nothing — their single install tree is already complete (dev3 evidence).
+ */
+function workspaceHarnessScopes(anchorDir: string): string[] {
+  let root: string | undefined = anchorDir
+  while (root !== undefined && !existsSync(join(root, 'pnpm-workspace.yaml'))) {
+    const parent = dirname(root)
+    root = parent === root ? undefined : parent
+  }
+  if (root === undefined) return []
+  const scopes: string[] = []
+  const collect = (base: string, depth: number): void => {
+    if (!existsSync(base)) return
+    const scope = join(base, 'node_modules', HARNESS_SCOPE)
+    if (existsSync(scope)) scopes.push(scope)
+    if (depth === 0) return
+    for (const entry of readdirSync(base)) {
+      if (entry === 'node_modules' || entry.startsWith('.')) continue
+      // Bare files under group dirs (packages/AGENTS.md — the docs/06 §2.1
+      // phantom-package trap) must not abort the whole enumeration.
+      if (!statSync(join(base, entry), { throwIfNoEntry: false })?.isDirectory()) continue
+      collect(join(base, entry), depth - 1)
+    }
+  }
+  collect(join(root, 'packages'), 2)
+  collect(join(root, 'vendor'), 1)
+  collect(join(root, 'apps'), 1)
+  return scopes
+}
+
 function provisionWorldProfileUnchecked(opts: ProvisionWorldOptions): string | null {
   // Single-pack topology: this module lives at `<line>/agent-hub/dist/`, and
   // every adapter is a SIBLING directory (`<line>/agent-<key>`) — the same
@@ -184,6 +220,7 @@ function provisionWorldProfileUnchecked(opts: ProvisionWorldOptions): string | n
   const scopeSources = [
     join(resolveDshHome(), 'profiles', 'node_modules', HARNESS_SCOPE),
     join(dirname(ANCHOR), 'node_modules', HARNESS_SCOPE),
+    ...workspaceHarnessScopes(dirname(ANCHOR)),
   ]
   const scopeDst = join(linkRoot, HARNESS_SCOPE)
   rmSync(scopeDst, { recursive: true, force: true })

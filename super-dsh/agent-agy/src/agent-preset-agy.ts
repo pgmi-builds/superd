@@ -103,6 +103,8 @@ export class SingleAgyPresetRoster extends TypertRemoteService {
         },
       ],
       authorable: this.authorable,
+      // 0.1.6 AgentPresetRoster: unnamed new sessions may pick a mode (our preset table).
+      modeSelectionEnabled: true,
     };
   }
 

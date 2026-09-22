@@ -76,7 +76,7 @@ systemd-run --user --unit="$UNIT" \
   --property=Environment="AW_TRUSTED_HOSTS=192.168.31.130,192.168.31.130:4999" \
   --property=Environment="DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}" \
   --property='UnsetEnvironment=DISPLAY WAYLAND_DISPLAY' \
-  --property=Environment="PATH=/usr/local/bin:/usr/bin:/bin" \
+  --property=Environment="PATH=$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin" \
   --property=StandardOutput=append:"$LOG" \
   --property=StandardError=append:"$LOG" \
   "$NODE_BIN" "$REPO/upstream/deepseek-harness/apps/cli/lib/bin.js" \

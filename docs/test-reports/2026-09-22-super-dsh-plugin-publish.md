@@ -302,3 +302,43 @@ tarball `corepack pnpm@10.33.2 add file:` → restart → journal world-failed �
 
 **终态**：dev3 与 4999 跑同一个 npm 产物 `super-dsh@0.1.3-d`；此后 4999 每次拉起即
 隐式验收一次交付物。
+
+## 十二、上游对齐轮：rc.2 → 0.1.6-alpha.2（2026-09-22；user 指令）
+
+**动机**：npm/本机 prod/dev3 均已 0.1.6-alpha.2，本仓 checkout 仍 rc.2——基线漂移。
+按 docs/06 §一程序执行，产物 `super-dsh@0.1.3-g`（字母道，无新 feature）。
+
+**对齐动作**：sanctioned 三补丁重放（tsdown.client.ts 直接过；unrun/storeDir 因 tag 间
+文件实质 diff 手插）；`corepack pnpm@11.7.0 install && run build` 全绿；行为 diff：
+`boot(bareModuleBaseUrl)` 语义未变、`loadProfile/healProfilesModuleFallback` 仍导出、
+`authorizeIndex/requestRejection` 签名未变。
+
+**0.1.6 破坏面（全部实机踩中后移植）**：
+
+1. **agy 编译失败**（pack.mjs 首轮即拦下——交付形态流程的红利，坏构建进不了 tarball）：
+   `agents.announce(agent)` → `announce(agent, source)`（source 必填且 async，内部发
+   `agent/created`——手动 `emitAgentEvent("agent/session-start")` 已废）；
+   `AgentPresetRoster` 新增必填 `modeSelectionEnabled`。
+2. **boot 启动审计**：0.1.6 把「部分 entry 导入失败」从警告变**硬失败**（StartupError
+   整树拒绝启动）——rc.2 时代世界带 10 个 inactive 条目照常跑的日子结束。
+3. **claude PATH 回归**（转型自伤）：unit PATH 无 `~/.local/bin` → SDK 找不到 claude
+   二进制。修：adapter 探 PATH 后回落 `~/.local/bin/claude`、`/usr/local/bin/claude`；
+   launcher PATH 补 `$HOME/.local/bin`。
+4. **checkout 基线解析事实**：`@deepseek-ai` 闭包分散在各 workspace 包自己的
+   node_modules（apps/cli 113 直挂、bundle/web-app 96、bundle/base 含 ptc-runtime 等），
+   farm ∪ apps/cli 两源不够——world scope union 增**工作区枚举源**（锚上溯
+   `pnpm-workspace.yaml` → packages/×2、vendor/×1、apps/×1 全部 scope）；枚举器首版被
+   `packages/AGENTS.md` 裸文件 ENOTDIR 炸穿（docs/06 §二.1 幻影包陷阱变体），补
+   statSync 目录守卫（0.1.3-g）。
+
+**验收（同一产物 0.1.3-g，双环境）**：
+
+| 环境 | 形态 | world-failed | 降级条目 | mounts | client 面 |
+|---|---|---|---|---|---|
+| 本地 4999 | tarball + 0.1.6 CLI | 0 | 0（0.1.3-d 时 10/世界） | 6×200 | ✓ |
+| dev3 | registry（原生 0.1.6） | 0 | — | — | — |
+
+**环境提示（dev3，user 侧一条命令）**：pnpm ignored-builds 跳过 `bun` postinstall——
+omp sidecar 的 bun 二进制未落地（journal：`[omp-sdk-sidecar] Bun's postinstall script
+was not run`）；需要 omp 世界时在 dev3 profile 目录 `corepack pnpm@10.33.2
+approve-builds` 勾选 bun（不勾则 omp 世界 not-ready，不影响其它世界）。
