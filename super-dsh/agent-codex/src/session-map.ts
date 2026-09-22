@@ -19,7 +19,6 @@
  */
 import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
-import { assertNotProdHome } from "./codex-store.js";
 
 /** One persisted DSH → Codex session pairing. */
 export interface CodexSessionRecord {
@@ -79,17 +78,15 @@ export type CodexSessionMap = Record<string, CodexSessionRecord>;
  * (`<dshHome>/agents/codex`), never the codex app home. Precedence: explicit
  * world home (boot-provided `dshHomePath`), then `$DSH_HOME` (a hub home, so
  * the world layout nests `agents/codex`), then the line's historical test-home
- * default. Prod-guarded.
+ * default.
  */
 export function resolveCodexStateDir(home?: string): string {
   if (home !== undefined) {
     const dir = resolve(home);
-    assertNotProdHome(dir, "codex state dir");
     return dir;
   }
   const fallbackHome = resolve(process.env.DSH_HOME ?? join(process.cwd(), ".tests", "aw"));
   const dir = join(fallbackHome, "agents", "codex");
-  assertNotProdHome(dir, "codex state dir");
   return dir;
 }
 

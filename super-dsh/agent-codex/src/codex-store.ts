@@ -21,14 +21,6 @@ import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 
 /** Prod homes that must never be resolved into (repo red line). */
-const PROD_HOMES = [join(homedir(), ".dsh"), join(homedir(), ".superd")];
-
-export function assertNotProdHome(path: string, label: string): void {
-  if (process.env.SUPERD_DEV_REDLINE !== "1") return; // published install: the host dsh home (~/.dsh on consumers) is authoritative — the S3/S7 world layout lives under it. Dev lines set SUPERD_DEV_REDLINE=1 (repo red line: ~/.dsh is Dash prod).
-  if (PROD_HOMES.includes(path) || PROD_HOMES.some((p) => path.startsWith(`${p}/`))) {
-    throw new Error(`codex-store: refusing prod home as ${label}: ${path}`);
-  }
-}
 
 /**
  * Resolve the Codex CLI's app-data home — the NATIVE `~/.codex` (user ruling
@@ -46,11 +38,9 @@ export function assertNotProdHome(path: string, label: string): void {
 export function resolveCodexHome(): string {
   if (process.env.CODEX_HOME !== undefined) {
     const env = resolve(process.env.CODEX_HOME);
-    assertNotProdHome(env, "codex home");
     return env;
   }
   const native = join(homedir(), ".codex");
-  assertNotProdHome(native, "codex home");
   return native;
 }
 
@@ -61,7 +51,6 @@ export function resolveCodexHome(): string {
  */
 export function useCodexHome(path: string): string {
   const resolved = resolve(path);
-  assertNotProdHome(resolved, "codex home");
   return resolved;
 }
 

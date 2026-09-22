@@ -1,6 +1,6 @@
 {
   "name": "super-dsh",
-  "version": "0.1.3-c",
+  "version": "0.1.3-d",
   "description": "Agent Worlds for the DeepSeek Harness (DSH) — one dsh plugin that mounts the agent hub (runtime selector, roster, per-runtime worlds) and joins local foreign-agent runtimes (OMP, Codex, Claude, Pi, Hermes, Antigravity) into the DSH Web UI. Each runtime keeps its native home and session store; the hub only bridges.",
   "type": "module",
   "license": "MIT",

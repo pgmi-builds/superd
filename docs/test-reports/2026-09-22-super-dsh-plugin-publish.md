@@ -270,3 +270,35 @@ task-board / better-dsh / super-dsh）。
 **验收方法论修正（固化为规）**：dsh 插件类改动一律**目标机实装验收**（ssh dev3 →
 tarball `corepack pnpm@10.33.2 add file:` → restart → journal world-failed 计数 + mount
 探针），本仓 .tests 实例只作 rc.2 基线的先期冒烟。
+
+## 十一、publish-ready 转型（2026-09-22；user 裁决「开发形态 = 交付形态」）
+
+**复盘定性（user 质询的答案）**：4999 旧形态 = smoke.mjs 手写 composition + 手工
+@pgmi-builds 符号链接 farm + 库式 boot（`loadProfile/boot` 自调）——**运行时架构被测了
+无数次，交付形态被测了零次**；每发一包炸一个的都是交付层从未存在过的部分。better-dsh
+之所以顺，是它的开发形态从一开始就是交付形态。据此转型：
+
+1. **业务代码去 POC 化**：13 处 `assertNotProdHome` 守卫全数删除（红线改由
+   `test/start-4999.sh` 拒绝非 `.tests` home 强制）；4 个 adapter 的
+   `file:../agent-hub` 依赖降为 optional peer；`/home/u1/...` 硬编码锚根除——
+   `resolveInstallAnchor()` = env 优先 → 从宿主 `dsh-app-boot` **realpath** 上溯到
+   `@deepseek-ai/dsh` 包根（使用点惰性求值，import 零副作用）；claude 可执行默认改
+   PATH 解析。守卫断言测试同步删除。
+2. **构建/交付唯一入口**：`super-dsh/scripts/pack.mjs`（全组件 build + client halves +
+   npm pack）；`test/start-4999.sh` 重写为交付形态：pack → tarball
+   `corepack pnpm@10.33.2 add file:` 装进全新 profile（manifest 与消费者同形）→ repo
+   build 的 dsh CLI 启动。`smoke.mjs` / `plugin-acc-boot.mjs` 退役删除。测试 home 隔离
+   （`hub-test-home`，不再写在役线 home；spawn-world 测试补 heal + bare base）。
+3. **验收（双环境，同一产物 0.1.3-d）**：
+   - 本地 4999（tarball 形态）：LISTEN、world-failed **0**、mount **6×200**、
+     client 面 `super-dsh/client.js` 在 combo、world profile 6/6 自举（scope 并集 279）；
+     token 轮询修复后 URL 直出。WAN `https://test.pc.randomhash.app/?token=…` 交接保持运行。
+   - dev3（registry 形态）：installed 0.1.3-d、world-failed **0**、resolve-errors **0**。
+   - 途中 0.1.4 误升版本被 user 打回（无 feature 不烧补丁号）→ 回字母道 0.1.3-d；
+     其间锚上溯 realpath 缺陷在 dev3 实机暴露（farm 链接路径祖先链不含安装树）并修复。
+4. **原则落规**：根 AGENTS §〇.0「生态即产品」（验收走交付形态 / dev 脚手架零特殊机制 /
+   业务代码永不迁就开发流程）+ §〇.1.d 版本纪律；super-dsh/AGENTS.md 新增「开发形态 =
+   交付形态」章；docs/06 §七 落 10 条单包交付陷阱表（本报告 §七–§十 的可复用蒸馏）。
+
+**终态**：dev3 与 4999 跑同一个 npm 产物 `super-dsh@0.1.3-d`；此后 4999 每次拉起即
+隐式验收一次交付物。

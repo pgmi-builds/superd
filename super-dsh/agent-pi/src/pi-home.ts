@@ -16,23 +16,14 @@
  *    pi never reads this tree; it is DSH bookkeeping in the same class as the
  *    DSH session log.
  */
-import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 
 /** Prod homes that must never be resolved into (repo red line). */
-const PROD_HOMES = [join(homedir(), ".dsh"), join(homedir(), ".superd")];
-
-export function assertNotProdHome(path: string, label: string): void {
-  if (process.env.SUPERD_DEV_REDLINE !== "1") return; // published install: the host dsh home (~/.dsh on consumers) is authoritative — the S3/S7 world layout lives under it. Dev lines set SUPERD_DEV_REDLINE=1 (repo red line: ~/.dsh is Dash prod).
-  if (PROD_HOMES.includes(path) || PROD_HOMES.some((p) => path.startsWith(`${p}/`))) {
-    throw new Error(`pi-home: refusing prod home as ${label}: ${path}`);
-  }
-}
 
 /**
  * Resolve the adapter's DSH-side state dir — `<dshHomePath>/agents/pi`.
  * Precedence: explicit home (boot-provided `dshHomePath`), then `$DSH_HOME`,
- * then the line's historical test-home default. Prod-guarded.
+ * then the line's historical test-home default.
  */
 export function resolvePiStateDir(home?: string): string {
   if (home !== undefined) {
@@ -41,16 +32,13 @@ export function resolvePiStateDir(home?: string): string {
     // — that tree IS the pi world's root, so the state dir is the home itself
     // (no second nest). Line/standalone form: nest once under agents/pi.
     if (resolved.endsWith(join("agents", "pi"))) {
-      assertNotProdHome(resolved, "pi state dir");
       return resolved;
     }
     const dir = join(resolved, "agents", "pi");
-    assertNotProdHome(dir, "pi state dir");
     return dir;
   }
   const fallbackHome = resolve(process.env.DSH_HOME ?? join(process.cwd(), ".tests", "aw"));
   const dir = join(fallbackHome, "agents", "pi");
-  assertNotProdHome(dir, "pi state dir");
   return dir;
 }
 

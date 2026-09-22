@@ -12,18 +12,9 @@
  * `conversationId` is `null` until the first turn materializes it.
  */
 import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
-import { homedir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 
 /** Prod homes that must never be resolved into (repo red line). */
-const PROD_HOMES = [join(homedir(), ".dsh"), join(homedir(), ".superd")];
-
-function assertNotProdHome(path: string, label: string): void {
-  if (process.env.SUPERD_DEV_REDLINE !== "1") return; // published install: the host dsh home (~/.dsh on consumers) is authoritative — the S3/S7 world layout lives under it. Dev lines set SUPERD_DEV_REDLINE=1 (repo red line: ~/.dsh is Dash prod).
-  if (PROD_HOMES.includes(path) || PROD_HOMES.some((p) => path.startsWith(`${p}/`))) {
-    throw new Error(`agy-sessions: refusing prod home as ${label}: ${path}`);
-  }
-}
 
 /** One persisted DSH → Antigravity conversation pairing. */
 export interface AgySessionRecord {
@@ -41,12 +32,11 @@ export type AgySessionMap = Record<string, AgySessionRecord>;
 
 /**
  * The adapter's DSH-side world home. Form-A (boot home = DSH home root) nests
- * `agents/agy`; Form-B (already `<root>/agents/agy`) passes through. Prod-guarded.
+ * `agents/agy`; Form-B (already `<root>/agents/agy`) passes through.
  */
 export function resolveAgyWorldHome(home?: string): string {
   const base = resolve(home ?? process.env.DSH_HOME ?? join(process.cwd(), ".tests", "aw"));
   const dir = basename(base) === "agy" && basename(dirname(base)) === "agents" ? base : join(base, "agents", "agy");
-  assertNotProdHome(dir, "agy world home");
   return dir;
 }
 

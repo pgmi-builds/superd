@@ -18,7 +18,7 @@ import { resolveDshHome } from '@deepseek-ai/dsh-home-paths'
 import { join } from 'node:path'
 import {
   spawnWorld, registerAgent, setReady, registerForeignTarget,
-  registerHostMount, mountWorld, worldMountPatches, provisionWorldProfile,
+  registerHostMount, mountWorld, worldMountPatches, provisionWorldProfile, resolveInstallAnchor,
 } from '../../agent-hub/dist/index.js'
 
 export const name = 'aw.agent-adapter-codex'
@@ -26,8 +26,6 @@ export const name = 'aw.agent-adapter-codex'
 /** Runtime key — also the mount label. */
 const KEY = 'codex'
 
-const ANCHOR = process.env.SUPERD_DSH_ANCHOR
-  ?? '/home/u1/.local/lib/node_modules/@deepseek-ai/dsh/package.json'
 
 /** Structural slice of the ctx0 services the mount needs. */
 interface HostContext {
@@ -75,7 +73,7 @@ export function apply(ctx: HostContext): void {
     const ctxW = await spawnWorld({
       appName: `aw-${KEY}`,
       profileName: 'web',
-      installAnchor: ANCHOR,
+      installAnchor: resolveInstallAnchor(), // lazy: never at module scope — import must stay side-effect-free
       home: worldHome,
       dataHome: worldHome,
       // Adapter-local bundle names resolve from the profile's own

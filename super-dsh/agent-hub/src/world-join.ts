@@ -31,7 +31,7 @@ import { join } from 'node:path'
 import { registerAgent, setReady } from './roster.js'
 import { registerForeignTarget } from './targets.js'
 import { spawnWorld } from './spawn-world.js'
-import { provisionWorldProfile } from './world-provision.js'
+import { provisionWorldProfile, resolveInstallAnchor } from './world-provision.js'
 import { registerHostMount } from './world-host.js'
 import { mountWorld } from './carrier.js'
 import { worldMountPatches } from './world-mount.js'
@@ -52,8 +52,6 @@ interface HostContext {
   effect?(callback: () => () => void, label?: string): unknown
 }
 
-const ANCHOR = process.env.SUPERD_DSH_ANCHOR
-  ?? '/home/u1/.local/lib/node_modules/@deepseek-ai/dsh/package.json'
 
 /** Apply the join. @param ctx - the CTX0 root context. @param config - `{ key, label? }`. */
 export function apply(ctx: HostContext, config?: Partial<Config>): void {
@@ -102,7 +100,7 @@ export function apply(ctx: HostContext, config?: Partial<Config>): void {
     const ctxW = await spawnWorld({
       appName: `aw-${key}`,
       profileName: 'web',
-      installAnchor: ANCHOR,
+      installAnchor: resolveInstallAnchor(), // lazy: never at module scope — import must stay side-effect-free
       home: worldHome,
       dataHome: worldHome,
       // Adapter-local bundle names resolve from the profile's own

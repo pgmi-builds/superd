@@ -32,9 +32,10 @@
  * or null when the adapter sibling does not exist next to the hub (a foreign
  * composition this module does not own — keep the caller's env/fallback path).
  */
-import { existsSync, lstatSync, mkdirSync, readdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
+import { existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, realpathSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { createRequire } from 'node:module'
 import { resolveDshHome } from '@deepseek-ai/dsh-home-paths'
 
 const HUB_SCOPE = '@pgmi-builds'
@@ -42,6 +43,50 @@ const HARNESS_SCOPE = '@deepseek-ai'
 
 /** The profile bundles every world tree composes besides its adapter. */
 const WORLD_BASE_BUNDLES = ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app'] as const
+
+/**
+ * Resolve the running dsh installation's package.json — the anchor worlds
+ * resolve `@deepseek-ai` bundles and the fallback closure from.
+ *
+ * Precedence: `$SUPERD_DSH_ANCHOR` (the repo dev lines' contract — the
+ * launcher pins the checkout build), then a walk UP from the
+ * `@deepseek-ai/dsh-app-boot` this module resolved (the host always provides
+ * it) to the nearest ancestor package named `@deepseek-ai/dsh` — the
+ * packaged-install layout (`<install>/@deepseek-ai/dsh/node_modules/
+ * @deepseek-ai/dsh-app-boot`) lands on the install root in two hops. No
+ * machine-specific path ships in code.
+ * @throws when neither yields an installation (mis-launched composition).
+ */
+export function resolveInstallAnchor(): string {
+  const fromEnv = process.env.SUPERD_DSH_ANCHOR
+  if (fromEnv !== undefined && fromEnv !== '') return fromEnv
+  let dir = dirname(resolveHostPackageDir('@deepseek-ai/dsh-app-boot'))
+  while (true) {
+    const manifest = join(dir, 'package.json')
+    if (existsSync(manifest)) {
+      try {
+        const name = (JSON.parse(readFileSync(manifest, 'utf8')) as { name?: unknown }).name
+        if (name === '@deepseek-ai/dsh') return manifest
+      } catch { /* malformed intermediate manifest — keep walking */ }
+    }
+    const parent = dirname(dir)
+    if (parent === dir) {
+      throw new Error('super-dsh: cannot derive the dsh installation anchor (set SUPERD_DSH_ANCHOR)')
+    }
+    dir = parent
+  }
+}
+
+/** First `node_modules` search-path candidate that exists for a specifier,
+ *  resolved to its REALPATH — farm and pnpm links must not leak into the
+ *  ancestor walk (the install tree only exists behind the symlink). */
+function resolveHostPackageDir(spec: string): string {
+  for (const searchPath of createRequire(import.meta.url).resolve.paths(`${spec}/x`) ?? []) {
+    const candidate = join(searchPath, spec)
+    if (existsSync(join(candidate, 'package.json'))) return realpathSync(candidate)
+  }
+  throw new Error(`super-dsh: cannot resolve ${spec} from the running host`)
+}
 
 export interface ProvisionWorldOptions {
   /** Runtime key — also the mount label and the `agents/<key>` home segment. */
@@ -135,8 +180,7 @@ function provisionWorldProfileUnchecked(opts: ProvisionWorldOptions): string | n
   // base gets no such fallback). A single scope-level link cannot express
   // that union, and a resolve.paths() walk from this module can pick the
   // PROFILE's own partial pnpm scope (2 entries on dev3) — never use it.
-  const ANCHOR = process.env.SUPERD_DSH_ANCHOR
-    ?? '/home/u1/.local/lib/node_modules/@deepseek-ai/dsh/package.json'
+  const ANCHOR = resolveInstallAnchor()
   const scopeSources = [
     join(resolveDshHome(), 'profiles', 'node_modules', HARNESS_SCOPE),
     join(dirname(ANCHOR), 'node_modules', HARNESS_SCOPE),

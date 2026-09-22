@@ -59,8 +59,10 @@ import type { CanUseTool, Options, SDKUserMessage } from "@anthropic-ai/claude-a
 import { InputQueue, type ClaudeInputContent } from "./input-queue.js";
 import { projectClaudeEvent, type WireEvent } from "./claude-events.js";
 
-/** Host Claude Code binary driven through the SDK's bridge (spec ruling R5). */
-export const DEFAULT_CLAUDE_EXECUTABLE = "/home/u1/.local/bin/claude";
+/** Host Claude Code binary driven through the SDK bridge (spec ruling R5).
+ * PATH-resolved like any host CLI: $CLAUDE_EXECUTABLE wins, else a bare
+ * "claude" the SDK spawns through PATH. No machine-specific path ships. */
+export const DEFAULT_CLAUDE_EXECUTABLE = "claude";
 
 // ---------------------------------------------------------------------------
 // Structural seams (duck-typed so tests inject plain fakes)

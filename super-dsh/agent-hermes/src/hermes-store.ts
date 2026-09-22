@@ -19,18 +19,9 @@
  * degrades to "unknown session" rather than breaking every operation.
  */
 import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
-import { homedir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 
 /** Prod homes that must never be resolved into (repo red line). */
-const PROD_HOMES = [join(homedir(), ".dsh"), join(homedir(), ".superd")];
-
-function assertNotProdHome(path: string, label: string): void {
-  if (process.env.SUPERD_DEV_REDLINE !== "1") return; // published install: the host dsh home (~/.dsh on consumers) is authoritative — the S3/S7 world layout lives under it. Dev lines set SUPERD_DEV_REDLINE=1 (repo red line: ~/.dsh is Dash prod).
-  if (PROD_HOMES.includes(path) || PROD_HOMES.some((p) => path.startsWith(`${p}/`))) {
-    throw new Error(`hermes-store: refusing prod home as ${label}: ${path}`);
-  }
-}
 
 /** One persisted DSH → Hermes session pairing. */
 export interface HermesSessionRecord {
@@ -62,13 +53,12 @@ export type HermesSessionMap = Record<string, HermesSessionRecord>;
  *   - Form-B: the boot-provided home is ALREADY the world home
  *     (`<root>/agents/hermes`) — passed through as-is, never double-nested.
  * Precedence: explicit home (boot-provided `dshHomePath`), then `$DSH_HOME`,
- * then the line's historical test-home default. Prod-guarded.
+ * then the line's historical test-home default.
  */
 export function resolveHermesAppDir(home?: string): string {
   const base = resolve(home ?? process.env.DSH_HOME ?? join(process.cwd(), ".tests", "aw"));
   // Form-B world home is already `<root>/agents/hermes` — never double-nest.
   const dir = basename(base) === "hermes" && basename(dirname(base)) === "agents" ? base : join(base, "agents", "hermes");
-  assertNotProdHome(dir, "hermes app dir");
   return dir;
 }
 

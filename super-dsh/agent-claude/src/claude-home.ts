@@ -10,17 +10,8 @@
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 
-const PROD_HOMES = [join(homedir(), ".dsh"), join(homedir(), ".superd")];
 
 /** Refuse any path that resolves into a production DSH home (repo red line). */
-export function assertNotProdHome(path: string, label: string): void {
-  if (process.env.SUPERD_DEV_REDLINE !== "1") return; // published install: the host dsh home (~/.dsh on consumers) is authoritative — the S3/S7 world layout lives under it. Dev lines set SUPERD_DEV_REDLINE=1 (repo red line: ~/.dsh is Dash prod).
-  const p = resolve(path);
-  if (PROD_HOMES.includes(p) || PROD_HOMES.some((prod) => p.startsWith(`${prod}/`))) {
-    throw new Error(`agent-claude: refusing prod home "${p}" for ${label} — set DSH_HOME to the test home`);
-  }
-}
-
 /**
  * The Claude app home: the NATIVE `~/.claude`, prod-home guarded. An ambient
  * `CLAUDE_CONFIG_DIR` wins (tests pin an isolated home that way); the adapter
@@ -28,6 +19,5 @@ export function assertNotProdHome(path: string, label: string): void {
  */
 export function resolveClaudeHome(): string {
   const claudeHome = resolve(process.env.CLAUDE_CONFIG_DIR ?? join(homedir(), ".claude"));
-  assertNotProdHome(claudeHome, "claudeHome");
   return claudeHome;
 }

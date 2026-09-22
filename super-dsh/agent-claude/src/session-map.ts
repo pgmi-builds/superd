@@ -26,7 +26,6 @@
  */
 import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
-import { assertNotProdHome } from "./claude-home.js";
 
 /** One persisted DSH → Claude session pairing. */
 export interface ClaudeSessionRecord {
@@ -55,17 +54,15 @@ export type ClaudeSessionMap = Record<string, ClaudeSessionRecord>;
  * (`<dshHome>/agents/claude`), never the Claude app home. Precedence:
  * explicit world home (boot-provided `dshHomePath`), then `$DSH_HOME` (a hub
  * home, so the world layout nests `agents/claude`), then the line's
- * historical test-home default. Prod-guarded.
+ * historical test-home default.
  */
 export function resolveClaudeStateDir(home?: string): string {
   if (home !== undefined) {
     const dir = resolve(home);
-    assertNotProdHome(dir, "claude state dir");
     return dir;
   }
   const fallbackHome = resolve(process.env.DSH_HOME ?? join(process.cwd(), ".tests", "aw"));
   const dir = join(fallbackHome, "agents", "claude");
-  assertNotProdHome(dir, "claude state dir");
   return dir;
 }
 

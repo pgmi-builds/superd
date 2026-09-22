@@ -149,6 +149,26 @@ pnpm run build      # tsx scripts/build.ts = native-system + lib(host/client) + 
 
 ---
 
+## 七、super-dsh 单包交付陷阱表（2026-09-22 实证，全部真踩）
+
+> 背景：`super-dsh` = 单包多组件交付（better-dsh 模型）。下列每条都有 dev3 实机
+> 复现记录，报告见 `docs/test-reports/2026-09-22-super-dsh-plugin-publish.md`。
+
+| # | 陷阱 | 事实与处置 |
+|---|---|---|
+| 1 | **嵌套目录的 `.gitignore` 在父包 pack 时剥构建产物** | `npm pack` 走查时会应用**内嵌子目录自己的** `.gitignore`（`dist/` 规则把 `agent-*/dist` 全剥掉，`files` 允许列表拦不住）。**每个内嵌目录放空 `.npmignore`** 压制（.npmignore 存在即令 .gitignore 失效） |
+| 2 | **subpath row 永不注册 client half** | client-modules 扫描对 row 名调 `exactPackageSpecifier`——`pkg/sub` 形态解析不出包名（上游源码原文「permanently not a client row」）。**必须有一条裸名 row**（`name: '<pkg>'`）承载 client 注册；better-dsh 同款 |
+| 3 | **client bundle 的注册 id 是 build 时烧死的** | 浏览器 loader 用 `pendingQueue.findIndex(r => r.id === graphId)` 配对，graph id = 组合包名。多包内嵌时 client bundle 必须以**交付包名**为 id 单独构建（`build-superd-client.mjs`），组件包自带的 client bundle id 只服务组件包直挂形态 |
+| 4 | **裸名解析走 include 根旁 ambient 链，不吃显式 bare base** | 真 dsh CLI 不传 `bareModuleBaseUrl`：row 名从 config 文件目录走 node_modules 上溯链解析。embedder/boot 传了 base 反而破坏该行为（0.1.1 实测翻车）。boot 脚本一律不传 |
+| 5 | **安装锚上溯必须 realpath** | 从 farm/pnpm 符号链接路径上溯找不到安装树包根（链接路径的祖先链不含安装树）。候选目录先 `realpathSync` 再走（0.1.3-d 实证：`dsh-app-boot` 实路径两跳即中 `<install>/@deepseek-ai/dsh`） |
+| 6 | **world 树的 `@deepseek-ai` scope = farm ∪ 安装树** | 0.1.6 host 的 home farm（244）缺新包、安装树（260）全；ctx0 靠 app-boot 安装锚 resolve 回退活着，**显式 bare base 的 world 树没有该回退**。provisioner 建**真目录逐包链接的并集**（farm 先、安装树补缺）；单 scope 级链接表达不了并集 |
+| 7 | **profile 自己的 pnpm 树可能带残缺 `@deepseek-ai` scope** | 消费机 profile `node_modules/@deepseek-ai` 可以只有 2 个物理条目——任何「找第一个可见 scope 目录」的走法都会撞上它并饿死 world 树。scope 来源必须显式枚举（home farm、安装树），绝不 resolve.paths 碰运气 |
+| 8 | **pnpm 对同名同版本 `file:` 依赖静默 no-op** | 迭代 tarball 测试必须**每次换版本字母**（`0.1.3-a→b→c`），否则 `pnpm add file:` 秒回「Done」但装的还是旧内容 |
+| 9 | **业务代码里的开发红线守卫会杀死消费者** | `assertNotProdHome`（拒绝 `~/.dsh` 为 state dir）在消费机上 = 拒绝所有真实用户（他们的 dsh home 就是 `~/.dsh`）。红线属于 launcher（拒绝非 `.tests` home 启动），**永不进 `src/`**（根 AGENTS §〇.0.c） |
+| 10 | **import 副作用即地雷** | 模块顶层的 `resolveInstallAnchor()`（可能 throw）让一切 import 该图的测试全灭。锚等环境推导一律**使用点惰性求值** |
+
+---
+
 ## 附A：正本与镜像的关系
 
 `docs/01–05` 簇是 dashr 仓 `docs/60_exploration-and-research/` 的**只读镜像**（2026-09-08 快照）。其中 `05-dashr-dev/upstream-alignment.md` 是对齐方法论的正本底稿；**0.1.6 对齐轮的新增教训（本文件 §二）后于该快照**， fresh 内容以 dashr 仓正本为准：

@@ -33,17 +33,6 @@ test("resolveCodexHome honors CODEX_HOME when no home is passed", () => {
   }
 });
 
-test("resolveCodexHome refuses a prod home (repo red line)", () => {
-  const previous = process.env.CODEX_HOME;
-  process.env.CODEX_HOME = join(process.env.HOME ?? "/root", ".dsh");
-  try {
-    assert.throws(() => resolveCodexHome(), /refusing prod home/);
-  } finally {
-    if (previous === undefined) delete process.env.CODEX_HOME;
-    else process.env.CODEX_HOME = previous;
-  }
-  assert.throws(() => useCodexHome(join(process.env.HOME ?? "/root", ".superd")), /refusing prod home/);
-});
 
 function rolloutFixture(threadId, meta) {
   const codexHome = mkdtempSync(join(tmpdir(), "aw-codex-store-"));

@@ -6,10 +6,15 @@
 
 ## 〇、Development Operation Contract — 红线
 
-1. **npm publish 前置条件，缺一不可，顺序不可换**（superD 尚未发布，提前立规；先例：npm 发了就发了，撤不回）：
+0. **生态即产品（Ecosystem-is-the-product；2026-09-22 user 裁决，最高优先）**：在 Node 生态里，写代码 ≠ 开发完成。依赖图、包管理器行为（npm pack 规则、pnpm store/linker/`file:` 语义）、解析算法（exports、node_modules 走查、symlink realpath）、交付通道（registry → 消费者安装），全部是产品本体的一部分。三条铁律：
+   - a. **验收必须走交付形态、上目标环境**——本地源码树跑通只是冒烟；插件类改动一律目标机实装验证（dev3：tarball `corepack pnpm@10.33.2 add file:` → restart → journalctl `world failed` 计数 + mount 探针）。
+   - b. **dev 脚手架不得含有交付物将不具备的任何机制**——凡是 farm、链接、硬编码路径曾替代码遮过丑的地方，就是埋雷清单；开发形态 = 交付形态（4999 线跑 pack 出来的 tarball，见 `super-dsh/AGENTS.md`）。
+   - c. **业务代码永不迁就开发流程**——测试纪律（test home、禁碰 prod home）由 launcher/测试夹具强制执行；出现在 `src/` 里就是缺陷（先例：13 处 `assertNotProdHome` 守卫杀死 home 为 `~/.dsh` 的消费者，2026-09-22 已全数删除）。
+1. **npm publish 前置条件，缺一不可，顺序不可换**（先例：npm 发了就发了，撤不回）：
    - a. **第一人称实测通过**：真实运行时里走通改动路径（起 4999 实例 + 浏览器/curl 实测）。进程没崩、单测绿、tsc 0——这些是构建卫生，**不是验收**。
-   - b. 实测结果落报告（`docs/` 下 test-reports 惯例，建立后生效）。
+   - b. 实测结果落报告（`docs/test-reports/` 惯例）。
    - c. **user 明确确认放行**（实测通过 ≠ 放行，两道独立闸门）。
+   - d. **版本纪律（2026-09-22 user 裁决）**：测试/修复迭代一律字母后缀（`0.1.3-a/b/c…`，better-dsh 先例 `0.2.3-g`）；补丁号（`0.1.4`）与新 minor 只留给**真实 feature 发布**。pnpm 对同名同版本 `file:` 依赖静默 no-op——每次迭代必须换字母。
 2. **验收标准与改动点同类**：改「运行时行为」就用「运行时行为」验收，不得降级为进程活性或静态证据。
 3. **未经 user 单次明确同意，不得 `npm publish`**；授权粒度单次有效。
 4. GitHub 侧（commit/tag/push）可逆，跟随上述节奏，不抢跑。

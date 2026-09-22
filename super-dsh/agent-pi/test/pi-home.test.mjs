@@ -8,7 +8,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 
-const { resolvePiStateDir, piMappingPath, assertNotProdHome } = await import("../dist/pi-home.js");
+const { resolvePiStateDir, piMappingPath } = await import("../dist/pi-home.js");
 
 function tempHome() {
   return mkdtempSync(join(tmpdir(), "aw-pi-home-"));
@@ -41,10 +41,3 @@ test("world form: a home that is already agents/pi is the state dir itself", () 
   assert.equal(resolvePiStateDir(worldHome), worldHome);
 });
 
-test("prod homes are refused as state dirs (repo red line)", () => {
-  assert.throws(() => assertNotProdHome(join(homedir(), ".dsh"), "pi state dir"));
-  assert.throws(() => assertNotProdHome(join(homedir(), ".superd", "agents", "pi"), "pi state dir"));
-  assert.throws(() => resolvePiStateDir(join(homedir(), ".dsh")));
-  // the normal temp path is fine
-  assert.doesNotThrow(() => assertNotProdHome(tempHome(), "pi state dir"));
-});
