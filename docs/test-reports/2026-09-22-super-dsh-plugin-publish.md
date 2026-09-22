@@ -199,3 +199,38 @@ systemctl --user restart dsh.service
 
 若站点仍不可达，取 `journalctl --user -u dsh.service -n 80`（或对应 unit 日志）回传——
 0.1.2 起任何 world 失败只会在日志里记一行 `[super-dsh] <key> world failed:`，宿主照常起。
+
+## 九、0.1.3 热修（同日；dev3 无 agent selector 的根因）
+
+**症状**：dev3 装 0.1.2 后服务起来了、Plugins 卡片可见，但侧栏底部**没有 runtime
+selector**——而 4999 aw 线有。此前验收只覆盖了服务面（mount 200），没验浏览器面（selector
+是 hub 的 client half，`sidebar.footer.action` 槽）。本轮回补浏览器面验收。
+
+**根因（上游 `packages/client/modules` 源码实证，两处叠加）**：
+
+1. **subpath row 永不注册 client half**：client-module 扫描对每个 loader row 调
+   `exactPackageSpecifier(name)`——`super-dsh/hub`、`super-dsh/world/omp` 这类带子路径的
+   名字解析不出包名，源码注释原文「subpath entries (…/gateway) land here — permanently
+   not a client row」。better-dsh 能出卡片+组件，是因为它有一条**裸名 row**
+   （`name: 'better-dsh'`）承载 client 注册。0.1.2 的 composite patch 全是子路径 row →
+   super-dsh 的 client half 从未进模块表（实测 combo 列表里无 `super-dsh/client.js`）。
+2. **注册按 build 时烧死的 id 配对**：浏览器 loader 用
+   `pendingQueue.findIndex(r => r.id === <graphId>)` 配对；graph row id = 组合包名
+   （`super-dsh`），而 hub 的 client bundle 烧死的 id 是 `@pgmi-builds/agent-hub`——即便
+   注册了也对不上。4999 线没这个问题，因为那里组合包就是 hub 自己，两 id 天然一致。
+
+**0.1.3 修正**：
+
+- composite patch 增加**裸名 row**（`- id: agent-hub, name: 'super-dsh'`；根 exports
+  `.` → agent-hub/dist/index.js）承载 client 注册；world/join 子路径 row 维持服务面职责。
+- 新增 `super-dsh/client/index.js`：专用 client bundle（agent-hub/scripts/
+  build-superd-client.mjs，同 closure-factory 配方，**id='super-dsh'**）；exports
+  `./client` 改指它。hub 自带 lib/client（id=@pgmi-builds/agent-hub）留给 dev 线直挂。
+
+**验收（0.1.3 tarball，含浏览器面探针）**：active / 0 error / 6/6 mount 200 **且**
+combo 列表含 `super-dsh/client.js`、batch 内容含 `id: "super-dsh"` 与
+`sidebar.footer.action` 槽位挂载——selector 配对链完整。
+
+**dev3 消费**：`dsh plugin --profile web add super-dsh@0.1.3 && systemctl --user restart
+dsh.service`。旧 `@pgmi-builds/superd@0.1.0` 是无 bundle 的惰性依赖，与本缺陷无关，
+清掉纯属卫生：`dsh plugin --profile web remove @pgmi-builds/superd`。

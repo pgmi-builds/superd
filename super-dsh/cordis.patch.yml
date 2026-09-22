@@ -16,8 +16,11 @@
 # Profile-layer values (webserver port/host, settings path) stay in the USER's
 # profile patch layer, never here.
 - insert:
+    # BARE package row: subpath rows (…/world/omp) are permanently not client
+    # rows in client-modules' scan (exactPackageSpecifier), so THIS row is
+    # what registers the package's client half — the sidebar selector.
     - id: agent-hub
-      name: 'super-dsh/hub'
+      name: 'super-dsh'
     - id: aw-agent-adapter-omp
       name: 'super-dsh/world/omp'
     - id: aw-agent-adapter-codex
