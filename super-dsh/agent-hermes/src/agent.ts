@@ -135,20 +135,25 @@ const trace = (...parts: unknown[]): void => {
 
 export function convertContent(blocks: WireContentBlock[] | undefined): ContentBlock[] {
   if (blocks === undefined) return [];
-  const result: ContentBlock[] = [];
+  // 0.1.6 renders blocks in ARRAY order; the native stream emits reasoning
+  // BEFORE text, so gateway messages that trail their thinking blocks must be
+  // hoisted — otherwise the WebUI draws "Thought for a while" AFTER the
+  // response (2026-09-23 evidence).
+  const reasoning: ContentBlock[] = [];
+  const rest: ContentBlock[] = [];
   for (const block of blocks) {
     switch (block.type) {
       case "text":
-        if (typeof block.text === "string") result.push({ type: "text", text: block.text });
+        if (typeof block.text === "string") rest.push({ type: "text", text: block.text });
         break;
       case "thinking":
-        if (typeof block.thinking === "string") result.push({ type: "reasoning", text: block.thinking });
+        if (typeof block.thinking === "string") reasoning.push({ type: "reasoning", text: block.thinking });
         break;
       case "toolCall": {
         const id = typeof block.id === "string" ? block.id : "";
         const name = typeof block.name === "string" ? block.name : "";
         const args = typeof block.arguments === "string" ? block.arguments : JSON.stringify(block.arguments ?? {});
-        result.push({ type: "tool-call", id: ToolCallId(id), name, arguments: args });
+        rest.push({ type: "tool-call", id: ToolCallId(id), name, arguments: args });
         break;
       }
       default:
@@ -156,7 +161,7 @@ export function convertContent(blocks: WireContentBlock[] | undefined): ContentB
         break;
     }
   }
-  return result;
+  return [...reasoning, ...rest];
 }
 
 /**

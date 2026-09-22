@@ -31,7 +31,7 @@ import type {
   CreateAgentOptions,
   ResumeAgentOptions,
 } from "@deepseek-ai/dsh-agent";
-import { emitAgentEvent, installModelSelection } from "@deepseek-ai/dsh-agent";
+import { installModelSelection } from "@deepseek-ai/dsh-agent";
 import type { LlmRuntime } from "@deepseek-ai/dsh-llm";
 import {
   SessionLogOffset,
@@ -657,8 +657,9 @@ async function setupAndPublish(
       agent.ctx.sessions.announce(session);
     }
     detachAgent = loopCtx.agents.enter(agent, parentAgent);
-    loopCtx.agents.announce(agent);
-    emitAgentEvent(loopCtx, agent, "agent/session-start", { source });
+    // 0.1.6: announce(agent, source) is required, async, and emits agent/created
+    // itself — the manual agent/session-start emission is gone upstream.
+    await loopCtx.agents.announce(agent, source);
 
     let disposed = false;
     let unfollowOwner: (() => void) | undefined;

@@ -104,6 +104,8 @@ export class SinglePiPresetRoster extends TypertRemoteService {
         },
       ],
       authorable: this.authorable,
+      // 0.1.6 AgentPresetRoster: the new-chat mode selector is hidden without this.
+      modeSelectionEnabled: true,
     };
   }
 

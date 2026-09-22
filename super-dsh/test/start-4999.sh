@@ -64,8 +64,23 @@ cat > "$PROFILE_DIR/cordis.patch.yml" <<'EOF'
     host: 127.0.0.1
     port: 4999
 EOF
+cat > "$PROFILE_DIR/pnpm-workspace.yaml" <<'YAML'
+# super-dsh sanctioned build approval: the omp sidecar needs the bun binary;
+# pnpm skips postinstall scripts without this (local + dev3 evidence).
+onlyBuiltDependencies:
+  - bun
+YAML
 echo "--- pnpm install (first run downloads the runtime SDKs into the store; later runs reuse it)"
 (cd "$PROFILE_DIR" && $PNPM add "file:$TARBALL" --config.store-dir="$PNPM_STORE" --prefer-offline)
+# pnpm ordering quirk: bun's postinstall runs before @oven/bun-linux-x64
+# links, so bun/bin keeps launcher stubs. Idempotent manual backfill (resolve
+# THROUGH the super-dsh package — pnpm isolated layout keeps bun off the top
+# level). Fails soft: the omp world reports not-ready without it, the line
+# itself must still boot.
+BUN_DIR=$(cd "$PROFILE_DIR" && node -e "try{const{createRequire}=require('module');const fs=require('fs');const r=createRequire(process.cwd()+'/package.json');const sd=fs.realpathSync(r.resolve('super-dsh/package.json'));const inner=createRequire(sd);console.log(fs.realpathSync(inner.resolve('bun/package.json')).replace(/\\/package.json$/,''))}catch{}")
+if [ -n "$BUN_DIR" ] && [ -d "$BUN_DIR" ]; then
+  (cd "$BUN_DIR" && node install.js >/dev/null 2>&1) && echo "--- bun binary ensured"
+fi
 
 # ---- 3. boot via the repo build's dsh CLI (no custom boot code) ----
 systemd-run --user --unit="$UNIT" \

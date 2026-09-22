@@ -342,3 +342,43 @@ tarball `corepack pnpm@10.33.2 add file:` → restart → journal world-failed �
 omp sidecar 的 bun 二进制未落地（journal：`[omp-sdk-sidecar] Bun's postinstall script
 was not run`）；需要 omp 世界时在 dev3 profile 目录 `corepack pnpm@10.33.2
 approve-builds` 勾选 bun（不勾则 omp 世界 not-ready，不影响其它世界）。
+
+
+## 十三、0.1.6 会话面断裂修复轮（2026-09-23；产物 `0.1.3-i`，**tarball 通道，未 publish**）
+
+**user 报障四族**：①codex resume/新建会话全炸（"resume failed for session" +
+"Connection failed"）；②omp sidecar 死（bun postinstall 未跑）；③**全 runtime 新聊天
+无 agent-preset selector**；④hermes thinking 块渲染在回答之后。
+
+**根因（全部实机定位）**：
+
+1. **vendored 类型存根遮蔽断裂**（①③的共同根因，本轮最大发现）：omp/codex/pi/
+   hermes/claude 五个 adapter 的 tsconfig `paths` 把 `@deepseek-ai/*` 类型钉在
+   `agent-*/types/` 下**手工拷贝的 rc.2 时代 d.ts 存根**——0.1.6 的真实断裂
+   （`agents.announce(agent)` → `announce(agent, source)` 必填 source）被假类型掩盖
+   编译通过，**运行时在会话创建路径爆炸**（= codex "resume failed for session"，
+   createOrAdopt 的 blank-draft adopt 也走 resume → 全灭）。agy 无存根（对齐轮首暴）
+   侥幸先修。**处置**：五个 adapter 的 `paths`/`types/` 存根全数拔除（tsconfig
+   `paths` 钉假类型 = 脚手架遮丑，AGENTS §二.5 立规永禁回潮），announce 五处移植。
+2. **zod 双大版本类型对撞**：拔存根后暴露——上游 0.1.6 类型吃 zod ^4.4.3，adapter
+   钉 3.25.76 → `agent-preset-projection` 的 ZodUnion 泛型不匹配；claude 侧更是
+   zod3×zod4 泛型调和直接 **tsc OOM（6GB+ 堆爆）**。处置：全线 zod → 4.4.3
+   （claude-agent-sdk 本就 peer ^4，归一）；pack.mjs 构建加 `--max-old-space-size`。
+3. **selector 消失**：0.1.6 `AgentPresetRoster.modeSelectionEnabled`（新聊天模式选择
+   开关）——六个 roster 全未设。处置：全部 `modeSelectionEnabled: true`。
+4. **omp bun**：pnpm 跳过 bun postinstall 且**先跑 postinstall 后链平台包**（时序坑，
+   bun/bin 只剩启动占位）。处置：profile `pnpm-workspace.yaml` +
+   `onlyBuiltDependencies: [bun]` + 安装后**幂等手动 `node install.js` 回填**
+   （经 super-dsh 包内解析——pnpm isolated 下 bun 不在顶层；dev3 上已同步执行）。
+5. **hermes thinking 顺序**：0.1.6 客户端按 blocks **数组序**渲染，hermes 网关把
+   thinking 块排在正文后 → "Thought for a while" 画在回答之后。处置：`convertContent`
+   reasoning 块前置（native 流本就 reasoning 先行）。
+
+**验收**：本地 4999（tarball 形态）：world-failed 0 / 零降级 / 6×200 / bun ensured /
+roster 字段入 dist；dev3（tarball `file:` 装 0.1.3-i + bun 回填）：active、
+world-failed 0。**会话面（create+prompt）留待 user 浏览器复验**——本轮教训恰是
+boot 级全绿 ≠ 会话可用，已立规（AGENTS §二.5：对齐验收含 per-runtime 会话面）。
+
+**发布纪律（2026-09-23 user 裁决）**：npm 不是 git——**publish 仅在 user 明确下令
+发版时执行**；迭代一律 tarball 通道。registry `latest` 冻结在 0.1.3-g；
+`0.1.3-h/i` 均未上 npm。

@@ -14,7 +14,7 @@
    - a. **第一人称实测通过**：真实运行时里走通改动路径（起 4999 实例 + 浏览器/curl 实测）。进程没崩、单测绿、tsc 0——这些是构建卫生，**不是验收**。
    - b. 实测结果落报告（`docs/test-reports/` 惯例）。
    - c. **user 明确确认放行**（实测通过 ≠ 放行，两道独立闸门）。
-   - d. **版本纪律（2026-09-22 user 裁决）**：测试/修复迭代一律字母后缀（`0.1.3-a/b/c…`，better-dsh 先例 `0.2.3-g`）；补丁号（`0.1.4`）与新 minor 只留给**真实 feature 发布**。pnpm 对同名同版本 `file:` 依赖静默 no-op——每次迭代必须换字母。
+   - d. **版本纪律（2026-09-22/23 user 裁决）**：测试/修复迭代一律字母后缀（`0.1.3-a/b/c…`，better-dsh 先例 `0.2.3-g`）；补丁号（`0.1.4`）与新 minor 只留给**真实 feature 发布**。pnpm 对同名同版本 `file:` 依赖静默 no-op——每次迭代必须换字母。**npm 不是 git（2026-09-23 user 裁决，最高优先）**：`npm publish` 只在 user 明确下令发版时执行；一切迭代经 tarball 通道（本地 4999 + dev3 `corepack pnpm@10.33.2 add file:`），registry 里的 `latest` 冻结在最近一次获准发版。
 2. **验收标准与改动点同类**：改「运行时行为」就用「运行时行为」验收，不得降级为进程活性或静态证据。
 3. **未经 user 单次明确同意，不得 `npm publish`**；授权粒度单次有效。
 4. GitHub 侧（commit/tag/push）可逆，跟随上述节奏，不抢跑。
@@ -45,7 +45,8 @@
   2. diff 关键文件清单：`packages/boot/app-boot/src/{index,profile}.ts`、`packages/bundle/web-app/{cordis.patch.yml,src/*}`、`packages/boot/cmdline/src/index.ts`、`packages/client/connection/src/{browser-auth,rpc-host}.ts`、`packages/host/{frontend-static,webserver}/src/index.ts`、`packages/util/home-paths/src/index.ts`、`apps/cli/src/profile-boot.ts`、`vendor/*/package.json`；
   3. 无破坏 → 全仓 sed 换 pin（每包一行）→ `npm install --cache .npm-cache` → `npm test`；有破坏 → 更新受影响代码块与计划文档后再换 pin；
   4. 记录对齐结论（commit message 或 docs）；
-  5. **换 pin / 装依赖后查 `@deepseek-ai` 单实例**：`npm install`（尤其子包内）会把 install 树符号链接重新物化为物理副本 → 双模块实例 → `dsh-scope` `kScope` 分裂（scope 全家桶症状）。检查命令见 §三（现役 scope = `.tests/profiles/node_modules/@deepseek-ai`；旧 heal 修复脚本已随 2026-09-22 housekeeping 移除，出错时手工重链 symlink）。
+  5. **对齐验收含 per-runtime 会话面（2026-09-23 教训）**：boot 级全绿（world-failed 0 / mount 200 / 零降级）只是入场券——每个 runtime 至少跑一次 create+prompt（+resume），否则 0.1.6 的 `announce(agent, source)` 类签名断裂只会在用户点开会话时爆炸（先例：codex "resume failed for session"，根因是 5 个 adapter 被 vendored rc.2 假类型遮蔽编译通过、运行时炸）。**vendored 类型存根（`agent-*/types/@deepseek-ai`）已全数拔除**——tsconfig `paths` 钉假类型 = 脚手架遮丑，永远禁止回潮。
+  6. **换 pin / 装依赖后查 `@deepseek-ai` 单实例**：`npm install`（尤其子包内）会把 install 树符号链接重新物化为物理副本 → 双模块实例 → `dsh-scope` `kScope` 分裂（scope 全家桶症状）。检查命令见 §三（现役 scope = `.tests/profiles/node_modules/@deepseek-ai`；旧 heal 修复脚本已随 2026-09-22 housekeeping 移除，出错时手工重链 symlink）。
 
 ---
 
