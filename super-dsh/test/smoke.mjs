@@ -1,6 +1,7 @@
 // AW-A smoke (Task 7): CTX0 = web face on the line port + agent-hub gateway
 // + the adapter's WORLD PLUGIN (ctx0 does NOT compose the adapter bundle —
 // omp rows belong to the world). The plugin spawns ctx-omp itself (S2).
+process.env.SUPERD_DEV_REDLINE ??= '1' // repo red line: prod-home guards active on dev lines
 // SUPERD_KEEP: process stays up for first-person acceptance.
 import { loadProfile, boot } from '@deepseek-ai/dsh-app-boot'
 import { provideCmdline } from '@deepseek-ai/dsh-cmdline'

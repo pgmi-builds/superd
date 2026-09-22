@@ -234,3 +234,39 @@ combo 列表含 `super-dsh/client.js`、batch 内容含 `id: "super-dsh"` 与
 **dev3 消费**：`dsh plugin --profile web add super-dsh@0.1.3 && systemctl --user restart
 dsh.service`。旧 `@pgmi-builds/superd@0.1.0` 是无 bundle 的惰性依赖，与本缺陷无关，
 清掉纯属卫生：`dsh plugin --profile web remove @pgmi-builds/superd`。
+
+## 十、0.1.3-a/b/c（同日；dev3 实机排障轮 + 版本纪律）
+
+**user 裁决（版本纪律）**：测试迭代一律字母后缀（`0.1.3-a/b/c…`，better-dsh 先例
+`0.2.3-g`），不再烧补丁号。**dev3 实机可达**：`ssh dev3`（webui 本机 127.0.0.1:3080；
+dsh.dev3 域名有 Caddy IP 白名单，机内 egress 也 403，不作为验收通道）；机上 pnpm =
+`corepack pnpm@10.33.2`（默认 corepack 是 v11/store v11，profile 树是 v10 store，版本必须钉）。
+
+**0.1.3-a（world scope 饥饿修复）**：0.1.3 在 dev3 上 worlds 全挂。journal 实证两级根因：
+①profile 自己的 pnpm 树里有一个 **2 条目的残缺 `@deepseek-ai` scope**，provisioner 的
+resolve.paths 走查链先撞它（链接 → 残缺 scope → 世界树饿死）；②换成 home farm 后仍缺
+16 个新包（farm 244 vs 安装树 260——0.1.6 新增 ptc-runtime/image-offload/mcp-resources 等；
+ctx0 靠 app-boot 的安装锚 resolve 回退活着，显式 bare base 的世界树没有该回退）。**修**：
+world 的 `@deepseek-ai` 改**真目录 + 逐包符号链接并集**（farm 先、安装树 `dirname(ANCHOR)
+/node_modules/@deepseek-ai` 补缺；dev3 实测并集 269 条）。坑：pnpm `file:` 同名同版本
+不重取——`0.1.3-a` 装第二次是 no-op，**每轮迭代必须换字母**。
+
+**0.1.3-b = a 的重发**（同码，破 pnpm file: 缓存）。dev3 实证：world scope 269，
+world-failed 从 6 → 1（只剩 pi）。
+
+**0.1.3-c（prod-home 守卫错杀消费者）**：pi world 挂于
+`pi-home: refusing prod home as pi state dir: ~/.dsh/agents/pi`——7 个 adapter、13 处
+`assertNotProdHome` 把**本仓红线**（dev 机的 `~/.dsh` = Dash Agent prod）当成了普适约束；
+消费者机的 `~/.dsh` 就是其真实 dsh home，`<home>/agents/<label>` 正是 S3/S7 设计布局。
+**修**：红线改 opt-in——`SUPERD_DEV_REDLINE=1` 时守卫生效（dev 线 bootstrap
+smoke.mjs 已设），发布态信任宿主 home。五个 adapter 重建。
+
+**dev3 终态（registry `super-dsh@0.1.3-c` 实装，journal 验证）**：installed 0.1.3-c /
+service active / **world-failed 0** / Cannot find package **0**；六 mount 经 carrier 认证门
+应答（shell 内 token 舞步受限，浏览器会话为终验）。顺手清掉 `@pgmi-builds/superd@0.1.0`
+惰性依赖（`pnpm remove`，restart 后 world-failed 仍 0；profile 依赖余
+task-board / better-dsh / super-dsh）。
+
+**验收方法论修正（固化为规）**：dsh 插件类改动一律**目标机实装验收**（ssh dev3 →
+tarball `corepack pnpm@10.33.2 add file:` → restart → journal world-failed 计数 + mount
+探针），本仓 .tests 实例只作 rc.2 基线的先期冒烟。

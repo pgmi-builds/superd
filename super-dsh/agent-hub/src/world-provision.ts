@@ -32,10 +32,10 @@
  * or null when the adapter sibling does not exist next to the hub (a foreign
  * composition this module does not own — keep the caller's env/fallback path).
  */
-import { existsSync, lstatSync, mkdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
+import { existsSync, lstatSync, mkdirSync, readdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { createRequire } from 'node:module'
+import { resolveDshHome } from '@deepseek-ai/dsh-home-paths'
 
 const HUB_SCOPE = '@pgmi-builds'
 const HARNESS_SCOPE = '@deepseek-ai'
@@ -127,18 +127,31 @@ function provisionWorldProfileUnchecked(opts: ProvisionWorldOptions): string | n
     if (st) rmSync(dst, { recursive: true, force: true })
     symlinkSync(target, dst)
   }
-  // The harness scope rides along as ONE scope-level link into the first
-  // `@deepseek-ai` directory visible from this module (the shared heal farm
-  // in a dsh home, the repo farm in dev) — every `@deepseek-ai/*` row of the
-  // world composition resolves through it without farming per package.
-  for (const searchPath of createRequire(import.meta.url).resolve.paths(`${HARNESS_SCOPE}/x`) ?? []) {
-    const scopeDir = join(searchPath, HARNESS_SCOPE)
-    if (!existsSync(scopeDir)) continue
-    const dst = join(linkRoot, HARNESS_SCOPE)
-    const st = lstatSync(dst, { throwIfNoEntry: false })
-    if (st) rmSync(dst, { recursive: true, force: true })
-    symlinkSync(scopeDir, dst)
-    break
+  // The harness scope for the world tree is a REAL scope directory of
+  // per-package symlinks UNIONED from two authoritative sources (farm first,
+  // installation fills the gaps — dev3 evidence: farm 244 entries missing 16
+  // newer packages the install's 260 has; ctx0 survives via the app-boot
+  // install-anchored resolver fallback, but a tree with an explicit bare
+  // base gets no such fallback). A single scope-level link cannot express
+  // that union, and a resolve.paths() walk from this module can pick the
+  // PROFILE's own partial pnpm scope (2 entries on dev3) — never use it.
+  const ANCHOR = process.env.SUPERD_DSH_ANCHOR
+    ?? '/home/u1/.local/lib/node_modules/@deepseek-ai/dsh/package.json'
+  const scopeSources = [
+    join(resolveDshHome(), 'profiles', 'node_modules', HARNESS_SCOPE),
+    join(dirname(ANCHOR), 'node_modules', HARNESS_SCOPE),
+  ]
+  const scopeDst = join(linkRoot, HARNESS_SCOPE)
+  rmSync(scopeDst, { recursive: true, force: true })
+  mkdirSync(scopeDst, { recursive: true })
+  const linked = new Set<string>()
+  for (const scopeSrc of scopeSources) {
+    if (!existsSync(scopeSrc)) continue
+    for (const name of readdirSync(scopeSrc)) {
+      if (name.startsWith('.') || linked.has(name)) continue
+      symlinkSync(join(scopeSrc, name), join(scopeDst, name))
+      linked.add(name)
+    }
   }
   return join(opts.worldHome, 'profiles', 'node_modules') + '/'
 }
