@@ -382,3 +382,24 @@ boot 级全绿 ≠ 会话可用，已立规（AGENTS §二.5：对齐验收含 p
 **发布纪律（2026-09-23 user 裁决）**：npm 不是 git——**publish 仅在 user 明确下令
 发版时执行**；迭代一律 tarball 通道。registry `latest` 冻结在 0.1.3-g；
 `0.1.3-h/i` 均未上 npm。
+
+## 十四、§十三后续：世界数据面"no active Remote method"根因 = 混合时代状态树（2026-09-23 深夜）
+
+user 复验 0.1.3-i：test.pc 开屏 foreign agents 无 ws/无会话；codex 新会话仍 "This turn
+failed / Connection failed"。**实测链条**：mux websocket 双双 OPEN（传输层无辜）；带
+0.1.6 信封（`{type:'client-request', rpcId, method, payload:{args:{_request}}}`）打
+`/codex/api/session/list` → `gateway/invocation-unavailable: no active Remote method
+exports this endpoint`（六世界全灭、native 正常）→ 世界树控制器面未挂。
+
+**根因（状态，非代码）**：`.tests/aw` 承载了 0.1.3-f 时代化石（`profiles/aw-*-world/`
+的 file:apps/agent-worlds 死路径 manifest）与半愈世界 home 的混合态；干净重建（全新
+aw-pub profile + 世界重供给）后同一 0.1.3-i 产物六世界 `session/list` 全 `"ok":true`。
+
+**事故记录（agent 自责，两次）**：① 0.1.3-h 轮 `rm -rf .tests/aw/agents` 清会话态——
+事后证明不必要（根因是 announce 签名），旧测试会话就此丢失；② 本轮诊断探针脚本 sed
+改路径时把 `rmSync(home)` 的 home 误改成 `.tests/aw`，把整个测试 home 又删了一遍
+（running 进程靠内存态存活，磁盘态全失）。**教训落规**：任何携带 `rmSync/rm -rf` 的
+探针脚本，目标路径必须硬编码常量 + 跑前 `echo` 复核；禁止 sed 改脚本里的路径变量。
+
+**当前态**：fresh 0.1.3-i 线在跑（同产物未换版——状态重建，非代码迭代，无字母 bump），
+世界 RPC 面已验 ok；per-runtime 浏览器会话面（create+prompt+resume）仍待 user 复验。
