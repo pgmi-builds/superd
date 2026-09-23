@@ -403,3 +403,26 @@ aw-pub profile + 世界重供给）后同一 0.1.3-i 产物六世界 `session/li
 
 **当前态**：fresh 0.1.3-i 线在跑（同产物未换版——状态重建，非代码迭代，无字母 bump），
 世界 RPC 面已验 ok；per-runtime 浏览器会话面（create+prompt+resume）仍待 user 复验。
+
+
+## 十五、codex "This turn failed" 终局定性：本地 GLM 网关停机，非 super-dsh 缺陷（2026-09-23）
+
+**user 裁决（本节前置）**：会话数据**永不删除**；旧会话因 cordis 组合漂移可能不可
+resume 属预期，是待验证项——数据保留是前提，不是代价。已入 AGENTS 红线意识。
+
+**定性链条（全部一手实测）**：
+1. 浏览器报错文本 "Reconnecting... waiting for network (Connection failed: error
+   sending request)" 的产出者 = **codex CLI 自身**（Rust/reqwest 的重连横幅；同串见
+   于 codex-linux-x64 二进制内与 CLI 直跑输出）。turn/end reason.kind=error/UNKNOWN
+   = 世界忠实转播 codex 子进程的后端不可达。
+2. 传输/服务面全数无辜：mux ws 双开、`$events` ready 帧正常、POST RPC（session/list
+   六世界+native ok）、CodexSdkClient spawn/getState 独立跑通。
+3. user 本机 codex 配置：`model = glm-5.3-flash`，provider custom →
+   `base_url = http://127.0.0.1:15721/v1`（GLM 本地网关，cc-switch 系）。
+4. **`ss -tln` 无 15721 监听**——网关停机。干净 systemd 单元（无沙箱、同 4999 环境
+   形态）直跑 `codex exec`（不指定模型、吃 user 自己的 config）复现同样无限重连。
+   即：此刻全机任何地方的 codex 都用不了，与 super-dsh 无关。
+
+**处置**：无需代码改动（0.1.3-i 产物维持）。user 启动 15721 网关后重试 codex turn
+即可。诊断侧记：agent 沙箱内 shell 测 127.0.0.1 端口不可达（bwrap 隔离）——涉
+loopback 的验证必须走 systemd-run 单元通道，shell 直测是伪证。
